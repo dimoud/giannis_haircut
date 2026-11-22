@@ -1,0 +1,111 @@
+{
+  "onoma": "Κομμωτήριο Γιάννης",
+  "onoma_syntomo": "Γιάννης",
+  "ypotitlos": "Hair Salon · Πολίχνη",
+  "nomiko": "Καλαϊτζίδης Ιωάννης Χ.",
+  "odos": "Μαυρομιχάλη 15 & Ευκλείδη",
+  "perioxi": "Άγιος Παντελεήμονας, Πολίχνη",
+  "poli": "Θεσσαλονίκη",
+  "tk": "565 33",
+  "xora": "GR",
+  "lat": 40.66026,
+  "lng": 22.94831,
+  "tilefono": "2310 602285",
+  "tilefono_e164": "+302310602285",
+  "email": "gianniskalaitzidis1970@gmail.com",
+  "instagram": "https://www.instagram.com/giannis_hairsalon/",
+  "instagram_onoma": "@giannis_hairsalon",
+  "google_profil": "https://www.google.com/maps/search/?api=1&query=%CE%9A%CE%BF%CE%BC%CE%BC%CF%89%CF%84%CE%AE%CF%81%CE%B9%CE%BF%20%CE%93%CE%B9%CE%AC%CE%BD%CE%BD%CE%B7%CF%82%20%CE%9C%CE%B1%CF%85%CF%81%CE%BF%CE%BC%CE%B9%CF%87%CE%AC%CE%BB%CE%B7%2015%20%CE%A0%CE%BF%CE%BB%CE%AF%CF%87%CE%BD%CE%B7",
+  "vathmologia": "4,9",
+  "kritikes_plithos": 157,
+  "orario": [
+    {
+      "imera": 1,
+      "onoma": "Δευτέρα",
+      "kleisto": true,
+      "onoma_en": "Monday"
+    },
+    {
+      "imera": 2,
+      "onoma": "Τρίτη",
+      "apo": "09:00",
+      "eos": "21:00",
+      "onoma_en": "Tuesday"
+    },
+    {
+      "imera": 3,
+      "onoma": "Τετάρτη",
+      "apo": "09:00",
+      "eos": "21:00",
+      "onoma_en": "Wednesday"
+    },
+    {
+      "imera": 4,
+      "onoma": "Πέμπτη",
+      "apo": "09:00",
+      "eos": "21:00",
+      "onoma_en": "Thursday"
+    },
+    {
+      "imera": 5,
+      "onoma": "Παρασκευή",
+      "apo": "09:00",
+      "eos": "21:00",
+      "onoma_en": "Friday"
+    },
+    {
+      "imera": 6,
+      "onoma": "Σάββατο",
+      "apo": "09:00",
+      "eos": "17:00",
+      "onoma_en": "Saturday"
+    },
+    {
+      "imera": 7,
+      "onoma": "Κυριακή",
+      "kleisto": true,
+      "onoma_en": "Sunday"
+    }
+  ],
+  "pliromes": "Μετρητά, χρεωστικές και πιστωτικές κάρτες, ανέπαφα με κινητό (NFC)",
+  "paroxes": [
+    "Λουτήρας με πολυθρόνα μασάζ",
+    "Κατάλληλο για παιδιά",
+    "Τουαλέτα",
+    "Συνιστάται ραντεβού"
+  ],
+  "prosvasi_simeiosi": "Η είσοδος και ο χώρος στάθμευσης δεν είναι προσβάσιμα με αμαξίδιο. Καλέστε μας και θα βρούμε λύση.",
+  "proionta": [
+    "Goldwell",
+    "Wella",
+    "Fanola",
+    "Kyanna",
+    "Wahl",
+    "Panasonic"
+  ],
+  "tomeas": "",
+  "dokimastiko": true,
+  "api_url": "",
+  "api_kleidi": "",
+  "ga_id": "",
+  "kanones": {
+    "vima": 15,
+    "proeidopoiisi_lepta": 120,
+    "orizontas_imeres": 60,
+    "akyrosi_ores": 12,
+    "energes_ana_kinito": 2,
+    "aitima_pano_apo_lepta": 180
+  },
+  "ypotitlos_en": "Hair Salon · Polichni",
+  "odos_en": "15 Mavromichali & Efkleidou St.",
+  "perioxi_en": "Agios Panteleimonas, Polichni",
+  "poli_en": "Thessaloniki",
+  "pliromes_en": "Cash, debit and credit cards, contactless mobile payments (NFC)",
+  "paroxes_en": [
+    "Backwash chair with massage",
+    "Child-friendly",
+    "Restroom",
+    "Appointments recommended"
+  ],
+  "prosvasi_simeiosi_en": "The entrance and parking are not wheelchair accessible. Call us and we will find a way."
+}

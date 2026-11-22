@@ -1,0 +1,425 @@
+{
+  "simeiosi": "Διάρκειες: εκτιμήσεις μέχρι να τις δώσει το κομμωτήριο. Τιμές: null = δεν δημοσιεύεται. Τμήματα: Ε = εργασία, Α = αναμονή (λεπτά).",
+  "omades": [
+    {
+      "id": "kourema",
+      "slug": "kourema",
+      "titlos": "Κούρεμα",
+      "titlos_plires": "Κουρέματα",
+      "foto": "yp-kourema",
+      "xroma": "#3b2a20",
+      "lead": "Γυναικείο, ανδρικό και παιδικό κούρεμα, με γραμμή που ακολουθεί το πρόσωπο και την υφή των μαλλιών σου.",
+      "perilamvanei": [
+        "Συζήτηση για το σχήμα και τη συντήρηση",
+        "Λούσιμο στον λουτήρα με πολυθρόνα μασάζ",
+        "Κούρεμα με ψαλίδι, ξυράφι ή μηχανή",
+        "Στέγνωμα και φορμάρισμα"
+      ],
+      "vimata": [
+        "Συζήτηση",
+        "Λούσιμο",
+        "Κούρεμα",
+        "Φινίρισμα",
+        "Styling"
+      ],
+      "texnikes": [
+        "Bob",
+        "Razor cut",
+        "Butterfly cut",
+        "Fade",
+        "Παιδικό κούρεμα"
+      ],
+      "frontida": "Το κοντό και το fade κρατούν τη γραμμή 3–4 εβδομάδες· το μακρύ κούρεμα 8–10 εβδομάδες.",
+      "faq": [
+        {
+          "q": "Κάνετε και ανδρικό fade;",
+          "a": "Ναι. Skin fade, low, mid και high fade, με ξυράφι στη γραμμή."
+        },
+        {
+          "q": "Κουρεύετε παιδιά;",
+          "a": "Ναι, και ο χώρος είναι κατάλληλος για παιδιά."
+        }
+      ],
+      "ypiresies": [
+        {
+          "id": "gynaikeio",
+          "onoma": "Γυναικείο κούρεμα",
+          "tmimata": "E45",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Women's cut"
+        },
+        {
+          "id": "texniki",
+          "onoma": "Κούρεμα με τεχνική (bob, razor, butterfly)",
+          "tmimata": "E60",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Technical cut (bob, razor, butterfly)"
+        },
+        {
+          "id": "andriko",
+          "onoma": "Ανδρικό κούρεμα",
+          "tmimata": "E30",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Men's cut"
+        },
+        {
+          "id": "fade",
+          "onoma": "Ανδρικό fade",
+          "tmimata": "E40",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Men's fade"
+        },
+        {
+          "id": "paidiko",
+          "onoma": "Παιδικό κούρεμα",
+          "tmimata": "E25",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Kids' cut"
+        }
+      ],
+      "titlos_en": "Cut",
+      "titlos_plires_en": "Haircuts",
+      "lead_en": "Women's, men's and children's cuts, shaped to your face and your hair's texture.",
+      "perilamvanei_en": [
+        "A short chat about shape and upkeep",
+        "Wash at the massage backwash",
+        "Cut with scissors, razor or clippers",
+        "Blow-dry and finish"
+      ],
+      "vimata_en": [
+        "Consultation",
+        "Wash",
+        "Cut",
+        "Finish",
+        "Styling"
+      ],
+      "texnikes_en": [
+        "Bob",
+        "Razor cut",
+        "Butterfly cut",
+        "Fade",
+        "Kids' cut"
+      ],
+      "frontida_en": "Short cuts and fades keep their line for 3–4 weeks; longer cuts for 8–10 weeks.",
+      "faq_en": [
+        {
+          "q": "Do you do skin fades?",
+          "a": "Yes. Skin, low, mid and high fades, with a razor-sharp line-up."
+        },
+        {
+          "q": "Do you cut children's hair?",
+          "a": "Yes, and the salon is child-friendly."
+        }
+      ]
+    },
+    {
+      "id": "xroma",
+      "slug": "vafes-balayage",
+      "titlos": "Χρώμα",
+      "titlos_plires": "Βαφές και τεχνικές",
+      "foto": "yp-xroma",
+      "xroma": "#6b3a22",
+      "lead": "Από τη βαφή ρίζας ως το balayage, το ombré και τα έντονα χρώματα. Δουλεύουμε με επαγγελματικά προϊόντα που προστατεύουν την τρίχα.",
+      "perilamvanei": [
+        "Διάγνωση τρίχας και επιλογή απόχρωσης",
+        "Εφαρμογή με την τεχνική που ταιριάζει",
+        "Τόνωση (toner) για καθαρό αποτέλεσμα",
+        "Λούσιμο, θεραπεία και styling"
+      ],
+      "vimata": [
+        "Διάγνωση",
+        "Εφαρμογή",
+        "Αναμονή",
+        "Τόνωση",
+        "Styling"
+      ],
+      "texnikes": [
+        "Balayage",
+        "Foilayage",
+        "Ombré",
+        "Babylights",
+        "Ανταύγειες",
+        "Carrot red, μωβ, ροζ"
+      ],
+      "frontida": "Σαμπουάν χωρίς θειικά, λούσιμο με χλιαρό νερό και τόνωση κάθε 6–8 εβδομάδες κρατούν το χρώμα ζωντανό.",
+      "faq": [
+        {
+          "q": "Balayage ή foilayage;",
+          "a": "Το balayage δίνει πιο φυσική, απαλή μετάβαση. Το foilayage, με αλουμινόχαρτο, ανοίγει περισσότερους τόνους και δίνει πιο φωτεινό αποτέλεσμα."
+        },
+        {
+          "q": "Πόσο κρατά το balayage;",
+          "a": "Συνήθως 3–4 μήνες· η ρίζα μεγαλώνει φυσικά, χωρίς απότομη γραμμή."
+        }
+      ],
+      "ypiresies": [
+        {
+          "id": "riza",
+          "onoma": "Βαφή ρίζας",
+          "tmimata": "E30,A35,E25",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Root colour"
+        },
+        {
+          "id": "oliki",
+          "onoma": "Ολική βαφή",
+          "tmimata": "E40,A35,E30",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Full colour"
+        },
+        {
+          "id": "antaygeies",
+          "onoma": "Ανταύγειες / babylights",
+          "tmimata": "E75,A30,E30",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Highlights / babylights"
+        },
+        {
+          "id": "balayage",
+          "onoma": "Balayage / foilayage",
+          "tmimata": "E90,A35,E40",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Balayage / foilayage"
+        },
+        {
+          "id": "ombre",
+          "onoma": "Ombré",
+          "tmimata": "E80,A30,E35",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Ombré"
+        },
+        {
+          "id": "entona",
+          "onoma": "Έντονα χρώματα (carrot red, μωβ, ροζ)",
+          "tmimata": "E60,A30,E40",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Bold colours (carrot red, purple, pink)"
+        }
+      ],
+      "titlos_en": "Colour",
+      "titlos_plires_en": "Colour and techniques",
+      "lead_en": "From root colour to balayage, ombré and bold shades. We work with professional products that protect the hair.",
+      "perilamvanei_en": [
+        "Hair diagnosis and shade selection",
+        "Application with the right technique",
+        "Toner for a clean result",
+        "Wash, treatment and styling"
+      ],
+      "vimata_en": [
+        "Diagnosis",
+        "Application",
+        "Processing",
+        "Toner",
+        "Styling"
+      ],
+      "texnikes_en": [
+        "Balayage",
+        "Foilayage",
+        "Ombré",
+        "Babylights",
+        "Highlights",
+        "Carrot red, purple, pink"
+      ],
+      "frontida_en": "Sulphate-free shampoo, lukewarm water and a toner every 6–8 weeks keep colour vivid.",
+      "faq_en": [
+        {
+          "q": "Balayage or foilayage?",
+          "a": "Balayage gives a softer, more natural blend. Foilayage, done with foils, lifts more and gives a brighter result."
+        },
+        {
+          "q": "How long does balayage last?",
+          "a": "Usually 3–4 months; roots grow out naturally, without a hard line."
+        }
+      ]
+    },
+    {
+      "id": "xtenisma",
+      "slug": "xtenisma",
+      "titlos": "Χτένισμα",
+      "titlos_plires": "Χτενίσματα",
+      "foto": "yp-xtenisma",
+      "xroma": "#2c2430",
+      "lead": "Φορμάρισμα για κάθε μέρα και βραδινό χτένισμα που κρατά ως το τέλος της βραδιάς.",
+      "perilamvanei": [
+        "Συζήτηση για το ντύσιμο και την περίσταση",
+        "Προετοιμασία με θερμοπροστασία",
+        "Χτένισμα, πιάσιμο ή μπούκλες",
+        "Σταθεροποίηση που κρατά ώρες"
+      ],
+      "vimata": [
+        "Ιδέα",
+        "Προετοιμασία",
+        "Χτένισμα",
+        "Σταθεροποίηση"
+      ],
+      "texnikes": [
+        "Φορμάρισμα",
+        "Μπούκλες",
+        "Χαμηλό σινιόν",
+        "Πλεξούδες",
+        "Βραδινό"
+      ],
+      "frontida": "Ελάχιστο βούρτσισμα στο βραδινό· λύνεται από κάτω προς τα πάνω, με τα δάχτυλα.",
+      "faq": [
+        {
+          "q": "Πόσο νωρίτερα να κλείσω για βραδινό;",
+          "a": "Για Σάββατο, μία εβδομάδα πριν. Το βραδινό είναι αίτημα που επιβεβαιώνουμε εμείς."
+        }
+      ],
+      "ypiresies": [
+        {
+          "id": "formarisma",
+          "onoma": "Φορμάρισμα / styling",
+          "tmimata": "E40",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Blow-dry / styling"
+        },
+        {
+          "id": "vradino",
+          "onoma": "Βραδινό χτένισμα",
+          "tmimata": "E60",
+          "timi": null,
+          "online": "aitima",
+          "onoma_en": "Evening style"
+        }
+      ],
+      "titlos_en": "Styling",
+      "titlos_plires_en": "Styling",
+      "lead_en": "Everyday blow-dries and evening styles that hold until the end of the night.",
+      "perilamvanei_en": [
+        "A chat about your outfit and the occasion",
+        "Prep with heat protection",
+        "Styling, up-do or curls",
+        "Setting that lasts for hours"
+      ],
+      "vimata_en": [
+        "Idea",
+        "Prep",
+        "Styling",
+        "Setting"
+      ],
+      "texnikes_en": [
+        "Blow-dry",
+        "Curls",
+        "Low chignon",
+        "Braids",
+        "Evening"
+      ],
+      "frontida_en": "Brush an evening style as little as possible; undo it from the bottom up, with your fingers.",
+      "faq_en": [
+        {
+          "q": "How early should I book an evening style?",
+          "a": "For a Saturday, one week ahead. Evening styles are requests that we confirm."
+        }
+      ]
+    },
+    {
+      "id": "therapeies",
+      "slug": "therapeies",
+      "titlos": "Θεραπεία",
+      "titlos_plires": "Θεραπείες μαλλιών",
+      "foto": "yp-therapeies",
+      "xroma": "#3a2a1c",
+      "lead": "Κερατίνη, Olaplex και αναδόμηση, για ταλαιπωρημένα μαλλιά που θέλουν πίσω τη λάμψη τους.",
+      "perilamvanei": [
+        "Διάγνωση της κατάστασης της τρίχας",
+        "Θεραπεία σε στάδια με τον σωστό χρόνο δράσης",
+        "Σφράγισμα και στέγνωμα",
+        "Οδηγίες φροντίδας στο σπίτι"
+      ],
+      "vimata": [
+        "Διάγνωση",
+        "Εφαρμογή",
+        "Δράση",
+        "Σφράγισμα",
+        "Στέγνωμα"
+      ],
+      "texnikes": [
+        "Κερατίνη",
+        "Olaplex",
+        "Αναδόμηση"
+      ],
+      "frontida": "Μετά την κερατίνη, όχι λούσιμο και πιάσιμο για 72 ώρες, και σαμπουάν χωρίς άλατα.",
+      "faq": [
+        {
+          "q": "Το Olaplex γίνεται μαζί με τη βαφή;",
+          "a": "Ναι, προστίθεται στη βαφή ή στο ντεκαπάζ για προστασία της τρίχας."
+        }
+      ],
+      "ypiresies": [
+        {
+          "id": "keratini",
+          "onoma": "Θεραπεία κερατίνης",
+          "tmimata": "E60,A30,E60",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Keratin treatment"
+        },
+        {
+          "id": "olaplex",
+          "onoma": "Olaplex",
+          "tmimata": "E20,A20,E20",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Olaplex"
+        },
+        {
+          "id": "anadomisi",
+          "onoma": "Θεραπεία αναδόμησης",
+          "tmimata": "E30,A15,E15",
+          "timi": null,
+          "online": "nai",
+          "onoma_en": "Reconstruction treatment"
+        }
+      ],
+      "titlos_en": "Treatment",
+      "titlos_plires_en": "Hair treatments",
+      "lead_en": "Keratin, Olaplex and reconstruction, for tired hair that needs its shine back.",
+      "perilamvanei_en": [
+        "Diagnosis of the hair's condition",
+        "Treatment in stages with proper processing time",
+        "Sealing and blow-dry",
+        "Home-care advice"
+      ],
+      "vimata_en": [
+        "Diagnosis",
+        "Application",
+        "Processing",
+        "Sealing",
+        "Blow-dry"
+      ],
+      "texnikes_en": [
+        "Keratin",
+        "Olaplex",
+        "Reconstruction"
+      ],
+      "frontida_en": "After keratin, no washing or tying for 72 hours, and use a salt-free shampoo.",
+      "faq_en": [
+        {
+          "q": "Can Olaplex be added to colour?",
+          "a": "Yes, it is added to the colour or lightener to protect the hair."
+        }
+      ]
+    }
+  ],
+  "nyfiko": {
+    "id": "nyfiko",
+    "onoma": "Νυφικό χτένισμα (με δοκιμή)",
+    "tmimata": "E120",
+    "timi": null,
+    "online": "aitima",
+    "onoma_en": "Bridal hair (with trial)"
+  }
+}

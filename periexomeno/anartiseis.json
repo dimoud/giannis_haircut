@@ -1,0 +1,92 @@
+[
+  {
+    "id": "a1",
+    "imerominia": "2026-11-18",
+    "titlos": "Balayage σε καστανά μαλλιά",
+    "keimeno": "Από ομοιόμορφο σκούρο καστανό σε ζεστό καραμελέ με μελί άκρες. Η ρίζα μένει φυσική, ώστε να μεγαλώνει χωρίς γραμμή.",
+    "ypiresia": "balayage",
+    "kommotis": "giannis",
+    "prin": "pm-balayage-prin",
+    "meta": "pm-balayage-meta",
+    "fotografies": [],
+    "synainesi": true,
+    "prosorini": true,
+    "titlos_en": "Balayage on brown hair",
+    "keimeno_en": "From flat dark brown to warm caramel with honey ends. The root stays natural, so it grows out without a line."
+  },
+  {
+    "id": "a2",
+    "imerominia": "2026-11-12",
+    "titlos": "Skin fade με textured crop",
+    "keimeno": "Καθαρό skin fade στα πλάγια, υφή στην κορυφή και ξυράφι στη γραμμή του σβέρκου.",
+    "ypiresia": "fade",
+    "kommotis": "panagiotis",
+    "prin": "pm-fade-prin",
+    "meta": "pm-fade-meta",
+    "fotografies": [],
+    "synainesi": true,
+    "prosorini": true,
+    "titlos_en": "Skin fade with textured crop",
+    "keimeno_en": "A clean skin fade on the sides, texture on top and a razor line at the neck."
+  },
+  {
+    "id": "a3",
+    "imerominia": "2026-11-05",
+    "titlos": "Από ξεθωριασμένο καστανό σε χάλκινο",
+    "keimeno": "Έντονο χάλκινο, carrot red, με Olaplex για προστασία της τρίχας και λάμψη που κρατά.",
+    "ypiresia": "entona",
+    "kommotis": "giannis",
+    "prin": "pm-copper-prin",
+    "meta": "pm-copper-meta",
+    "fotografies": [],
+    "synainesi": true,
+    "prosorini": true,
+    "titlos_en": "From faded brown to copper",
+    "keimeno_en": "Vivid copper, carrot red, with Olaplex to protect the hair and a shine that lasts."
+  },
+  {
+    "id": "a4",
+    "imerominia": "2026-10-30",
+    "titlos": "Χαμηλό σινιόν με μαργαριτάρια",
+    "keimeno": "Βραδινό χτένισμα με απαλά κύματα στο πρόσωπο και μικρές φουρκέτες με μαργαριτάρια.",
+    "ypiresia": "vradino",
+    "kommotis": "kommotis3",
+    "fotografies": [
+      "yp-xtenisma"
+    ],
+    "synainesi": true,
+    "prosorini": true,
+    "titlos_en": "Low chignon with pearls",
+    "keimeno_en": "An evening style with soft waves around the face and small pearl pins."
+  },
+  {
+    "id": "a5",
+    "imerominia": "2026-10-22",
+    "titlos": "Κερατίνη σε μακριά μαλλιά",
+    "keimeno": "Λεία, γυαλιστερά μαλλιά χωρίς φριζάρισμα, μετά από θεραπεία κερατίνης.",
+    "ypiresia": "keratini",
+    "kommotis": "kommotis3",
+    "fotografies": [
+      "yp-therapeies"
+    ],
+    "synainesi": true,
+    "prosorini": true,
+    "titlos_en": "Keratin on long hair",
+    "keimeno_en": "Smooth, glossy, frizz-free hair after a keratin treatment."
+  },
+  {
+    "id": "a6",
+    "imerominia": "2026-10-15",
+    "titlos": "Καρέ με καθαρή γραμμή",
+    "keimeno": "Bob στο ύψος του σαγονιού, με ψαλίδι και καθαρή, βαριά γραμμή.",
+    "ypiresia": "texniki",
+    "kommotis": "giannis",
+    "fotografies": [
+      "yp-kourema"
+    ],
+    "synainesi": true,
+    "prosorini": true,
+    "titlos_en": "Bob with a clean line",
+    "keimeno_en": "A chin-length bob, cut with scissors for a clean, heavy line."
+  }
+]

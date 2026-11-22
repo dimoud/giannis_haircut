@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="el">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--ink:#14100b;--ink2:#1c1711;--cream:#f1ece2;--cream2:#e7dfd1;--cu:#9a4f2b;--cud:#b37351;--fg2:#4a4238;--line:rgba(20,16,11,.14);--r:16px;--slot:22px}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--cream);color:var(--ink)}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;margin:0}
+.kef{position:sticky;top:0;z-index:20;background:var(--ink);color:var(--cream);display:flex;align-items:center;gap:12px;padding:10px 16px}
+.kef h1{font-style:italic;font-size:24px}.kef small{color:var(--cud);font-size:12px}
+.kef .xoros{flex:1}
+.kart{display:flex;gap:4px;overflow-x:auto;background:var(--ink2);padding:0 8px;position:sticky;top:52px;z-index:19}
+.kart button{background:none;border:0;color:rgba(241,236,226,.75);padding:12px 14px;min-height:44px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;font-weight:600}
+.kart button[aria-selected=true]{color:var(--cream);border-color:var(--cud)}
+.badge{display:inline-block;min-width:20px;padding:0 6px;border-radius:999px;background:var(--cud);color:var(--ink);font-size:12px;margin-left:4px}
+main{padding:16px;max-width:1200px;margin:0 auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:999px;border:0;background:var(--cu);color:var(--cream);font-weight:700;cursor:pointer}
+.btn.deyt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.kindynos{background:#8c2a17}
+.btn:disabled{opacity:.5;cursor:default}
+.seira{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.nav-im{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.nav-im h2{font-size:22px;flex:1;text-align:center}
+.nav-im button{min-width:44px;min-height:44px;border-radius:50%;border:0;background:var(--cream2);cursor:pointer;font-size:18px}
+.plegma{display:grid;grid-template-columns:48px repeat(var(--k),minmax(130px,1fr));overflow-x:auto;background:#fff;border-radius:var(--r);box-shadow:0 1px 0 var(--line)}
+.stili{position:relative;border-left:1px solid var(--line)}
+.stili-k{position:sticky;top:0;background:#fff;z-index:2;padding:10px 8px;font-weight:700;border-bottom:1px solid var(--line);display:flex;gap:6px;align-items:center;height:44px}
+.stili-k i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.wres{position:relative}
+.wra-l{height:calc(var(--slot)*4);font-size:11px;color:var(--fg2);text-align:right;padding-right:6px;border-top:1px solid var(--line);transform:translateY(-1px)}
+.keli{height:var(--slot);border-top:1px dashed rgba(20,16,11,.06);cursor:pointer}
+.keli:nth-child(4n+1){border-top:1px solid var(--line)}
+.keli:hover{background:rgba(154,79,43,.07)}
+.keli.kleisto{background:repeating-linear-gradient(45deg,#eee6d8,#eee6d8 4px,#e4dccd 4px,#e4dccd 8px);cursor:default}
+.rv{position:absolute;left:3px;right:3px;border-radius:10px;padding:4px 7px;font-size:12px;line-height:1.25;overflow:hidden;cursor:pointer;color:var(--cream);background:var(--c);box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.rv b{display:block;font-size:13px}
+.rv.aitima{background:repeating-linear-gradient(135deg,var(--c),var(--c) 8px,#00000022 8px,#00000022 12px);outline:2px dashed var(--ink)}
+.rv.irthe{opacity:.55}.rv.den{background:#6b6158;text-decoration:line-through}
+.rv .anam{position:absolute;left:0;right:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.18),rgba(255,255,255,.18) 3px,transparent 3px,transparent 7px)}
+.kl{position:absolute;left:3px;right:3px;border-radius:8px;background:#cfc5b4;color:var(--ink);font-size:12px;padding:3px 7px;cursor:pointer}
+.lista{display:grid;gap:8px}
+.karta{background:#fff;border-radius:var(--r);padding:14px 16px;display:grid;gap:4px;box-shadow:0 1px 0 var(--line)}
+.karta .meta{color:var(--fg2);font-size:13px}
+.karta-k{border-left:4px solid var(--c)}
+.mod{position:fixed;inset:0;background:rgba(10,8,6,.55);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.mod-in{background:var(--cream);width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:20px 20px 28px;display:grid;gap:14px}
+@media (min-width:700px){.mod{align-items:center}.mod-in{border-radius:20px}}
+.mod-kef{display:flex;justify-content:space-between;align-items:center}
+.mod-kef h2{font-size:24px}
+.x{min-width:44px;min-height:44px;border:0;background:none;font-size:26px;cursor:pointer}
+label{display:grid;gap:4px;font-weight:600;font-size:14px}
+input,select,textarea{min-height:46px;border:1px solid rgba(20,16,11,.25);border-radius:12px;padding:10px 12px;background:#fff;font-weight:400}
+textarea{min-height:80px}
+.dyo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tsips{display:flex;flex-wrap:wrap;gap:6px}
+.tsips label{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--cream2);font-weight:500;min-height:40px;cursor:pointer}
+.tsips input{min-height:auto}
+.wres-lista{display:flex;flex-wrap:wrap;gap:6px}
+.wres-lista button{min-height:40px;min-width:64px;border-radius:10px;border:0;background:#fff;cursor:pointer;font-weight:700}
+.wres-lista button[aria-pressed=true]{background:var(--cu);color:var(--cream)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:500}.check input{min-height:auto;width:20px;height:20px;margin-top:2px}
+.minima{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--cream);padding:12px 18px;border-radius:999px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.keno{padding:24px;text-align:center;color:var(--fg2);background:#fff;border-radius:var(--r)}
+.syndesi{max-width:380px;margin:12vh auto;display:grid;gap:14px;padding:28px;background:#fff;border-radius:20px}
+.syndesi h1{font-style:italic;font-size:40px}
+.an-plegma{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.an-k{background:#fff;border-radius:14px;overflow:hidden;cursor:pointer}
+.an-k div{aspect-ratio:4/5;background:var(--cream2) center/cover}
+.an-k p{margin:0;padding:8px 10px;font-size:13px}
+.prev{display:flex;gap:8px;flex-wrap:wrap}.prev img{width:72px;height:90px;object-fit:cover;border-radius:8px}
+.odigos{background:#efe1c9;border-radius:12px;padding:12px 14px;font-size:13px}
+.evd{display:grid;gap:8px}
+.evd-m{background:#fff;border-radius:var(--r);padding:12px 14px;display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;cursor:pointer}
+.bara{height:10px;border-radius:5px;background:var(--cream2);overflow:hidden;display:flex}
+.bara span{height:100%;background:var(--c)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var S = { token: localStorage.getItem('pinakas-token'), rolos: null, kat: null, imera: null, epilogi: 'imera' };
+var $ = function (s, r) { return (r || document).querySelector(s); };
+function h(t, a, c) { var e = document.createElement(t); if (a) Object.keys(a).forEach(function (k) { var v = a[k]; if (k === 'text') e.textContent = v; else if (k === 'html') e.innerHTML = v; else if (k.indexOf('on') === 0) e.addEventListener(k.slice(2), v); else if (v !== false && v != null) e.setAttribute(k, v); }); (c || []).forEach(function (x) { if (x) e.appendChild(typeof x === 'string' ? document.createTextNode(x) : x); }); return e; }
+function run(fn) { var a = [].slice.call(arguments, 1); return new Promise(function (ok, no) { google.script.run.withSuccessHandler(ok).withFailureHandler(function (e) { if (/έληξε|Μπες ξανά/.test(e.message)) { localStorage.removeItem('pinakas-token'); S.token = null; syndesi(); } minima(e.message); no(e); })[fn].apply(null, a); }); }
+function minima(t) { var m = h('div', { class: 'minima', role: 'status', text: t }); document.body.appendChild(m); setTimeout(function () { m.remove(); }, 3200); }
+var IMERES = ['Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο'];
+function dt(i) { var p = i.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+function iso(d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+function add(i, n) { var d = dt(i); d.setDate(d.getDate() + n); return iso(d); }
+function mera(i) { var d = dt(i); return IMERES[d.getDay()] + ' ' + d.getDate() + '/' + (d.getMonth() + 1); }
+function lepta(x) { var p = String(x).split(':'); return +p[0] * 60 + (+p[1] || 0); }
+function wra(m) { return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + m % 60).slice(-2); }
+function kom(id) { return S.kat.kommotes.filter(function (k) { return k.id === id; })[0] || { onoma: id, xroma: '#5a5146' }; }
+function ypMap() { var m = {}; S.kat.omades.forEach(function (g) { g.ypiresies.forEach(function (y) { m[y.id] = y; }); }); return m; }
+function ypOnomata(ids) { var m = ypMap(); return String(ids).split(',').map(function (i) { return m[i] ? m[i].onoma : i; }).join(' + '); }
+
+/* ── σύνδεση ── */
+function syndesi() {
+  var app = $('#app'); app.innerHTML = '';
+  var inp = h('input', { type: 'password', autocomplete: 'current-password', 'aria-label': 'Κωδικός' });
+  var b = h('button', { class: 'btn', text: 'Είσοδος' });
+  function mpes() { b.disabled = true; run('syndesi', inp.value).then(function (r) { b.disabled = false; if (!r.ok) return minima(r.minima); S.token = r.token; localStorage.setItem('pinakas-token', r.token); ksekina(); }); }
+  b.onclick = mpes; inp.onkeydown = function (e) { if (e.key === 'Enter') mpes(); };
+  app.appendChild(h('div', { class: 'syndesi' }, [h('h1', { text: 'Γιάννης' }), h('p', { text: 'Πίνακας κομμωτηρίου. Γράψε τον κωδικό σου.' }), inp, b]));
+  inp.focus();
+}
+
+/* ── κέλυφος ── */
+var KARTELES = [['imera', 'Ημέρα'], ['evdomada', 'Εβδομάδα'], ['aitimata', 'Αιτήματα'], ['pelates', 'Πελάτες'], ['anartiseis', 'Αναρτήσεις'], ['rythmiseis', 'Ρυθμίσεις']];
+function ksekina() {
+  run('p_arxika', S.token).then(function (r) {
+    S.rolos = r.rolos; S.kat = r.katalogos; S.orario = r.orario; S.imera = S.imera || r.simera; S.simera = r.simera;
+    var app = $('#app'); app.innerHTML = '';
+    var kef = h('header', { class: 'kef' }, [h('div', {}, [h('h1', { text: 'Γιάννης' }), h('small', { text: S.rolos === 'idioktitis' ? 'Ιδιοκτήτης' : 'Συνεργάτης' })]), h('div', { class: 'xoros' }),
+      h('button', { class: 'btn', text: '+ Ραντεβού', onclick: function () { neoRantevou({}); } }),
+      h('button', { class: 'btn deyt', style: 'color:var(--cream);box-shadow:inset 0 0 0 1px rgba(241,236,226,.3)', text: 'Έξοδος', onclick: function () { localStorage.removeItem('pinakas-token'); S.token = null; syndesi(); } })]);
+    var kart = h('nav', { class: 'kart', role: 'tablist' });
+    KARTELES.forEach(function (k) {
+      if (k[0] === 'rythmiseis' && S.rolos !== 'idioktitis') return;
+      kart.appendChild(h('button', { role: 'tab', 'data-k': k[0], 'aria-selected': S.epilogi === k[0] ? 'true' : 'false', html: k[1] + (k[0] === 'aitimata' ? ' <span class="badge" id="badge" hidden></span>' : ''),
+        onclick: function () { S.epilogi = k[0]; kart.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.k === k[0] ? 'true' : 'false'); }); deixe(); } }));
+    });
+    app.appendChild(kef); app.appendChild(kart); app.appendChild(h('main', { id: 'kyrio' }));
+    if (r.email < 15) minima('Προσοχή: απομένουν ' + r.email + ' email σήμερα.');
+    deixe();
+    clearInterval(S.timer); S.timer = setInterval(function () { if (!document.hidden && !$('.mod') && (S.epilogi === 'imera' || S.epilogi === 'aitimata')) deixe(true); }, 60000);
+  });
+}
+function deixe(siopilo) { ({ imera: imeraView, evdomada: evdomadaView, aitimata: aitimataView, pelates: pelatesView, anartiseis: anartiseisView, rythmiseis: rythmiseisView })[S.epilogi](siopilo); }
+function kyrio() { var m = $('#kyrio'); m.innerHTML = ''; return m; }
+function badge(n) { var b = $('#badge'); if (!b) return; b.hidden = !n; b.textContent = n; }
+
+/* ── Ημέρα ── */
+function imeraView() {
+  run('p_imeres', S.token, S.imera, 1).then(function (d) {
+    badge(d.aitimata);
+    var m = kyrio(), w = dt(S.imera).getDay() || 7;
+    m.appendChild(h('div', { class: 'nav-im' }, [h('button', { 'aria-label': 'Προηγούμενη ημέρα', text: '‹', onclick: function () { S.imera = add(S.imera, -1); imeraView(); } }),
+      h('h2', { text: mera(S.imera) + (S.imera === S.simera ? ' · σήμερα' : '') }),
+      h('button', { 'aria-label': 'Επόμενη ημέρα', text: '›', onclick: function () { S.imera = add(S.imera, 1); imeraView(); } })]));
+    var tools = h('div', { class: 'seira', style: 'margin-bottom:12px' }, [h('input', { type: 'date', value: S.imera, onchange: function (e) { if (e.target.value) { S.imera = e.target.value; imeraView(); } } }),
+      h('button', { class: 'btn deyt', text: 'Σήμερα', onclick: function () { S.imera = S.simera; imeraView(); } }),
+      h('button', { class: 'btn deyt', text: 'Κλείσιμο χρόνου', onclick: function () { kleisimo(); } })]);
+    m.appendChild(tools);
+    var kk = S.kat.kommotes, apo = 9 * 60, eos = 21 * 60;
+    var pl = h('div', { class: 'plegma', style: '--k:' + kk.length });
+    var wcol = h('div', {}, [h('div', { class: 'stili-k' })]); var wr = h('div', { class: 'wres' });
+    for (var t = apo; t < eos; t += 60) wr.appendChild(h('div', { class: 'wra-l', text: wra(t) }));
+    wcol.appendChild(wr); pl.appendChild(wcol);
+    kk.forEach(function (k) {
+      var col = h('div', { class: 'stili', style: '--c:' + k.xroma }, [h('div', { class: 'stili-k' }, [h('i'), k.onoma])]);
+      var c = h('div', { class: 'wres' }), zones = (S.orario[k.id] || {})[w] || [];
+      for (var t = apo; t < eos; t += 15) (function (t) {
+        var anoixto = zones.some(function (z) { return t >= lepta(z[0]) && t < lepta(z[1]); });
+        c.appendChild(h('div', { class: 'keli' + (anoixto ? '' : ' kleisto'), title: wra(t), onclick: anoixto ? function () { neoRantevou({ kommotis: k.id, imerominia: S.imera, ora: wra(t) }); } : null }));
+      })(t);
+      var slot = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slot')) || 22;
+      d.kleisimata.filter(function (x) { return x.kommotis === k.id || x.kommotis === 'oloi'; }).forEach(function (x) {
+        var a = Math.max(apo, lepta(x.apo)), b = Math.min(eos, lepta(x.eos)); if (b <= a) return;
+        c.appendChild(h('div', { class: 'kl', style: 'top:' + ((a - apo) / 15 * slot) + 'px;height:' + ((b - a) / 15 * slot - 2) + 'px', text: 'Κλειστό' + (x.logos ? ' · ' + x.logos : ''),
+          onclick: function () { if (confirmBox('Διαγραφή κλεισίματος;')) run('p_sviseKleisimo', S.token, x.id).then(imeraView); } }));
+      });
+      d.rantevou.filter(function (r) { return r.kommotis === k.id && !/Ακυρώθηκε|Απορρίφθηκε/.test(r.katastasi); }).forEach(function (r) {
+        var a = lepta(r.ora), b = lepta(r.lixi), el = h('div', { class: 'rv' + (r.katastasi === 'Αίτημα' ? ' aitima' : '') + (r.katastasi === 'Ήρθε' ? ' irthe' : '') + (r.katastasi === 'Δεν ήρθε' ? ' den' : ''),
+          style: 'top:' + ((a - apo) / 15 * slot) + 'px;height:' + Math.max(slot, (b - a) / 15 * slot - 2) + 'px', onclick: function () { leptomereies(r); } },
+          [h('b', { text: r.ora + ' ' + r.onoma }), h('span', { text: ypOnomata(r.ypiresies) })]);
+        var t0 = 0; String(r.tmimata).split(',').forEach(function (s) { var dd = +s.trim().slice(1); if (/^[AΑ]/.test(s.trim())) el.appendChild(h('span', { class: 'anam', style: 'top:' + (t0 / 15 * slot) + 'px;height:' + (dd / 15 * slot) + 'px' })); t0 += dd; });
+        c.appendChild(el);
+      });
+      col.appendChild(c); pl.appendChild(col);
+    });
+    m.appendChild(pl);
+    var ak = d.rantevou.filter(function (r) { return /Ακυρώθηκε/.test(r.katastasi); });
+    if (ak.length) m.appendChild(h('p', { class: 'meta', style: 'color:var(--fg2);margin-top:12px', text: 'Ακυρωμένα σήμερα: ' + ak.map(function (r) { return r.ora + ' ' + r.onoma; }).join(', ') }));
+  });
+}
+function confirmBox(t) { return window.confirm(t); }
+
+/* ── λεπτομέρειες ραντεβού ── */
+function modal(titlos, soma) {
+  var x = h('button', { class: 'x', 'aria-label': 'Κλείσιμο', text: '×' });
+  var m = h('div', { class: 'mod', role: 'dialog', 'aria-modal': 'true' }, [h('div', { class: 'mod-in' }, [h('div', { class: 'mod-kef' }, [h('h2', { text: titlos }), x])].concat(soma))]);
+  function kleise() { m.remove(); document.removeEventListener('keydown', esc); }
+  function esc(e) { if (e.key === 'Escape') kleise(); }
+  x.onclick = kleise; m.onclick = function (e) { if (e.target === m) kleise(); }; document.addEventListener('keydown', esc);
+  document.body.appendChild(m); setTimeout(function () { var f = m.querySelector('input,select,textarea,button.btn'); if (f) f.focus(); }, 30);
+  return kleise;
+}
+function leptomereies(r) {
+  var kl;
+  var b = function (t, k, cls) { return h('button', { class: 'btn ' + (cls || 'deyt'), text: t, onclick: function () { run('p_katastasi', S.token, r.id, k).then(function () { minima('Έγινε: ' + k); kl(); deixe(); }); } }); };
+  var sim = h('textarea', { text: r.simeiosi || '' }); sim.value = r.simeiosi || '';
+  kl = modal(r.onoma, [
+    h('div', { class: 'karta' }, [h('b', { text: mera(r.imerominia) + ', ' + r.ora + '–' + r.lixi }), h('span', { text: ypOnomata(r.ypiresies) }),
+      h('span', { class: 'meta', text: kom(r.kommotis).onoma + ' · ' + r.katastasi + ' · ' + r.pigi + (r.proti ? ' · πρώτη φορά' : '') }),
+      h('span', {}, [h('a', { href: 'tel:' + r.kinito, text: r.kinito }), r.email ? ' · ' : '', r.email ? h('a', { href: 'mailto:' + r.email, text: r.email }) : null])]),
+    h('label', {}, ['Σημείωση', sim]), h('button', { class: 'btn deyt', text: 'Αποθήκευση σημείωσης', onclick: function () { run('p_simeiosi', S.token, r.id, sim.value).then(function () { minima('Αποθηκεύτηκε'); }); } }),
+    r.katastasi === 'Αίτημα' ? h('div', { class: 'seira' }, [b('Έγκριση', 'Επιβεβαιωμένο', ' '), b('Απόρριψη', 'Απορρίφθηκε', 'kindynos')]) :
+      h('div', { class: 'seira' }, [b('Ήρθε', 'Ήρθε', ' '), b('Δεν ήρθε', 'Δεν ήρθε')]),
+    h('div', { class: 'seira' }, [h('button', { class: 'btn deyt', text: 'Μετακίνηση', onclick: function () { kl(); metakinisi(r); } }),
+      h('button', { class: 'btn kindynos', text: 'Ακύρωση', onclick: function () { if (confirmBox('Ακύρωση του ραντεβού; Ο πελάτης παίρνει email.')) run('p_katastasi', S.token, r.id, 'Ακυρώθηκε').then(function () { kl(); deixe(); }); } })])
+  ]);
+}
+
+/* ── επιλογή ώρας (νέο / μετακίνηση) ── */
+function epilogiWras(cont, ids, getKom, getImer, exairesi, onPick) {
+  var l = h('div', { class: 'wres-lista' }), epivoli = h('input', { type: 'time', step: 900, 'aria-label': 'Άλλη ώρα (επιβολή)' });
+  cont.appendChild(h('label', {}, ['Ελεύθερες ώρες', l]));
+  cont.appendChild(h('label', {}, ['ή άλλη ώρα, εκτός διαθεσιμότητας (επιβολή)', epivoli]));
+  epivoli.onchange = function () { l.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); }); onPick(epivoli.value, getKom(), true); };
+  function fortose() {
+    l.innerHTML = '<span class="meta">Ψάχνω…</span>';
+    if (!ids().length) { l.innerHTML = '<span class="meta">Διάλεξε πρώτα υπηρεσία.</span>'; return; }
+    run('p_elefthera', S.token, ids(), getKom(), getImer(), exairesi || '').then(function (w) {
+      l.innerHTML = ''; if (!w.length) l.appendChild(h('span', { class: 'meta', text: 'Καμία ελεύθερη ώρα.' }));
+      w.forEach(function (x) { var b = h('button', { type: 'button', 'aria-pressed': 'false', text: x.ora, title: kom(x.kommotis).onoma });
+        b.onclick = function () { l.querySelectorAll('button').forEach(function (y) { y.setAttribute('aria-pressed', y === b ? 'true' : 'false'); }); epivoli.value = ''; onPick(x.ora, x.kommotis, false); }; l.appendChild(b); });
+    });
+  }
+  return fortose;
+}
+function ypiresiesTsips(epil, onch) {
+  var c = h('div', { class: 'tsips' });
+  S.kat.omades.forEach(function (g) { g.ypiresies.forEach(function (y) {
+    var cb = h('input', { type: 'checkbox', value: y.id }); cb.checked = epil.indexOf(y.id) !== -1; cb.onchange = onch;
+    c.appendChild(h('label', {}, [cb, y.onoma]));
+  }); });
+  return c;
+}
+function neoRantevou(pre) {
+  var kin = h('input', { type: 'tel', placeholder: '69…', inputmode: 'tel' }), on = h('input', { type: 'text' }), em = h('input', { type: 'email' });
+  var vres = h('div', { class: 'lista' });
+  kin.oninput = function () { if (kin.value.replace(/\D/g, '').length < 4) { vres.innerHTML = ''; return; } run('p_pelates', S.token, kin.value).then(function (l) {
+    vres.innerHTML = ''; l.slice(0, 4).forEach(function (p) { vres.appendChild(h('button', { type: 'button', class: 'btn deyt', text: p.onoma + ' · ' + p.kinito, onclick: function () { kin.value = p.kinito; on.value = p.onoma; em.value = p.email; vres.innerHTML = ''; } })); }); }); };
+  var komSel = h('select', {}, [h('option', { value: 'any', text: 'Οποιοσδήποτε' })].concat(S.kat.kommotes.map(function (k) { return h('option', { value: k.id, text: k.onoma }); })));
+  komSel.value = pre.kommotis || 'any';
+  var imer = h('input', { type: 'date', value: pre.imerominia || S.imera });
+  var pigi = h('select', {}, [h('option', { text: 'τηλέφωνο' }), h('option', { text: 'περαστικός' })]);
+  var eid = h('input', { type: 'checkbox' }), sim = h('textarea');
+  var epilogi = { ora: pre.ora || null, kommotis: pre.kommotis || null, epivoli: false };
+  var tsips = ypiresiesTsips([], function () { fortose(); });
+  var ids = function () { return [].map.call(tsips.querySelectorAll('input:checked'), function (x) { return x.value; }); };
+  var wcont = h('div', { style: 'display:grid;gap:10px' });
+  var fortose = epilogiWras(wcont, ids, function () { return komSel.value; }, function () { return imer.value; }, null, function (o, k, e) { epilogi = { ora: o, kommotis: k, epivoli: e }; });
+  komSel.onchange = fortose; imer.onchange = fortose;
+  var save = h('button', { class: 'btn', text: 'Αποθήκευση' });
+  var kl = modal('Νέο ραντεβού', [h('label', {}, ['Κινητό', kin]), vres, h('div', { class: 'dyo' }, [h('label', {}, ['Όνομα', on]), h('label', {}, ['Email (προαιρετικό)', em])]),
+    h('label', {}, ['Υπηρεσίες', tsips]), h('div', { class: 'dyo' }, [h('label', {}, ['Κομμωτής', komSel]), h('label', {}, ['Ημέρα', imer])]), wcont,
+    h('div', { class: 'dyo' }, [h('label', {}, ['Πηγή', pigi]), h('label', { class: 'check' }, [eid, 'Email επιβεβαίωσης στον πελάτη'])]), h('label', {}, ['Σημείωση', sim]), save]);
+  fortose();
+  save.onclick = function () {
+    if (!on.value.trim() || !ids().length || !epilogi.ora) return minima('Συμπλήρωσε όνομα, υπηρεσία και ώρα.');
+    save.disabled = true;
+    run('p_neo', S.token, { onoma: on.value, kinito: kin.value, email: em.value, ypiresies: ids(), kommotis: epilogi.epivoli ? (komSel.value === 'any' ? S.kat.kommotes[0].id : komSel.value) : epilogi.kommotis,
+      imerominia: imer.value, ora: epilogi.ora, pigi: pigi.value, eidopoiisi: eid.checked, simeiosi: sim.value, epivoli: epilogi.epivoli })
+      .then(function (r) { save.disabled = false; if (!r.ok) return minima(r.minima); minima('Το ραντεβού αποθηκεύτηκε'); kl(); S.imera = imer.value; deixe(); });
+  };
+}
+function metakinisi(r) {
+  var komSel = h('select', {}, S.kat.kommotes.map(function (k) { return h('option', { value: k.id, text: k.onoma }); })); komSel.value = r.kommotis;
+  var imer = h('input', { type: 'date', value: r.imerominia }), epilogi = null, wcont = h('div', { style: 'display:grid;gap:10px' });
+  var fortose = epilogiWras(wcont, function () { return r.ypiresies.split(','); }, function () { return komSel.value; }, function () { return imer.value; }, r.id, function (o, k, e) { epilogi = { ora: o, kommotis: k, epivoli: e }; });
+  komSel.onchange = fortose; imer.onchange = fortose;
+  var save = h('button', { class: 'btn', text: 'Μετακίνηση' });
+  var kl = modal('Μετακίνηση: ' + r.onoma, [h('div', { class: 'dyo' }, [h('label', {}, ['Κομμωτής', komSel]), h('label', {}, ['Ημέρα', imer])]), wcont, save]);
+  fortose();
+  save.onclick = function () { if (!epilogi) return minima('Διάλεξε ώρα.'); save.disabled = true;
+    run('p_metakinisi', S.token, r.id, imer.value, epilogi.ora, epilogi.epivoli ? komSel.value : epilogi.kommotis, epilogi.epivoli).then(function (x) { save.disabled = false; if (!x.ok) return minima(x.minima); minima('Μετακινήθηκε· ο πελάτης ενημερώθηκε'); kl(); S.imera = imer.value; deixe(); }); };
+}
+function kleisimo() {
+  var komSel = h('select', {}, [h('option', { value: 'oloi', text: 'Όλο το κομμωτήριο' })].concat(S.kat.kommotes.map(function (k) { return h('option', { value: k.id, text: k.onoma }); })));
+  var a = h('input', { type: 'date', value: S.imera }), b = h('input', { type: 'date', value: S.imera }), wa = h('input', { type: 'time', value: '09:00', step: 900 }), wb = h('input', { type: 'time', value: '21:00', step: 900 });
+  var ol = h('input', { type: 'checkbox', checked: '' }), logos = h('input', { type: 'text', placeholder: 'π.χ. άδεια, αργία, διάλειμμα' });
+  var save = h('button', { class: 'btn', text: 'Κλείσιμο χρόνου' });
+  var kl = modal('Κλείσιμο χρόνου', [h('label', {}, ['Ποιος', komSel]), h('div', { class: 'dyo' }, [h('label', {}, ['Από ημέρα', a]), h('label', {}, ['Έως ημέρα', b])]),
+    h('label', { class: 'check' }, [ol, 'Όλη την ημέρα']), h('div', { class: 'dyo' }, [h('label', {}, ['Από ώρα', wa]), h('label', {}, ['Έως ώρα', wb])]), h('label', {}, ['Λόγος', logos]), save]);
+  save.onclick = function () { save.disabled = true; run('p_kleisimo', S.token, { kommotis: komSel.value, apo_imerominia: a.value, eos_imerominia: b.value, apo: ol.checked ? '00:00' : wa.value, eos: ol.checked ? '24:00' : wb.value, logos: logos.value })
+    .then(function () { minima('Ο χρόνος έκλεισε'); kl(); deixe(); }); };
+}
+
+/* ── Εβδομάδα ── */
+function evdomadaView() {
+  var d0 = dt(S.imera), off = (d0.getDay() + 6) % 7, apo = add(S.imera, -off);
+  run('p_imeres', S.token, apo, 7).then(function (d) {
+    badge(d.aitimata); var m = kyrio();
+    m.appendChild(h('div', { class: 'nav-im' }, [h('button', { 'aria-label': 'Προηγούμενη εβδομάδα', text: '‹', onclick: function () { S.imera = add(S.imera, -7); evdomadaView(); } }),
+      h('h2', { text: 'Εβδομάδα ' + mera(apo) + ' – ' + mera(add(apo, 6)) }), h('button', { 'aria-label': 'Επόμενη εβδομάδα', text: '›', onclick: function () { S.imera = add(S.imera, 7); evdomadaView(); } })]));
+    var l = h('div', { class: 'evd' });
+    for (var i = 0; i < 7; i++) (function (x) {
+      var rv = d.rantevou.filter(function (r) { return r.imerominia === x && !/Ακυρώθηκε|Απορρίφθηκε/.test(r.katastasi); });
+      var bara = h('div', { class: 'bara' });
+      S.kat.kommotes.forEach(function (k) { var mins = rv.filter(function (r) { return r.kommotis === k.id; }).reduce(function (a, r) { return a + lepta(r.lixi) - lepta(r.ora); }, 0);
+        bara.appendChild(h('span', { style: '--c:' + k.xroma + ';width:' + Math.min(100, mins / (12 * 60 * S.kat.kommotes.length) * 100) + '%', title: k.onoma + ': ' + Math.round(mins / 60 * 10) / 10 + ' ώρες' })); });
+      l.appendChild(h('div', { class: 'evd-m', onclick: function () { S.imera = x; S.epilogi = 'imera'; document.querySelectorAll('.kart button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.k === 'imera' ? 'true' : 'false'); }); imeraView(); } },
+        [h('b', { text: mera(x) }), h('div', {}, [bara, h('span', { class: 'meta', text: rv.length + ' ραντεβού' })])]));
+    })(add(apo, i));
+    m.appendChild(l);
+  });
+}
+
+/* ── Αιτήματα ── */
+function aitimataView() {
+  run('p_aitimata', S.token).then(function (l) {
+    badge(l.length); var m = kyrio();
+    m.appendChild(h('h2', { text: 'Αιτήματα προς έγκριση', style: 'margin-bottom:12px' }));
+    if (!l.length) return m.appendChild(h('p', { class: 'keno', text: 'Κανένα αίτημα.' }));
+    var c = h('div', { class: 'lista' });
+    l.forEach(function (r) { c.appendChild(h('div', { class: 'karta karta-k', style: '--c:' + kom(r.kommotis).xroma }, [h('b', { text: mera(r.imerominia) + ', ' + r.ora + ' · ' + r.onoma }),
+      h('span', { text: ypOnomata(r.ypiresies) + ' · ' + kom(r.kommotis).onoma }), h('span', { class: 'meta', text: r.kinito + ' · ' + r.email + (r.simeiosi ? ' · «' + r.simeiosi + '»' : '') }),
+      h('div', { class: 'seira' }, [h('button', { class: 'btn', text: 'Έγκριση', onclick: function () { run('p_katastasi', S.token, r.id, 'Επιβεβαιωμένο').then(aitimataView); } }),
+        h('button', { class: 'btn deyt', text: 'Μετακίνηση', onclick: function () { metakinisi(r); } }),
+        h('button', { class: 'btn kindynos', text: 'Απόρριψη', onclick: function () { run('p_katastasi', S.token, r.id, 'Απορρίφθηκε').then(aitimataView); } })])])); });
+    m.appendChild(c);
+  });
+}
+
+/* ── Πελάτες ── */
+function pelatesView() {
+  var m = kyrio(), q = h('input', { type: 'search', placeholder: 'Όνομα, κινητό ή email', 'aria-label': 'Αναζήτηση πελάτη' }), l = h('div', { class: 'lista', style: 'margin-top:12px' });
+  m.appendChild(q); m.appendChild(l);
+  var t; q.oninput = function () { clearTimeout(t); t = setTimeout(fere, 250); };
+  function fere() { run('p_pelates', S.token, q.value).then(function (p) { l.innerHTML = ''; if (!p.length) l.appendChild(h('p', { class: 'keno', text: 'Κανένας πελάτης.' }));
+    p.forEach(function (x) { l.appendChild(h('div', { class: 'karta', style: 'cursor:pointer', onclick: function () { pelatis(x); } }, [h('b', { text: x.onoma }), h('span', { class: 'meta', text: x.kinito + ' · ' + x.email + ' · επισκέψεις ' + (x.episkepseis || 0) + (+x.mi_emfaniseis ? ' · δεν ήρθε ' + x.mi_emfaniseis : '') })])); }); }); }
+  fere();
+}
+function pelatis(p) {
+  var on = h('input', { value: p.onoma }), em = h('input', { value: p.email }), tx = h('textarea'); tx.value = p.texniki_simeiosi || '';
+  var ist = h('div', { class: 'lista' }, [h('span', { class: 'meta', text: 'Φόρτωση ιστορικού…' })]);
+  var kl = modal(p.onoma, [h('p', { class: 'meta', html: '<a href="tel:' + p.kinito + '">' + p.kinito + '</a>' + (p.prosfores ? ' · δέχεται προσφορές από ' + p.imerominia_synainesis : '') }),
+    h('div', { class: 'dyo' }, [h('label', {}, ['Όνομα', on]), h('label', {}, ['Email', em])]), h('label', {}, ['Τεχνική σημείωση (π.χ. συνταγή χρώματος). Όχι στοιχεία υγείας.', tx]),
+    h('button', { class: 'btn', text: 'Αποθήκευση', onclick: function () { run('p_pelatis', S.token, p.id, { onoma: on.value, email: em.value, texniki_simeiosi: tx.value }).then(function () { minima('Αποθηκεύτηκε'); kl(); }); } }),
+    h('h3', { text: 'Ιστορικό' }), ist,
+    S.rolos === 'idioktitis' ? h('button', { class: 'btn kindynos', text: 'Διαγραφή πελάτη (ΓΚΠΔ)', onclick: function () { if (confirmBox('Οριστική διαγραφή του πελάτη και ανωνυμοποίηση των ραντεβού του;')) run('p_sviPelati', S.token, p.id).then(function () { minima('Διαγράφηκε'); kl(); pelatesView(); }); } }) : null]);
+  run('p_istorikoPelati', S.token, p.id).then(function (l) { ist.innerHTML = ''; if (!l.length) ist.appendChild(h('span', { class: 'meta', text: 'Κανένα ραντεβού.' }));
+    l.forEach(function (r) { ist.appendChild(h('div', { class: 'karta' }, [h('b', { text: mera(r.imerominia) + ' ' + r.ora + ' · ' + r.katastasi }), h('span', { class: 'meta', text: ypOnomata(r.ypiresies) + ' · ' + kom(r.kommotis).onoma })])); }); });
+}
+
+/* ── Αναρτήσεις ── */
+function anartiseisView() {
+  run('p_anartiseis', S.token).then(function (l) {
+    var m = kyrio();
+    m.appendChild(h('div', { class: 'seira', style: 'margin-bottom:14px' }, [h('button', { class: 'btn', text: '+ Νέα ανάρτηση', onclick: function () { anartisi({}); } }),
+      h('button', { class: 'btn deyt', text: 'Δημοσίευση στον ιστότοπο', onclick: function (e) { e.target.disabled = true; run('p_dimosieusi', S.token).then(function (r) { e.target.disabled = false; minima(r.ok ? 'Η δημοσίευση ξεκίνησε· σε 2–4 λεπτά στον ιστότοπο.' : r.minima); }); } })]));
+    m.appendChild(h('p', { class: 'odigos', html: '<b>Για ωραίες φωτογραφίες:</b> ίδιος τοίχος, φως ημέρας, όχι φλας. Το «πριν» και το «μετά» από την ίδια γωνία και απόσταση. Κάθετη λήψη. Πάντα με τη συναίνεση του πελάτη.' }));
+    if (!l.length) return m.appendChild(h('p', { class: 'keno', text: 'Καμία ανάρτηση ακόμα.' }));
+    var g = h('div', { class: 'an-plegma', style: 'margin-top:14px' });
+    l.forEach(function (a) { g.appendChild(h('div', { class: 'an-k', onclick: function () { anartisi(a); } }, [h('div'), h('p', { text: (a.katastasi === 'Πρόχειρο' ? '[Πρόχειρο] ' : '') + a.titlos })])); });
+    m.appendChild(g);
+  });
+}
+function smikrynsi(file) {
+  return new Promise(function (ok) {
+    var img = new Image(), rd = new FileReader();
+    rd.onload = function () { img.onload = function () { var s = Math.min(1, 2000 / Math.max(img.width, img.height)), c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); ok({ data: c.toDataURL('image/jpeg', .86), type: 'image/jpeg', onoma: file.name.replace(/\.\w+$/, '') }); }; img.src = rd.result; };
+    rd.readAsDataURL(file);
+  });
+}
+function anartisi(a) {
+  var nees = {}, tl = h('input', { value: a.titlos || '' }), tx = h('textarea'); tx.value = a.keimeno || '';
+  var tle = h('input', { value: a.titlos_en || '' }), txe = h('textarea'); txe.value = a.keimeno_en || '';
+  var yp = h('select', {}, S.kat.omades.map(function (g) { return h('optgroup', { label: g.titlos }, g.ypiresies.map(function (y) { return h('option', { value: y.id, text: y.onoma }); })); })); if (a.ypiresia) yp.value = a.ypiresia;
+  var ks = h('select', {}, S.kat.kommotes.map(function (k) { return h('option', { value: k.id, text: k.onoma }); })); if (a.kommotis) ks.value = a.kommotis;
+  var im = h('input', { type: 'date', value: a.imerominia || S.simera });
+  var kat = h('select', {}, [h('option', { text: 'Δημοσιευμένη' }), h('option', { text: 'Πρόχειρο' })]); if (a.katastasi) kat.value = a.katastasi;
+  var syn = h('input', { type: 'checkbox' }); syn.checked = !!a.id;
+  function fotoInput(k, polla) {
+    var i = h('input', { type: 'file', accept: 'image/*', multiple: polla ? '' : false }), pv = h('div', { class: 'prev' });
+    i.onchange = function () { Promise.all([].map.call(i.files, smikrynsi)).then(function (l) { nees[k] = polla ? l : l[0]; pv.innerHTML = ''; l.forEach(function (x) { pv.appendChild(h('img', { src: x.data, alt: '' })); }); }); };
+    return h('div', {}, [i, pv]);
+  }
+  var save = h('button', { class: 'btn', text: 'Αποθήκευση' });
+  var kl = modal(a.id ? 'Διόρθωση ανάρτησης' : 'Νέα ανάρτηση', [
+    h('div', { class: 'dyo' }, [h('label', {}, ['Πριν (προαιρετικό)', fotoInput('prin')]), h('label', {}, ['Μετά', fotoInput('meta')])]),
+    h('label', {}, ['Άλλες φωτογραφίες', fotoInput('fotografies', true)]),
+    h('label', {}, ['Τίτλος', tl]), h('label', {}, ['Κείμενο (σύντομο)', tx]),
+    h('details', {}, [h('summary', { text: 'Αγγλικά (προαιρετικά, για την αγγλική σελίδα)' }), h('label', {}, ['Title', tle]), h('label', {}, ['Text', txe])]),
+    h('div', { class: 'dyo' }, [h('label', {}, ['Υπηρεσία', yp]), h('label', {}, ['Κομμωτής', ks])]),
+    h('div', { class: 'dyo' }, [h('label', {}, ['Ημερομηνία', im]), h('label', {}, ['Κατάσταση', kat])]),
+    h('label', { class: 'check' }, [syn, 'Ο/η εικονιζόμενος/η συμφώνησε να δημοσιευτεί η φωτογραφία.']), save,
+    a.id ? h('button', { class: 'btn kindynos', text: 'Διαγραφή ανάρτησης', onclick: function () { if (confirmBox('Διαγραφή της ανάρτησης και των φωτογραφιών της;')) run('p_sviseAnartisi', S.token, a.id).then(function () { kl(); anartiseisView(); }); } }) : null,
+    h('p', { class: 'meta', text: 'Οι αλλαγές φαίνονται στον ιστότοπο μετά το «Δημοσίευση στον ιστότοπο».' })]);
+  save.onclick = function () {
+    if (!syn.checked) return minima('Χρειάζεται η συναίνεση του εικονιζόμενου.');
+    if (!tl.value.trim()) tl.value = yp.options[yp.selectedIndex].text;
+    save.disabled = true; save.textContent = 'Ανεβαίνει…';
+    run('p_apothikeysiAnartisis', S.token, { id: a.id, titlos: tl.value, keimeno: tx.value, titlos_en: tle.value, keimeno_en: txe.value, ypiresia: yp.value, kommotis: ks.value, imerominia: im.value, katastasi: kat.value, synainesi: true,
+      prin: a.prin, meta: a.meta, fotografies: a.fotografies }, nees).then(function (r) { save.disabled = false; save.textContent = 'Αποθήκευση'; if (!r.ok) return minima(r.minima); minima('Αποθηκεύτηκε'); kl(); anartiseisView(); });
+  };
+}
+
+/* ── Ρυθμίσεις (ιδιοκτήτης) ── */
+function rythmiseisView() {
+  run('p_kanones', S.token, null).then(function (k) {
+    var m = kyrio(), f = {};
+    var P = [['proeidopoiisi_lepta', 'Ελάχιστη προειδοποίηση online (λεπτά)'], ['orizontas_imeres', 'Πόσες ημέρες μπροστά κλείνει ο πελάτης'], ['akyrosi_ores', 'Αλλαγή/ακύρωση online έως (ώρες πριν)'],
+             ['energes_ana_kinito', 'Ενεργά ραντεβού ανά κινητό'], ['aitima_pano_apo_lepta', 'Πάνω από τόσα λεπτά, η κράτηση γίνεται αίτημα'], ['mi_emfaniseis_aitima', 'Μετά από τόσες μη εμφανίσεις, αίτημα'], ['vima', 'Βήμα ωρών (λεπτά)']];
+    var c = h('div', { class: 'karta' });
+    P.forEach(function (p) { f[p[0]] = h('input', { type: 'number', min: 0, value: k[p[0]] }); c.appendChild(h('label', {}, [p[1], f[p[0]]])); });
+    f.email = h('input', { type: 'email', value: k.email }); c.appendChild(h('label', {}, ['Email για ειδοποιήσεις', f.email]));
+    c.appendChild(h('button', { class: 'btn', text: 'Αποθήκευση', onclick: function () { var d = {}; Object.keys(f).forEach(function (x) { d[x] = f[x].value; }); run('p_kanones', S.token, d).then(function () { minima('Αποθηκεύτηκε'); }); } }));
+    m.appendChild(h('h2', { text: 'Κανόνες κρατήσεων', style: 'margin-bottom:12px' })); m.appendChild(c);
+    m.appendChild(h('p', { class: 'odigos', style: 'margin-top:14px', text: 'Υπηρεσίες, διάρκειες, τιμές, κομμωτές και ωράριο αλλάζουν απευθείας στις καρτέλες του Φύλλου «Υπηρεσίες», «Κομμωτές» και «Ωράριο». Ισχύουν αμέσως για τις κρατήσεις· στον ιστότοπο μετά το «Δημοσίευση».' }));
+  });
+}
+
+S.token ? ksekina() : syndesi();
+</script>
+</body>
+</html>

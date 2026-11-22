@@ -1,0 +1,42 @@
+[
+  {
+    "id": "giannis",
+    "onoma": "Γιάννης",
+    "plires": "Ιωάννης Καλαϊτζίδης",
+    "rolos": "Ιδιοκτήτης",
+    "eidikotita": "Χρώμα, κουρέματα, χτενίσματα",
+    "xroma": "#b37351",
+    "foto": "",
+    "online": true,
+    "onoma_en": "Giannis",
+    "rolos_en": "Owner",
+    "eidikotita_en": "Colour, cuts, styling"
+  },
+  {
+    "id": "panagiotis",
+    "onoma": "Παναγιώτης",
+    "plires": "Παναγιώτης Καλαϊτζίδης",
+    "rolos": "Κομμωτής",
+    "eidikotita": "Ανδρικά κουρέματα, fade, χρώμα",
+    "xroma": "#8f9a6b",
+    "foto": "",
+    "online": true,
+    "onoma_en": "Panagiotis",
+    "rolos_en": "Stylist",
+    "eidikotita_en": "Men's cuts, fades, colour"
+  },
+  {
+    "id": "kommotis3",
+    "onoma": "Τρίτο μέλος",
+    "plires": "Όνομα από το κομμωτήριο",
+    "rolos": "Κομμωτής",
+    "eidikotita": "Κουρέματα, χτενίσματα, θεραπείες",
+    "xroma": "#a8879c",
+    "foto": "",
+    "online": true,
+    "prosorino": true,
+    "onoma_en": "Third stylist",
+    "rolos_en": "Stylist",
+    "eidikotita_en": "Cuts, styling, treatments"
+  }
+]
