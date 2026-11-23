@@ -29,15 +29,19 @@
     });
   });
 
-  /* ── χρυσή σπείρα: σχεδιάζεται με την κύλιση ── */
+  /* ── χρυσή σπείρα: σχεδιάζεται όσο διαβάζεις την ενότητα και ολοκληρώνεται πριν φύγει από την οθόνη ──
+   * υπολογιστής: η σπείρα μένει καρφιτσωμένη στη μέση· η πρόοδος μετριέται στη στήλη του κειμένου.
+   * κινητό: ολοκληρώνεται όταν το κέντρο της φτάσει στη μέση της οθόνης. */
   D.querySelectorAll('[data-spira]').forEach(function (el) {
     if (MESH) { el.style.setProperty('--sp', '1'); return; }
-    var r = null, last = -1;
+    var keim = el.parentNode.querySelector('.idea-keim'), r = null, rk = null, last = -1;
     skines.push({
-      read: function () { r = el.getBoundingClientRect(); },
+      read: function () { r = el.getBoundingClientRect(); rk = desktop && keim ? keim.getBoundingClientRect() : null; },
       write: function () {
         if (r.bottom < 0 || r.top > vh) return;
-        var t = Math.round(eio(cl((vh - r.top) / (vh * .55 + r.height * .6), 0, 1)) * 1000) / 1000;
+        var t = rk ? (vh * .9 - rk.top) / Math.max(1, rk.height * .8)
+                   : (vh - r.top) / (vh * .5 + r.height * .5);
+        t = Math.round(eio(cl(t, 0, 1)) * 1000) / 1000;
         if (t !== last) { last = t; el.style.setProperty('--sp', t); }
       }
     });

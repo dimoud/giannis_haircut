@@ -895,3 +895,30 @@ html.js:not([data-kinisi]).kinisi-asfaleia [data-melos]{opacity:1;transform:none
 .epafi-til{font:300 var(--t3)/1.2 var(--f-d)}
 .hero-t,.dilosi,.titlos-mega{letter-spacing:-.022em}
 @media (max-width:734px){.kf-kat{justify-content:center}.kf-keim{margin-inline:auto}}
+
+/* ── η ιδέα: κείμενο αριστερά, σπείρα δεξιά που μένει στη μέση της οθόνης και ολοκληρώνεται όσο διαβάζεις ── */
+.idea{overflow:visible}
+.idea-plegma{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6vw;align-items:start}
+.idea .dilosi{max-width:13ch}
+.idea .hero-lead{max-width:40ch}
+.idea-spira{margin:0;position:sticky;top:calc(var(--kef) + (100svh - var(--kef)) / 2 - 15.5vw);align-self:start}
+.analogies{list-style:none;counter-reset:an;display:block;margin:64px 0 0;padding:0;border-top:1px solid rgba(217,180,74,.25)}
+.analogies li{counter-increment:an;display:grid;grid-template-columns:72px 1fr;column-gap:24px;row-gap:8px;align-items:baseline;padding:32px 0;border-bottom:1px solid rgba(217,180,74,.25)}
+.analogies li::before{content:"0" counter(an);grid-row:span 2;font:italic 300 40px/1 var(--f-d);background:var(--au);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.analogies h3{margin:0}
+.analogies p{margin:0;max-width:44ch;color:var(--fg2)}
+@media (max-width:1068px){
+  .idea-plegma{grid-template-columns:1fr;gap:56px}
+  .idea-plegma{gap:0}
+  .idea-keim{display:contents}
+  .idea-keim>.etiketa{grid-row:1}
+  .idea-keim>.dilosi{grid-row:2}
+  .idea-keim>.hero-lead{grid-row:3}
+  .idea-spira{position:relative;top:auto;grid-row:4;margin:56px -24px 0}
+  .analogies{grid-row:5;margin-top:56px}
+}
+@media (max-width:734px){
+  .analogies li{grid-template-columns:1fr;justify-items:center;text-align:center;padding:28px 0}
+  .analogies li::before{grid-row:auto;font-size:36px}
+  .analogies p{margin-inline:auto}
+}

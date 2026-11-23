@@ -420,24 +420,22 @@ def selida_arxiki(c):
     <li data-reveal><span class="g-ar">{t(c, 'Όλοι', 'All')}</span><span class="g-t">{t(c, 'άνδρες, γυναίκες και παιδιά', 'men, women and children')}</span></li>
   </ul></div>
 </section>'''
+    analogies = [
+        (t(c, 'Το πρόσωπο', 'Your face'), t(c, 'Σχήμα, χαρακτηριστικά και γραμμή του λαιμού ορίζουν το μήκος και τον όγκο.', 'Shape, features and the line of the neck set the length and volume.')),
+        (t(c, 'Η τρίχα', 'Your hair'), t(c, 'Πάχος, πυκνότητα και παλιές βαφές ορίζουν την τεχνική και το προϊόν.', 'Thickness, density and past colour set the technique and the product.')),
+        (t(c, 'Η μέρα σου', 'Your day'), t(c, 'Λίγα λεπτά το πρωί αρκούν για να στέκει, και όταν το φτιάχνεις μόνος ή μόνη σου.', 'A few minutes in the morning are enough for it to hold, even when you style it yourself.')),
+    ]
     idea = f'''<section class="enotita idea" data-sxima="skoteino" aria-labelledby="id-t">
   <div class="wrap idea-plegma">
     <div class="idea-keim">
       {etiketa(t(c, 'Η ιδέα', 'The idea'))}
       <h2 id="id-t" class="dilosi" data-reveal>{t(c, 'Ένα κούρεμα είναι<br class="d"> <em>θέμα αναλογίας.</em>', 'A haircut is<br class="d"> <em>a matter of proportion.</em>')}</h2>
       <p class="hero-lead" data-reveal>{t(c,
-        'Το μήκος που ισορροπεί το σαγόνι, η γραμμή που ανοίγει το βλέμμα, ο τόνος που ζεσταίνει το δέρμα. Πριν πιάσουμε ψαλίδι ή πινέλο, κοιτάμε το πρόσωπο, πώς πέφτει η τρίχα και πόσο χρόνο έχεις το πρωί.',
-        'The length that balances the jawline, the line that opens up the eyes, the tone that warms the skin. Before we pick up scissors or brush, we look at your face, how your hair falls and how much time you have in the morning.')}</p>
-      <p class="idea-ypo" data-reveal>{t(c, 'Το αποτέλεσμα πρέπει να στέκει και την επόμενη εβδομάδα, όταν θα το φτιάξεις μόνος ή μόνη σου.', 'The result has to hold up next week too, when you style it yourself.')}</p>
+        'Το μήκος που ισορροπεί το σαγόνι, η γραμμή που ανοίγει το βλέμμα, ο τόνος που ζεσταίνει το δέρμα. Πριν πιάσουμε ψαλίδι ή πινέλο, κοιτάμε τρία πράγματα.',
+        'The length that balances the jawline, the line that opens up the eyes, the tone that warms the skin. Before we pick up scissors or brush, we look at three things.')}</p>
+      <ol class="analogies">{''.join(f'<li data-reveal><h3 class="ypotitlos">{E(h)}</h3><p>{E(x)}</p></li>' for h, x in analogies)}</ol>
     </div>
     <div class="idea-spira" data-spira>{spira_svg('spira-megali', gid='xg-idea')}</div>
-  </div>
-  <div class="wrap">
-    <ol class="analogies">
-      <li data-reveal><span class="an-ar">01</span><h3 class="ypotitlos">{t(c, 'Το πρόσωπο', 'Your face')}</h3><p>{t(c, 'Σχήμα, χαρακτηριστικά, η γραμμή του λαιμού. Από εκεί ξεκινούν το μήκος και ο όγκος.', 'Shape, features, the line of the neck. Length and volume start from there.')}</p></li>
-      <li data-reveal><span class="an-ar">02</span><h3 class="ypotitlos">{t(c, 'Η τρίχα', 'Your hair')}</h3><p>{t(c, 'Πάχος, πυκνότητα, φύτρα και ό,τι έχει περάσει από βαφές. Αυτά ορίζουν την τεχνική και το προϊόν.', 'Thickness, density, growth pattern and past colour. That decides the technique and the product.')}</p></li>
-      <li data-reveal><span class="an-ar">03</span><h3 class="ypotitlos">{t(c, 'Η μέρα σου', 'Your day')}</h3><p>{t(c, 'Πόσα λεπτά έχεις για styling και κάθε πότε μπορείς να περάσεις. Το κούρεμα προσαρμόζεται σε αυτά.', 'How many minutes you have for styling and how often you can drop by. The cut adapts to that.')}</p></li>
-    </ol>
   </div>
 </section>'''
     # πριν/μετά δίπλα σε κείμενο: γυναικείο → ανδρικό, εναλλάξ αριστερά-δεξιά
