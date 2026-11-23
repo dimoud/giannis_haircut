@@ -9,30 +9,33 @@
   var desktop = function () { return innerWidth > 734; };
   var skines = [];
 
-  /* ── μεταμόρφωση ── */
-  D.querySelectorAll('[data-metamorfosi]').forEach(function (sec) {
-    var zeygi = [].slice.call(sec.querySelectorAll('.met-zeygos')), ar = sec.querySelector('[data-met-ar]'), n = zeygi.length;
-    if (!n) return;
-    zeygi[0].classList.add('energo');
+  /* ── πριν / μετά δίπλα σε κείμενο: η λεπίδα ακολουθεί την κύλιση ──
+   * υπολογιστής: η σειρά είναι ψηλή και το περιεχόμενο καρφιτσωμένο· η πρόοδος της σειράς οδηγεί τη λεπίδα.
+   * κινητό: η λεπίδα κινείται όσο η φωτογραφία περνά από τη μέση της οθόνης. */
+  D.querySelectorAll('[data-al]').forEach(function (row) {
+    var pm = row.querySelector('.pm'), gr = row.querySelector('.al-grammi');
+    if (!pm) return;
+    if (!MESH) pm.style.setProperty('--p', '2');
     skines.push(function () {
-      if (!konta(sec)) return;
-      if (!desktop()) {
-        if (MESH) return;
-        // κινητό: κάθε ζεύγος αποκαλύπτεται όσο περνά από τη μέση της οθόνης
-        zeygi.forEach(function (z) {
-          var pm = z.querySelector('.pm'), r = pm.getBoundingClientRect(), k = (r.top + r.height / 2);
-          var t = cl((innerHeight * .82 - k) / (innerHeight * .5), 0, 1);
-          pm.style.setProperty('--p', (3 + 94 * eio(t)).toFixed(2));
-        });
-        return;
-      }
-      var p = proodos(sec), f = p * n, i = cl(Math.floor(f), 0, n - 1), loc = cl((f - i) * 1.18, 0, 1);
-      zeygi.forEach(function (z, k) {
-        z.classList.toggle('energo', k === i);
-        var v = k < i ? 100 : (k > i ? 0 : 3 + 94 * eio(loc));
-        z.querySelector('.pm').style.setProperty('--p', v.toFixed(2));
-      });
-      if (ar) ar.textContent = '0' + (i + 1);
+      if (MESH || !konta(row)) return;
+      var t;
+      if (desktop()) t = cl((proodos(row) - .08) / .72, 0, 1);
+      else { var r = pm.getBoundingClientRect(); t = cl((innerHeight * .85 - (r.top + r.height / 2)) / (innerHeight * .55), 0, 1); }
+      var v = 2 + 96 * eio(t);
+      pm.style.setProperty('--p', v.toFixed(2));
+      if (gr) gr.style.setProperty('--g', (v / 100).toFixed(3));
+      row.classList.toggle('al-meta-on', v > 60);
+    });
+  });
+
+  /* ── χρυσή σπείρα: σχεδιάζεται με την κύλιση ── */
+  D.querySelectorAll('[data-spira]').forEach(function (el) {
+    var d = el.querySelector('.spira-d');
+    if (MESH) { el.style.setProperty('--sp', '1'); return; }
+    skines.push(function () {
+      if (!konta(el)) return;
+      var r = el.getBoundingClientRect(), t = cl((innerHeight - r.top) / (innerHeight * .55 + r.height * .6), 0, 1);
+      el.style.setProperty('--sp', eio(t).toFixed(4));
     });
   });
 

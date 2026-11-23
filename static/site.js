@@ -29,7 +29,12 @@
       D.body.classList.toggle('bara-orati', y > Math.max(hh * 0.7, 300));
       if (topiki) topiki.classList.toggle('orati', y > hh - 80);
     }
-    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    var kefRaf = 0;
+    addEventListener('scroll', function () { if (!kefRaf) kefRaf = requestAnimationFrame(function () { kefRaf = 0; onScroll(); }); }, { passive: true }); onScroll();
+
+    /* χρυσή λάμψη: παίζει δύο φορές μόλις φανεί το στοιχείο (όχι συνεχώς) */
+    var lio = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('lampei'); lio.unobserve(e.target); } }); }, { threshold: .4 });
+    D.querySelectorAll('.titlos em, .dilosi em, .hero-t em, .titlos-sel em, .mega-ar, .g-ar, .an-ar, .al-ar, .melos-onoma').forEach(function (e) { lio.observe(e); });
 
     /* μενού κινητού: Χ, φόντο, Esc, σάρωση δεξιά */
     var hr = D.querySelector('.hero');
@@ -80,7 +85,7 @@
 
     /* λεπίδες πριν/μετά (εκτός της καρφιτσωμένης σκηνής, που την οδηγεί η κύλιση) */
     D.querySelectorAll('[data-pm]').forEach(function (pm) {
-      if (pm.closest('[data-metamorfosi]') && !(MESH && innerWidth <= 734)) return;
+      if (pm.closest('[data-al]') && !MESH) return;
       var rng = pm.querySelector('.pm-range');
       function set(v) { pm.style.setProperty('--p', v); }
       rng.addEventListener('input', function () { set(rng.value); });

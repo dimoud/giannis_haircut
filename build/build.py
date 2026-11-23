@@ -170,7 +170,7 @@ def kelyfos(c, path, titlos, perigrafi, soma, energo='', jsonld=None, sxima='sko
 <header class="kefalida" data-kefalida>
   <div class="wrap kefalida-in">
     <a class="logo" href="{u(c, '/')}" aria-label="{E(t(c, r['onoma'] + ', αρχική', 'Giannis Hair Salon, home'))}">
-      <span class="logo-g">{t(c, 'Γιάννης', 'Giannis')}</span><span class="logo-s">{E(L(c, r, 'ypotitlos'))}</span>
+      <span class="logo-g">{spira_svg('spira-logo', grammes=False, gid='xg-logo')}{t(c, 'Γιάννης', 'Giannis')}</span><span class="logo-s">{E(L(c, r, 'ypotitlos'))}</span>
     </a>
     <nav class="menou" aria-label="{t(c, 'Κύριο μενού', 'Main menu')}" id="menou">
       <ul>{nav}</ul>
@@ -268,7 +268,7 @@ def kartela_anartisis(c, a):
 
 def kleisimo(c, titlos=None):
     r = c.r
-    titlos = titlos or t(c, 'Η καρέκλα σου σε περιμένει.', 'Your chair is waiting.')
+    titlos = titlos or t(c, 'Κλείσε την ώρα σου.', 'Book your time.')
     maps = f'https://www.google.com/maps?q={r["lat"]},{r["lng"]}&z=17&output=embed&hl={c.lang}'
     return f'''<section class="enotita kleisimo" data-sxima="skoteino">
   <div class="wrap kleisimo-plegma">
@@ -347,6 +347,45 @@ def epafi(c, titlos=None, h='h2'):
   </div>
 </section>'''
 
+def _xrysi_spira():
+    """πλακόστρωση Fibonacci 89×55 με συνεχή χρυσή σπείρα (τόξα με κέντρο σε γωνία κάθε τετραγώνου)"""
+    fib = [1, 1]
+    while len(fib) < 10: fib.append(fib[-1] + fib[-2])
+    sq = [(0, 0, 1)]; mnx, mny, mxx, mxy = 0, 0, 1, 1
+    for k in range(1, 10):
+        sd, d = fib[k], 'RDLU'[(k - 1) % 4]
+        x, y = {'R': (mxx, mny), 'D': (mnx, mxy), 'L': (mnx - sd, mny), 'U': (mnx, mny - sd)}[d]
+        sq.append((x, y, sd)); mnx, mny, mxx, mxy = min(mnx, x), min(mny, y), max(mxx, x + sd), max(mxy, y + sd)
+    def gon(x, y, sd): return {(x, y), (x + sd, y), (x, y + sd), (x + sd, y + sd)}
+    for P0 in sorted(gon(*sq[0])):
+        for C0 in sorted(gon(*sq[0])):
+            if C0 == P0 or (C0[0] != P0[0] and C0[1] != P0[1]): continue
+            for Q0 in sorted(gon(*sq[0])):
+                if Q0 in (P0, C0) or (Q0[0] != C0[0] and Q0[1] != C0[1]): continue
+                ch, ok = [(P0, C0, Q0)], True
+                for (x, y, sd) in sq[1:]:
+                    _, Cp, P = ch[-1]
+                    ux, uy = Cp[0] - P[0], Cp[1] - P[1]; n = abs(ux) + abs(uy)
+                    C = (P[0] + ux / n * sd, P[1] + uy / n * sd); g = gon(x, y, sd)
+                    if P not in g or C not in g: ok = False; break
+                    ch.append((P, C, [q for q in g if q not in (P, C) and (q[0] == C[0] or q[1] == C[1])][0]))
+                if ok:
+                    k, ox, oy = 10, -mnx, -mny
+                    rects = ''.join(f'<rect x="{(x + ox) * k:g}" y="{(y + oy) * k:g}" width="{sd * k}" height="{sd * k}"/>' for x, y, sd in sq)
+                    d = f'M{(ch[0][0][0] + ox) * k:g} {(ch[0][0][1] + oy) * k:g}'
+                    for (P, C, Q), (x, y, sd) in zip(ch, sq):
+                        vx, vy, wx, wy = P[0] - C[0], P[1] - C[1], Q[0] - C[0], Q[1] - C[1]
+                        d += f' A{sd * k} {sd * k} 0 0 {1 if vx * wy - vy * wx > 0 else 0} {(Q[0] + ox) * k:g} {(Q[1] + oy) * k:g}'
+                    return (mxx - mnx) * k, (mxy - mny) * k, rects, d
+XS_W, XS_H, XS_RECTS, XS_D = _xrysi_spira()
+
+def spira_svg(cls='', grammes=True, gid='xg'):
+    return (f'<svg class="spira {cls}" viewBox="-6 -6 {XS_W + 12} {XS_H + 12}" aria-hidden="true" style="--xg:url(#{gid})">'
+            f'<defs><linearGradient id="{gid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9c7421"/><stop offset=".35" stop-color="#f5dc8a"/>'
+            '<stop offset=".55" stop-color="#c99a2e"/><stop offset=".75" stop-color="#fff3c4"/><stop offset="1" stop-color="#b8862a"/></linearGradient></defs>'
+            + (f'<g class="spira-tetr">{XS_RECTS}</g>' if grammes else '') +
+            f'<path class="spira-d" d="{XS_D}" pathLength="1"/></svg>')
+
 def sel_hero(c, etik, titlos, lead, extra=''):
     return f'''<section class="sel-hero" data-sxima="skoteino"><canvas class="toufes toufes-mikro" data-toufes data-mikro aria-hidden="true"></canvas>
 <div class="wrap"><p class="etiketa xoro">{E(etik)}</p><h1 class="titlos-sel xoro">{titlos}</h1>
@@ -363,11 +402,11 @@ def selida_arxiki(c):
   <div class="wrap hero-in">
     <p class="hero-onoma">{t(c, 'Κομμωτήριο Γιάννης · Πολίχνη Θεσσαλονίκης', 'Giannis Hair Salon · Polichni, Thessaloniki')}</p>
     <h1 id="hero-t" class="hero-t">{t(c,
-        '<span class="gr"><span>Χρώμα, κούρεμα</span></span><span class="gr"><span>και χτένισμα</span></span><span class="gr"><span><em>που σου ταιριάζει.</em></span></span>',
-        '<span class="gr"><span>Colour, cuts</span></span><span class="gr"><span>and styling</span></span><span class="gr"><span><em>made for you.</em></span></span>')}</h1>
+        '<span class="gr"><span>Κάθε πρόσωπο</span></span><span class="gr"><span>έχει τη δική του</span></span><span class="gr"><span><em>χρυσή τομή.</em></span></span>',
+        '<span class="gr"><span>Every face</span></span><span class="gr"><span>has its own</span></span><span class="gr"><span><em>golden ratio.</em></span></span>')}</h1>
     <p class="hero-lead">{t(c,
-        'Για άνδρες, γυναίκες και παιδιά, στη Μαυρομιχάλη 15 στην Πολίχνη. Κλείνεις ραντεβού online σε ένα λεπτό, με όποιον από τους τρεις κομμωτές μας θέλεις.',
-        'For men, women and children, at 15 Mavromichali St. in Polichni, Thessaloniki. Book online in a minute, with whichever of our three stylists you prefer.')}</p>
+        'Κούρεμα, χρώμα και χτένισμα για άνδρες, γυναίκες και παιδιά, στη Μαυρομιχάλη 15 στην Πολίχνη. Ραντεβού online σε ένα λεπτό.',
+        'Cuts, colour and styling for men, women and children at 15 Mavromichali St., Polichni, Thessaloniki. Book online in a minute.')}</p>
     {energeies(c, cls='hero-en')}
     <p class="hero-epomeno" data-epomeno-hero hidden></p>
   </div>
@@ -382,21 +421,61 @@ def selida_arxiki(c):
     <li data-reveal><span class="g-ar">{t(c, 'Όλοι', 'All')}</span><span class="g-t">{t(c, 'άνδρες, γυναίκες και παιδιά', 'men, women and children')}</span></li>
   </ul></div>
 </section>'''
-    zeygi = ''.join(f'''<div class="met-zeygos" data-met-i="{i}">
-      {sygkrisi(c, a, lazy=i > 0, sizes='(max-width: 734px) 100vw, 66vw')}
-      <figcaption class="met-lez"><span class="met-ar">0{i + 1}</span><span class="met-t">{E(L(c, a, 'titlos'))}</span>
-      <span class="met-yp">{E(L(c, c.ymap[a['ypiresia']][1], 'onoma'))} · {diarkeia_keimeno(c.ymap[a['ypiresia']][1]['tmimata'], c)}</span></figcaption>
-    </div>''' for i, a in enumerate(pms))
-    metamorfosi = f'''<section class="metamorfosi" data-metamorfosi data-sxima="skoteino" style="--n:{len(pms)}" aria-labelledby="met-t">
-  <div class="met-sticky">
-    <div class="wrap met-kefali">
-      {etiketa(t(c, 'Η μεταμόρφωση', 'The transformation'))}
-      <h2 id="met-t" class="titlos" data-reveal>{t(c, 'Πριν και μετά,<br class="d"> από την ίδια καρέκλα.', 'Before and after,<br class="d"> from the same chair.')}</h2>
-      <p class="met-odigia" data-reveal>{t(c, 'Κύλισε και η λεπίδα αποκαλύπτει το αποτέλεσμα.', 'Scroll and the blade reveals the result.')}</p>
-      <p class="met-proodos" aria-hidden="true"><span data-met-ar>01</span> / 0{len(pms)}</p>
+    idea = f'''<section class="enotita idea" data-sxima="skoteino" aria-labelledby="id-t">
+  <div class="wrap idea-plegma">
+    <div class="idea-keim">
+      {etiketa(t(c, 'Η ιδέα', 'The idea'))}
+      <h2 id="id-t" class="dilosi" data-reveal>{t(c, 'Ένα κούρεμα είναι<br class="d"> <em>θέμα αναλογίας.</em>', 'A haircut is<br class="d"> <em>a matter of proportion.</em>')}</h2>
+      <p class="hero-lead" data-reveal>{t(c,
+        'Το μήκος που ισορροπεί το σαγόνι, η γραμμή που ανοίγει το βλέμμα, ο τόνος που ζεσταίνει το δέρμα. Πριν πιάσουμε ψαλίδι ή πινέλο, κοιτάμε το πρόσωπο, πώς πέφτει η τρίχα και πόσο χρόνο έχεις το πρωί.',
+        'The length that balances the jawline, the line that opens up the eyes, the tone that warms the skin. Before we pick up scissors or brush, we look at your face, how your hair falls and how much time you have in the morning.')}</p>
+      <p class="idea-ypo" data-reveal>{t(c, 'Το αποτέλεσμα πρέπει να στέκει και την επόμενη εβδομάδα, όταν θα το φτιάξεις μόνος ή μόνη σου.', 'The result has to hold up next week too, when you style it yourself.')}</p>
     </div>
-    <div class="met-skini">{zeygi}</div>
+    <div class="idea-spira" data-spira>{spira_svg('spira-megali', gid='xg-idea')}</div>
   </div>
+  <div class="wrap">
+    <ol class="analogies">
+      <li data-reveal><span class="an-ar">01</span><h3 class="ypotitlos">{t(c, 'Το πρόσωπο', 'Your face')}</h3><p>{t(c, 'Σχήμα, χαρακτηριστικά, η γραμμή του λαιμού. Από εκεί ξεκινούν το μήκος και ο όγκος.', 'Shape, features, the line of the neck. Length and volume start from there.')}</p></li>
+      <li data-reveal><span class="an-ar">02</span><h3 class="ypotitlos">{t(c, 'Η τρίχα', 'Your hair')}</h3><p>{t(c, 'Πάχος, πυκνότητα, φύτρα και ό,τι έχει περάσει από βαφές. Αυτά ορίζουν την τεχνική και το προϊόν.', 'Thickness, density, growth pattern and past colour. That decides the technique and the product.')}</p></li>
+      <li data-reveal><span class="an-ar">03</span><h3 class="ypotitlos">{t(c, 'Η μέρα σου', 'Your day')}</h3><p>{t(c, 'Πόσα λεπτά έχεις για styling και κάθε πότε μπορείς να περάσεις. Το κούρεμα προσαρμόζεται σε αυτά.', 'How many minutes you have for styling and how often you can drop by. The cut adapts to that.')}</p></li>
+    </ol>
+  </div>
+</section>'''
+    # πριν/μετά δίπλα σε κείμενο: γυναικείο → ανδρικό, εναλλάξ αριστερά-δεξιά
+    keim_al = {
+        'balayage': (t(c, 'Γυναικείο · Χρώμα', 'Women · Colour'), t(c, 'Φως ζωγραφισμένο<br class="d"> με το χέρι.', 'Light painted<br class="d"> by hand.'),
+                     t(c, 'Το balayage απλώνεται με πινέλο, τούφα τούφα, εκεί όπου θα έπεφτε ο ήλιος. Η ρίζα μένει φυσική, οπότε μεγαλώνει χωρίς γραμμή και η επόμενη επίσκεψη μπορεί να περιμένει.',
+                       'Balayage is applied with a brush, section by section, where the sun would naturally catch. The roots stay natural, so they grow out without a line and your next visit can wait.')),
+        'entona': (t(c, 'Γυναικείο · Χρώμα', 'Women · Colour'), t(c, 'Από το ξεθωριασμένο<br class="d"> στο χάλκινο.', 'From faded<br class="d"> to copper.'),
+                   t(c, 'Όταν ένα χρώμα έχει ξεθωριάσει, πρώτα ισορροπούμε τη βάση και μετά χτίζουμε τον τόνο σε στρώσεις. Έτσι το χάλκινο μένει ζεστό και στο φως της μέρας, όχι μόνο κάτω από τα φώτα του κομμωτηρίου.',
+                     'When colour has faded, we first even out the base, then build the tone in layers. That way the copper stays warm in daylight too, not just under the salon lights.')),
+        'fade': (t(c, 'Ανδρικό · Κούρεμα', 'Men · Cut'), t(c, 'Fade που σβήνει<br class="d"> χωρίς σκαλοπάτι.', 'A fade with<br class="d"> no visible step.'),
+                 t(c, 'Η μηχανή ανεβαίνει σε διαβαθμίσεις, από το δέρμα ως το μήκος της κορυφής, και η μετάβαση δένει με ψαλίδι και χτένα. Στην κορυφή κρατάμε υφή, για να στέκει και με λίγο προϊόν.',
+                   'The clipper works up in grades from skin to the length on top, and the blend is finished with scissors and comb. We keep texture on top so it holds with very little product.')),
+    }
+    seira_al = sorted(pms, key=lambda a: ['balayage', 'entona', 'fade'].index(a['ypiresia']) if a['ypiresia'] in keim_al else 9)
+    def seira(i, a):
+        g, y = c.ymap[a['ypiresia']]
+        kat, tit, kei = keim_al.get(a['ypiresia'], (L(c, g, 'titlos'), E(L(c, a, 'titlos')), L(c, a, 'keimeno')))
+        return f'''<article class="al-seira{' al-antistrofi' if i % 2 else ''}" data-al>
+    <div class="al-sticky">
+      <div class="al-foto">{sygkrisi(c, a, lazy=i > 0, sizes='(max-width: 734px) 100vw, 58vw')}</div>
+      <div class="al-keim">
+        <p class="al-kat"><span class="al-ar">0{i + 1}</span>{E(kat)}</p>
+        <h3 class="al-t">{tit}</h3>
+        <p class="al-p">{E(kei)}</p>
+        <div class="al-grammi" aria-hidden="true"><span>{t(c, 'Πριν', 'Before')}</span><i></i><span>{t(c, 'Μετά', 'After')}</span></div>
+        <p class="al-meta">{E(L(c, y, 'onoma'))} · {t(c, 'περίπου', 'about')} {diarkeia_keimeno(y['tmimata'], c)}</p>
+        <a class="btn" href="{u(c, '/kratisi/?y=' + y['id'])}">{t(c, 'Κλείσε ραντεβού', 'Book this')}</a>
+      </div>
+    </div>
+  </article>'''
+    allages = f'''<section class="allages" data-sxima="skoteino" aria-labelledby="al-t">
+  <div class="wrap al-kef">
+    {etiketa(t(c, 'Πριν και μετά', 'Before and after'))}
+    <h2 id="al-t" class="dilosi" data-reveal>{t(c, 'Κύλισε αργά.<br class="d"> <em>Η αλλαγή γίνεται μπροστά σου.</em>', 'Scroll slowly.<br class="d"> <em>Watch the change happen.</em>')}</h2>
+  </div>
+  {''.join(seira(i, a) for i, a in enumerate(seira_al))}
 </section>'''
     panel = ''.join(f'''<article class="ror-panel" data-ror-panel>
       <div class="ror-keim">
@@ -516,7 +595,7 @@ def selida_arxiki(c):
     </div>
   </div>
 </section>'''
-    soma = hero + simantika + metamorfosi + ypiresies + paleta + douleies + empistosyni + omada + epafi(c)
+    soma = hero + simantika + idea + allages + ypiresies + paleta + douleies + empistosyni + omada + epafi(c)
     return kelyfos(c, '/', t(c, f"{r['onoma']} · Κομμωτήριο στην Πολίχνη Θεσσαλονίκης", 'Giannis Hair Salon · Hairdresser in Polichni, Thessaloniki'),
                    t(c, 'Κομμωτήριο στην Πολίχνη Θεσσαλονίκης για άνδρες, γυναίκες και παιδιά: κουρέματα, fade, βαφές, balayage, χτενίσματα, κερατίνη. Online ραντεβού.',
                      'Hair salon in Polichni, Thessaloniki, for men, women and children: cuts, fades, colour, balayage, styling, keratin. Book online.'),
@@ -642,7 +721,7 @@ def selida_douleies(c):
     r = c.r
     filtra = f'<button type="button" aria-pressed="true" data-filtro="ola">{t(c, "Όλες", "All")}</button>' + ''.join(
         f'<button type="button" aria-pressed="false" data-filtro="{g["id"]}">{E(L(c, g, "titlos"))}</button>' for g in c.yp['omades'])
-    soma = sel_hero(c, t(c, 'Δουλειές μας', 'Our work'), t(c, 'Από την καρέκλα μας.', 'From our chair.'),
+    soma = sel_hero(c, t(c, 'Δουλειές μας', 'Our work'), t(c, 'Η δουλειά μας,<br class="d"> πριν και μετά.', 'Our work,<br class="d"> before and after.'),
                     t(c, 'Κουρέματα, χρώματα και χτενίσματα από το κομμωτήριο. Πάτησε μια δουλειά για να τη δεις από κοντά.', 'Cuts, colour and styles from the salon. Tap any piece to see it up close.')) + f'''
 <section class="enotita" data-sxima="skoteino"><div class="wrap"><div class="filtra" role="group" aria-label="{t(c, 'Φίλτρο κατηγορίας', 'Filter by category')}" data-filtra>{filtra}</div>
 <div class="douleies-plegma" data-filtro-plegma>{''.join(kartela_anartisis(c, a) for a in c.anartiseis)}</div></div></section>

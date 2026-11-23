@@ -33,13 +33,13 @@
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       // τούφες: ομάδες 5–8 τριχών με κοινή ρίζα, φάση και κυματισμό
-      var K = mikro ? (mob ? 8 : 18) : (mob ? 13 : 36), ana = mob ? 5 : 7;
-      var x0 = mob ? -0.04 : (mikro ? 0.42 : 0.34), x1 = 1.04;
+      var K = mikro ? (mob ? 8 : 18) : (mob ? 13 : 52), ana = mob ? 5 : (mikro ? 7 : 8);
+      var x0 = mob ? -0.04 : (mikro ? 0.42 : 0.4), x1 = 1.05;
       strands = [];
       for (var c = 0; c < K; c++) {
         var u = (c + Math.random() * 0.6) / K, cx = W * (x0 + (x1 - x0) * u), ph = Math.random() * 6.28;
-        var Lc = H * (mikro ? 0.85 : 0.95) * (0.7 + Math.random() * 0.42), curl = (0.6 + Math.random() * 0.9) * (Math.random() < 0.5 ? -1 : 1);
-        var tone = Math.random() < 0.5 ? 0 : 1, wd = mob ? 22 : 34;
+        var Lc = H * (mikro ? 0.85 : (mob ? 0.95 : 1.12)) * ((mikro || mob ? 0.7 : 0.86) + Math.random() * 0.36), curl = (0.6 + Math.random() * 0.9) * (Math.random() < 0.5 ? -1 : 1);
+        var tone = Math.random() < 0.5 ? 0 : 1, wd = mob ? 22 : (mikro ? 34 : 46);
         for (var i = 0; i < ana; i++) {
           var ax = cx + (Math.random() - 0.5) * wd, ay = -24 - Math.random() * 12;
           var L = Lc * (0.86 + Math.random() * 0.2), seg = L / S, pts = [];
@@ -83,8 +83,9 @@
       }
     }
 
-    var BANDS = 6;
+    var BANDS = 6, GR = 1;
     function draw() {
+      GR = (!mikro && W >= 1069) ? 1.45 : 1;
       ctx.clearRect(0, 0, W, H);
       var edge = 1 - 0.78 * p;                     // όριο balayage κατά μήκος της τούφας
       var tip = tint ? mix(tint, HONEY, 0.55) : HONEY;
@@ -97,7 +98,7 @@
           if (tn) c = mix(c, [c[0] * 1.18, c[1] * 1.08, c[2] * 0.95], 0.7);
           if (tint && b < 2) c = mix(c, tint, 0.25);
           ctx.strokeStyle = rgb(c, front ? 0.95 : 0.55);
-          ctx.lineWidth = (front ? 2.6 : 1.5) * (1.15 - tb * 0.75);
+          ctx.lineWidth = (front ? 2.6 : 1.5) * GR * (1.15 - tb * 0.75);
           ctx.beginPath();
           var j0 = Math.floor(b * S / BANDS), j1 = Math.ceil((b + 1) * S / BANDS);
           for (var s = 0; s < strands.length; s++) {
@@ -159,7 +160,8 @@
     var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () {
       var r = cv.getBoundingClientRect(); if (Math.abs(r.width - W) > 40 || Math.abs(r.height - H) > 120) build();
     }, 180); });
-    addEventListener('scroll', onScroll, { passive: true });
+    var sRaf = 0;
+    addEventListener('scroll', function () { if (!sRaf) sRaf = requestAnimationFrame(function () { sRaf = 0; onScroll(); }); }, { passive: true });
     build(); onScroll(); if (MESH) draw();
   }
   function init() { document.querySelectorAll('canvas[data-toufes]').forEach(function (c) { try { Toufes(c); } catch (e) { console.warn('toufes', e); } }); }
