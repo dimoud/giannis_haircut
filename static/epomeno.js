@@ -7,7 +7,7 @@
   if (!stoxoi.length) return;
   var IM = T(['Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο'], ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']);
   function fortose(src) { return new Promise(function (ok, no) { if (src === 'diathesimotita.js' && window.Diathesimotita) return ok(); if (src === 'kratisi-api.js' && window.KratisiApi) return ok();
-    var s = D.createElement('script'); s.src = base + '/static/' + src; s.onload = ok; s.onerror = no; D.head.appendChild(s); }); }
+    var s = D.createElement('script'); s.src = base + '/static/' + src + ((window.SALON || {}).v ? '?v=' + window.SALON.v : ''); s.onload = ok; s.onerror = no; D.head.appendChild(s); }); }
   function mera(iso, tora) {
     if (iso === tora) return T('Σήμερα', 'Today');
     var p = iso.split('-'), d = new Date(+p[0], +p[1] - 1, +p[2]), t = tora.split('-'), td = new Date(+t[0], +t[1] - 1, +t[2]);

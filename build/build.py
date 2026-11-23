@@ -2,7 +2,7 @@
 """Γεννήτρια στατικού ιστότοπου «Κομμωτήριο Γιάννης».
 
     python3 build/build.py                      # → _site/  (τοπικά, βάση "/")
-    python3 build/build.py --base /giannis_haircut --tomeas https://dimoud.github.io/giannis_haircut
+    python3 build/build.py --base /giannis_haircut --tomeas https://expertease.eu/giannis_haircut
     python3 build/build.py --dedomena _dedomena  # περιεχόμενο από τον Πίνακα (Φύλλο), αλλιώς periexomeno/
 
 Μία πηγή για κεφαλίδα/μενού/υποσέλιδο (kelyfos). Όλες οι σελίδες είναι στατικές· μόνο η /kratisi/ μιλά με το API.
@@ -133,7 +133,7 @@ def kelyfos(c, path, titlos, perigrafi, soma, energo='', jsonld=None, sxima='sko
                     for f in (('noto-serif-display-latin-300-normal.woff2', 'noto-serif-display-latin-300-italic.woff2', 'manrope-latin-400-normal.woff2') if en else
                               ('noto-serif-display-greek-300-normal.woff2', 'noto-serif-display-greek-300-italic.woff2', 'manrope-greek-400-normal.woff2')))
     sc = ''.join(f'<script src="{u(c, "/static/" + s)}?v={c.ekdosi}" defer></script>' for s in scripts)
-    cfg = json.dumps({'base': c.base, 'lang': c.lang, 'api': r.get('api_url', ''), 'kleidi': r.get('api_kleidi', ''),
+    cfg = json.dumps({'base': c.base, 'lang': c.lang, 'v': c.ekdosi, 'api': r.get('api_url', ''), 'kleidi': r.get('api_kleidi', ''),
                       'tilefono': r['tilefono'], 'tel': r['tilefono_e164'], 'ga': r.get('ga_id', '')}, ensure_ascii=False)
     psixoula_html = ''
     if psixoula and len(psixoula) > 1:
@@ -912,7 +912,13 @@ def main():
     c.kritikes = [k for k in fortose('kritikes.json') if k.get('emfanisi', True)]
     c.base = a.base.rstrip('/')
     c.tomeas = (a.tomeas or (('https://' + c.r['tomeas']) if c.r.get('tomeas') else 'http://localhost:8000')).rstrip('/')
-    c.ekdosi = date.today().strftime('%Y%m%d')
+    if c.tomeas.startswith('http://') and 'localhost' not in c.tomeas: c.tomeas = 'https://' + c.tomeas[7:]   # το Pages δίνει http· σερβίρει https
+    # έκδοση αρχείων = αποτύπωμα περιεχομένου: κάθε αλλαγή σε CSS/JS παίρνει νέα διεύθυνση, άρα όχι παλιό CSS από την κρυφή μνήμη
+    import hashlib
+    hs = hashlib.sha1()
+    for f in sorted((RIZA / 'static').rglob('*')):
+        if f.is_file() and f.suffix in ('.css', '.js', '.json', '.svg'): hs.update(f.read_bytes())
+    c.ekdosi = hs.hexdigest()[:10]
     c.ymap = ypiresia_by_id(c)
     pr = RIZA / 'meson' / 'eikones' / 'prosorines.json'
     c.prosorines = json.loads(pr.read_text()) if pr.exists() else []
