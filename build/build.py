@@ -253,7 +253,7 @@ def energeies(c, kratisi='/kratisi/', keimeno=None, cls=''):
     r = c.r
     keimeno = keimeno or t(c, 'Κλείσε ραντεβού', 'Book now')
     return (f'<div class="energeies {cls}"><a class="btn" href="{u(c, kratisi)}">{E(keimeno)}</a>'
-            f'<a class="syndesmos" href="tel:{r["tilefono_e164"]}">{t(c, "Κάλεσε", "Call")} {E(r["tilefono"])} ›</a></div>')
+            f'<a class="btn btn-til" href="tel:{r["tilefono_e164"]}">{t(c, "Κάλεσε", "Call")} {E(r["tilefono"])}</a></div>')
 
 def etiketa(x):
     return f'<p class="etiketa" data-reveal>{E(x)}</p>'
