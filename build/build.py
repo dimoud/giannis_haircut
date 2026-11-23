@@ -477,7 +477,7 @@ def selida_arxiki(c):
         'entona': (t(c, 'Γυναικείο · Χρώμα', 'Women · Colour'), t(c, 'Από το ξεθωριασμένο<br class="d"> στο χάλκινο.', 'From faded<br class="d"> to copper.'),
                    t(c, 'Όταν ένα χρώμα έχει ξεθωριάσει, πρώτα ισορροπούμε τη βάση και μετά χτίζουμε τον τόνο σε στρώσεις. Έτσι το χάλκινο μένει ζεστό και στο φως της μέρας, όχι μόνο κάτω από τα φώτα του κομμωτηρίου.',
                      'When colour has faded, we first even out the base, then build the tone in layers. That way the copper stays warm in daylight too, not just under the salon lights.')),
-        'fade': (t(c, 'Ανδρικό · Κούρεμα', 'Men · Cut'), t(c, 'Fade που σβήνει<br class="d"> χωρίς σκαλοπάτι.', 'A fade with<br class="d"> no visible step.'),
+        'fade': (t(c, 'Ανδρικό · Fade', 'Men · Fade'), t(c, 'Ανδρικό κούρεμα', 'Men’s haircut'),
                  t(c, 'Η μηχανή ανεβαίνει σε διαβαθμίσεις, από το δέρμα ως το μήκος της κορυφής, και η μετάβαση δένει με ψαλίδι και χτένα. Στην κορυφή κρατάμε υφή, για να στέκει και με λίγο προϊόν.',
                    'The clipper works up in grades from skin to the length on top, and the blend is finished with scissors and comb. We keep texture on top so it holds with very little product.')),
     }

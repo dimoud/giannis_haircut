@@ -15,7 +15,7 @@
     var r = cv.getBoundingClientRect(); W = r.width; H = r.height;
     if (!W || !H) return;
     function dprFor(w) { return Math.min(window.devicePixelRatio || 1, w < 735 ? 1.25 : 1.5); }
-    var opt = { mikro: mikro, mesh: MESH, tint: tint };
+    var opt = { mikro: mikro, mesh: MESH, tint: tint, dokimi: /[?&]gl=1/.test(location.search) };
 
     var canWorker = !MESH && 'transferControlToOffscreen' in cv && typeof Worker !== 'undefined';
     if (canWorker) {
@@ -27,7 +27,7 @@
     }
     if (!worker) {
       if (!window.ToufesMixani) return;
-      eng = ToufesMixani(cv.getContext('2d'), opt); eng.build(W, H, dprFor(W));
+      eng = ToufesMixani(ToufesCtx(cv, opt.dokimi), opt); eng.build(W, H, dprFor(W));
     }
     function send(m) { if (worker) worker.postMessage(m); }
 

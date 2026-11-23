@@ -13,7 +13,7 @@ function loop(now) {
 self.onmessage = function (e) {
   var m = e.data;
   if (m.t === 'init') {
-    var ctx = m.canvas.getContext('2d');
+    var ctx = ToufesCtx(m.canvas, m.opt.dokimi);
     eng = ToufesMixani(ctx, m.opt); t0 = performance.now();
     eng.build(m.W, m.H, m.dpr);
   } else if (!eng) return;
