@@ -34,7 +34,7 @@
 
     /* χρυσή λάμψη: παίζει δύο φορές μόλις φανεί το στοιχείο (όχι συνεχώς) */
     var lio = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('lampei'); lio.unobserve(e.target); } }); }, { threshold: .4 });
-    D.querySelectorAll('.titlos em, .dilosi em, .hero-t em, .titlos-sel em, .mega-ar, .g-ar, .an-ar, .al-ar, .melos-onoma').forEach(function (e) { lio.observe(e); });
+    D.querySelectorAll('.hero-t em').forEach(function (e) { lio.observe(e); });
 
     /* μενού κινητού: Χ, φόντο, Esc, σάρωση δεξιά */
     var hr = D.querySelector('.hero');
@@ -83,25 +83,7 @@
       }
     }
 
-    /* λεπίδες πριν/μετά (εκτός της καρφιτσωμένης σκηνής, που την οδηγεί η κύλιση) */
-    D.querySelectorAll('[data-pm]').forEach(function (pm) {
-      if (pm.closest('[data-al]') && !MESH) return;
-      var rng = pm.querySelector('.pm-range');
-      function set(v) { pm.style.setProperty('--p', v); }
-      rng.addEventListener('input', function () { set(rng.value); });
-      if (MESH) return;
-      // είσοδος: σάρωση και κούμπωμα στο 50% με ελατήριο, μόλις φανεί
-      var o = new IntersectionObserver(function (en) {
-        if (!en[0].isIntersecting) return; o.disconnect();
-        var sp = Elatirio(0.55, 9, 70), t0 = performance.now(), from = 8, to = 50;
-        (function f(now) {
-          var k = Math.min(1, (now - t0) / sp.T), i = Math.min(sp.x.length - 1, Math.round(k * (sp.x.length - 1)));
-          var v = from + (to - from) * sp.x[i]; set(v.toFixed(2)); rng.value = v;
-          if (k < 1) requestAnimationFrame(f);
-        })(t0);
-      }, { threshold: 0.45 });
-      set(8); o.observe(pm);
-    });
+    /* οι λεπίδες πριν/μετά κινούνται μόνο με την κύλιση: skines.js */
 
     /* χάρτης μόνο με πάτημα */
     D.querySelectorAll('[data-xartis]').forEach(function (x) {
@@ -121,7 +103,7 @@
     });
 
     /* κινήσεις σε βρόχο: μόνο όταν φαίνονται */
-    D.querySelectorAll('[data-marquee], [data-kar], [data-paleta]').forEach(function (m) {
+    D.querySelectorAll('[data-marquee], [data-kar]').forEach(function (m) {
       new IntersectionObserver(function (en) { m.classList.toggle('orato', en[0].isIntersecting); }).observe(m);
     });
   });

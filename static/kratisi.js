@@ -208,14 +208,14 @@
     function telos(r) {
       var aitima = r.katastasi === 'Αίτημα', s = r.synopsi || {};
       rizaK.innerHTML = ''; synopsi.innerHTML = '';
-      var svg = '<svg viewBox="0 0 120 120" aria-hidden="true"><circle class="t-kyklos" cx="60" cy="60" r="54" fill="none" stroke="#9a4f2b" stroke-width="2"/>' +
+      var svg = '<svg viewBox="0 0 120 120" aria-hidden="true"><circle class="t-kyklos" cx="60" cy="60" r="54" fill="none" stroke="#7a5a12" stroke-width="2"/>' +
         '<path class="t-check" d="M38 62l15 15 30-34" fill="none" stroke="#14100b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>' +
-        '<path class="t-toufa" d="M86 18c-14 18 10 34-4 58s-30 22-34 40" fill="none" stroke="#b37351" stroke-width="1.5" stroke-linecap="round"/></svg>';
+        '<path class="t-toufa" d="M86 18c-14 18 10 34-4 58s-30 22-34 40" fill="none" stroke="#d9b44a" stroke-width="1.5" stroke-linecap="round"/></svg>';
       var link = pre + '/kratisi/allagi/?t=' + encodeURIComponent(r.token);
       rizaK.appendChild(h('div', { class: 'kr-telos' }, [h('div', { html: svg }),
         h('h2', { text: aitima ? T('Λάβαμε το αίτημά σου.', 'Request received.') : T('Κλείστηκε!', 'You are booked!') }),
         h('p', { text: aitima ? T('Θα σε καλέσουμε ή θα σου στείλουμε email για να επιβεβαιώσουμε την ώρα.', 'We will call or email you to confirm the time.') : T('Σου στείλαμε email επιβεβαίωσης. Θα λάβεις και υπενθύμιση μία μέρα πριν.', 'We have emailed your confirmation. You will also get a reminder the day before.') }),
-        h('p', { html: '<strong>' + meraPlires(s.imerominia) + ', ' + s.ora + '</strong>' + (s.kommotis ? T(' με ', ' with ') + s.kommotis : '') + '<br>' + (s.ypiresies || []).join(' + ') }),
+        h('p', { html: '<strong>' + meraPlires(s.imerominia) + ', ' + s.ora + '</strong>' + (s.kommotis ? ' ' + ((kat.kommotes.filter(function (x) { return x.onoma === s.kommotis; })[0] || {}).me || T('με ', 'with ') + s.kommotis) : '') + '<br>' + (s.ypiresies || []).join(' + ') }),
         h('div', { class: 'energeies' }, [h('a', { class: 'btn', href: ics(s), download: 'rantevou-giannis.ics', text: T('Προσθήκη στο ημερολόγιο', 'Add to calendar') }), h('a', { class: 'syndesmos', href: link, text: T('Αλλαγή ή ακύρωση ›', 'Change or cancel ›') })]),
         KratisiApi.epideixi ? h('p', { class: 'kr-epideixi', text: T('Επίδειξη: η κράτηση έμεινε μόνο σε αυτόν τον περιηγητή.', 'Demo: this booking only exists in this browser.') }) : null]));
       rizaK.scrollIntoView({ behavior: 'smooth', block: 'start' });

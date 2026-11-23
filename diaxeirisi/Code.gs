@@ -44,7 +44,7 @@ function arxikopoiisi() {
     if (sh.getLastRow() === 0) { sh.appendRow(KARTELES[n]); sh.setFrozenRows(1); sh.getRange(1, 1, 1, KARTELES[n].length).setFontWeight('bold'); }
   });
   // αρχικά δεδομένα (μόνο αν οι καρτέλες είναι άδειες)
-  var kom = [['giannis', 'Γιάννης', 'Χρώμα, κουρέματα, χτενίσματα', '#b37351'], ['panagiotis', 'Παναγιώτης', 'Ανδρικά κουρέματα, fade, χρώμα', '#8f9a6b'], ['kommotis3', 'Τρίτο μέλος', 'Κουρέματα, χτενίσματα, θεραπείες', '#a8879c']];
+  var kom = [['giannis', 'Γιάννης', 'Χρώμα, κουρέματα, χτενίσματα', '#b8912e'], ['panagiotis', 'Παναγιώτης', 'Ανδρικά κουρέματα, fade, χρώμα', '#8f9a6b'], ['kommotis3', 'Τρίτο μέλος', 'Κουρέματα, χτενίσματα, θεραπείες', '#a8879c']];
   var shK = ss.getSheetByName('Κομμωτές');
   if (shK.getLastRow() === 1) kom.forEach(function (k, i) {
     var cal = CalendarApp.createCalendar('Ραντεβού · ' + k[1], { timeZone: ZONI, color: CalendarApp.Color.BROWN });

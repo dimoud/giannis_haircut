@@ -230,13 +230,12 @@ def etiketa(x):
 def sygkrisi(c, a, lazy=True, sizes='(max-width: 734px) 92vw, 46vw'):
     """λεπίδα «Πριν | Μετά»: αριστερά το μετά, δεξιά το πριν· σύρσιμο και πληκτρολόγιο"""
     tl = L(c, a, 'titlos')
-    return f'''<figure class="pm" data-pm style="--p:50">
+    return f'''<figure class="pm" data-pm style="--p:2">
   <div class="pm-fotos">
     {eikona(c, a['prin'], t(c, 'Πριν: ', 'Before: ') + tl, 'pm-prin', sizes=sizes, lazy=lazy)}
     <div class="pm-meta-wrap">{eikona(c, a['meta'], t(c, 'Μετά: ', 'After: ') + tl, 'pm-meta', sizes=sizes, lazy=lazy)}</div>
     <span class="pm-lbl pm-lbl-a">{t(c, 'Πριν', 'Before')}</span><span class="pm-lbl pm-lbl-b">{t(c, 'Μετά', 'After')}</span>
-    <div class="pm-lepida" aria-hidden="true"><span></span></div>
-    <input class="pm-range" type="range" min="0" max="100" value="50" aria-label="{E(t(c, 'Σύγκριση πριν και μετά: ', 'Before and after comparison: ') + tl)}">
+    <div class="pm-lepida" aria-hidden="true"></div>
   </div>
 </figure>'''
 
@@ -332,7 +331,7 @@ def epafi(c, titlos=None, h='h2'):
     return f'''<section class="enotita epafi" data-sxima="skoteino" aria-labelledby="ep-t" id="epikoinonia">
   <div class="wrap">
     {etiketa(t(c, 'Επικοινωνία', 'Contact'))}
-    <{h} id="ep-t" class="titlos" data-reveal>{titlos}</{h}>
+    <{h} id="ep-t" class="dilosi" data-reveal>{titlos}</{h}>
     <div class="epafi-plegma">
       <div class="epafi-forma" data-reveal>{forma(c)}</div>
       <div class="epafi-plirof" data-reveal>
@@ -459,12 +458,11 @@ def selida_arxiki(c):
         kat, tit, kei = keim_al.get(a['ypiresia'], (L(c, g, 'titlos'), E(L(c, a, 'titlos')), L(c, a, 'keimeno')))
         return f'''<article class="al-seira{' al-antistrofi' if i % 2 else ''}" data-al>
     <div class="al-sticky">
-      <div class="al-foto">{sygkrisi(c, a, lazy=i > 0, sizes='(max-width: 734px) 100vw, 58vw')}</div>
+      <div class="al-foto">{sygkrisi(c, a, lazy=True, sizes='(max-width: 1068px) 100vw, 64vw')}</div>
       <div class="al-keim">
         <p class="al-kat"><span class="al-ar">0{i + 1}</span>{E(kat)}</p>
         <h3 class="al-t">{tit}</h3>
         <p class="al-p">{E(kei)}</p>
-        <div class="al-grammi" aria-hidden="true"><span>{t(c, 'Πριν', 'Before')}</span><i></i><span>{t(c, 'Μετά', 'After')}</span></div>
         <p class="al-meta">{E(L(c, y, 'onoma'))} · {t(c, 'περίπου', 'about')} {diarkeia_keimeno(y['tmimata'], c)}</p>
         <a class="btn" href="{u(c, '/kratisi/?y=' + y['id'])}">{t(c, 'Κλείσε ραντεβού', 'Book this')}</a>
       </div>
@@ -477,25 +475,21 @@ def selida_arxiki(c):
   </div>
   {''.join(seira(i, a) for i, a in enumerate(seira_al))}
 </section>'''
-    panel = ''.join(f'''<article class="ror-panel" data-ror-panel>
-      <div class="ror-keim">
-        <span class="ror-ar">0{i + 1}</span>
-        <h3 class="ror-t">{E(L(c, g, 'titlos'))}</h3>
-        <p class="ror-lead">{E(L(c, g, 'lead'))}</p>
-        <ul class="tsips">{''.join(f'<li>{E(x)}</li>' for x in L(c, g, 'texnikes'))}</ul>
+    kartes = ''.join(f'''<article class="kf-karta" data-reveal>
+      <a class="kf-foto" href="{u(c, '/ypiresies/' + g['slug'] + '/')}" tabindex="-1" aria-hidden="true">{eikona(c, g['foto'], L(c, g, 'titlos_plires'), 'kf-img', sizes='(max-width: 734px) 100vw, 44vw', vt='yp-' + g['id'])}</a>
+      <div class="kf-keim">
+        <p class="kf-kat"><span class="kf-ar">0{i + 1}</span>{E(L(c, g, 'titlos'))}</p>
+        <h3 class="kf-t"><a href="{u(c, '/ypiresies/' + g['slug'] + '/')}">{E(L(c, g, 'titlos_plires'))}</a></h3>
+        <p class="kf-lead">{E(L(c, g, 'lead'))}</p>
         <div class="energeies"><a class="btn" href="{u(c, '/kratisi/?omada=' + g['id'])}">{t(c, 'Κλείσε ραντεβού', 'Book now')}</a>
         <a class="syndesmos" href="{u(c, '/ypiresies/' + g['slug'] + '/')}">{t(c, 'Δες την υπηρεσία ›', 'See the service ›')}</a></div>
       </div>
-      <a class="ror-foto" href="{u(c, '/ypiresies/' + g['slug'] + '/')}" tabindex="-1" aria-hidden="true">{eikona(c, g['foto'], L(c, g, 'titlos_plires'), 'ror-img', sizes='(max-width: 734px) 80vw, 34vw', vt='yp-' + g['id'])}</a>
     </article>''' for i, g in enumerate(c.yp['omades']))
-    ypiresies = f'''<section class="ror" data-ror data-sxima="fotino" aria-labelledby="ror-t">
-  <div class="ror-sticky">
-    <div class="wrap ror-kefali">
-      {etiketa(t(c, 'Υπηρεσίες', 'Services'))}
-      <h2 id="ror-t" class="titlos" data-reveal>{t(c, 'Τέσσερα κεφάλαια, από το ψαλίδι ως τη θεραπεία.', 'Four chapters, from the scissors to the treatment.')}</h2>
-    </div>
-    <div class="ror-track" data-ror-track>{panel}</div>
-    <div class="ror-bara" aria-hidden="true"><span data-ror-bara></span></div>
+    ypiresies = f'''<section class="enotita kefalaia" data-sxima="skoteino" aria-labelledby="kf-t">
+  <div class="wrap">
+    {etiketa(t(c, 'Υπηρεσίες', 'Services'))}
+    <h2 id="kf-t" class="dilosi" data-reveal>{t(c, 'Τέσσερα κεφάλαια,<br class="d"> <em>από το ψαλίδι ως τη θεραπεία.</em>', 'Four chapters,<br class="d"> <em>from scissors to treatment.</em>')}</h2>
+    <div class="kf-plegma">{kartes}</div>
   </div>
 </section>'''
     paleta_xr = [(t(c, 'Φυσικό καστανό', 'Natural brown'), '#4a2e1f'), ('Carrot red', '#c4501e'), (t(c, 'Μωβ', 'Purple'), '#5b2a6e'),
@@ -521,8 +515,8 @@ def selida_arxiki(c):
     douleies = f'''<section class="enotita douleies-en" data-sxima="skoteino" aria-labelledby="dl-t">
   <div class="wrap">
     {etiketa(t(c, 'Δουλειές μας', 'Our work'))}
-    <h2 id="dl-t" class="titlos" data-reveal>{t(c, 'Οι τελευταίες<br class="d"> δουλειές μας.', 'Our latest<br class="d"> work.')}</h2>
-    <div class="parallaxi" data-parallaxi>{''.join(f'<div class="par-stili" data-par="{f}">{"".join(s)}</div>' for s, f in zip(st, (0, -0.12, 0.07)))}</div>
+    <h2 id="dl-t" class="dilosi" data-reveal>{t(c, 'Οι τελευταίες<br class="d"> <em>δουλειές μας.</em>', 'Our latest<br class="d"> <em>work.</em>')}</h2>
+    <div class="douleies-plegma dl-arxiki">{''.join(kartela_anartisis(c, a) for a in c.anartiseis[:6])}</div>
     <div class="energeies"><a class="btn" href="{u(c, '/douleies/')}">{t(c, 'Όλες οι δουλειές', 'All our work')}</a><a class="syndesmos" href="{r['instagram']}" rel="noopener" target="_blank">Instagram {E(r['instagram_onoma'])} ›</a></div>
   </div>
 </section>'''
@@ -578,11 +572,13 @@ def selida_arxiki(c):
     vath = r['vathmologia'] if c.lang == 'el' else r['vathmologia'].replace(',', '.')
     empistosyni = f'''<section class="enotita empistosyni" data-sxima="skoteino" aria-labelledby="em-t">
   <div class="wrap">
-    {etiketa(t(c, 'Τι λένε οι πελάτες', 'What clients say'))}
-    <h2 id="em-t" class="titlos" data-reveal><span class="mega-ar">{E(vath)}</span> {t(c, f"στα 5,<br class='d'> από {r['kritikes_plithos']} κριτικές στο Google.", f"out of 5,<br class='d'> from {r['kritikes_plithos']} Google reviews.")}</h2>
-    {kritikes_html}
-    <div class="energeies" data-reveal><a class="syndesmos" href="{r['google_profil']}" rel="noopener" target="_blank">{t(c, 'Διάβασε όλες τις κριτικές στο Google ›', 'Read all reviews on Google ›')}</a></div>
+    <div class="kr-kef" data-reveal>
+      <h2 id="em-t" class="kr-titlos"><span class="kr-g">Google</span><span class="kr-ast" aria-hidden="true">★★★★★</span>
+        <span class="kr-v">{E(vath)}/5 · {t(c, f"{r['kritikes_plithos']} κριτικές", f"{r['kritikes_plithos']} reviews")}</span></h2>
+      <a class="syndesmos" href="{r['google_profil']}" rel="noopener" target="_blank">{t(c, 'Όλες οι κριτικές στο Google ›', 'All reviews on Google ›')}</a>
+    </div>
   </div>
+  {kritikes_html}
   <div class="marquee" data-marquee role="group" aria-label="{t(c, 'Προϊόντα που χρησιμοποιούμε', 'Products we use')}"><div class="marquee-track">
     {''.join(f'<span>{E(p)}</span>' for p in r['proionta'])}{''.join(f'<span aria-hidden="true">{E(p)}</span>' for p in r['proionta'] * 3)}
   </div></div>
@@ -595,11 +591,11 @@ def selida_arxiki(c):
     </div>
   </div>
 </section>'''
-    soma = hero + simantika + idea + allages + ypiresies + paleta + douleies + empistosyni + omada + epafi(c)
+    soma = hero + simantika + idea + allages + ypiresies + douleies + empistosyni + omada + epafi(c)
     return kelyfos(c, '/', t(c, f"{r['onoma']} · Κομμωτήριο στην Πολίχνη Θεσσαλονίκης", 'Giannis Hair Salon · Hairdresser in Polichni, Thessaloniki'),
                    t(c, 'Κομμωτήριο στην Πολίχνη Θεσσαλονίκης για άνδρες, γυναίκες και παιδιά: κουρέματα, fade, βαφές, balayage, χτενίσματα, κερατίνη. Online ραντεβού.',
                      'Hair salon in Polichni, Thessaloniki, for men, women and children: cuts, fades, colour, balayage, styling, keratin. Book online.'),
-                   soma, scripts=('toufes.js', 'skines.js', 'epomeno.js', 'forma.js'))
+                   soma, scripts=('toufes-mixani.js', 'toufes.js', 'skines.js', 'epomeno.js', 'forma.js'))
 
 def melos(c, k, megalo=False):
     on = L(c, k, 'onoma')
@@ -668,7 +664,7 @@ def selida_omadas_ypiresion(c, g):
           {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
               {'@type': 'Question', 'name': f['q'], 'acceptedAnswer': {'@type': 'Answer', 'text': f['a']}} for f in L(c, g, 'faq')]}]
     return path, kelyfos(c, path, t(c, f"{titl} στην Πολίχνη | {r['onoma']}", f"{titl} in Polichni, Thessaloniki | Giannis Hair Salon"), L(c, g, 'lead'), soma, 'ypiresies', ld,
-                         scripts=('toufes.js', 'skines.js', 'epomeno.js'), og_eikona=g['foto'],
+                         scripts=('toufes-mixani.js', 'toufes.js', 'skines.js', 'epomeno.js'), og_eikona=g['foto'],
                          psixoula=[(t(c, 'Αρχική', 'Home'), '/'), (t(c, 'Υπηρεσίες', 'Services'), '/ypiresies/'), (titl, path)])
 
 def selida_ypiresies(c):
@@ -693,7 +689,7 @@ def selida_ypiresies(c):
     return kelyfos(c, '/ypiresies/', t(c, f"Υπηρεσίες κομμωτηρίου στην Πολίχνη | {r['onoma']}", 'Hair salon services in Polichni, Thessaloniki | Giannis Hair Salon'),
                    t(c, 'Κουρέματα, fade, βαφές, balayage, ombré, χτενίσματα, νυφικό, κερατίνη και Olaplex στην Πολίχνη Θεσσαλονίκης.',
                      'Cuts, fades, colour, balayage, ombré, styling, bridal hair, keratin and Olaplex in Polichni, Thessaloniki.'),
-                   soma, 'ypiresies', scripts=('toufes.js', 'skines.js', 'epomeno.js'),
+                   soma, 'ypiresies', scripts=('toufes-mixani.js', 'toufes.js', 'skines.js', 'epomeno.js'),
                    psixoula=[(t(c, 'Αρχική', 'Home'), '/'), (t(c, 'Υπηρεσίες', 'Services'), '/ypiresies/')])
 
 def selida_nyfiko(c):
@@ -714,7 +710,7 @@ def selida_nyfiko(c):
     return kelyfos(c, '/nyfiko-xtenisma/', t(c, f"Νυφικό χτένισμα στη Θεσσαλονίκη (Πολίχνη) | {r['onoma']}", 'Bridal hair in Thessaloniki (Polichni) | Giannis Hair Salon'),
                    t(c, 'Νυφικό χτένισμα με δοκιμή στην Πολίχνη Θεσσαλονίκης. Στείλε αίτημα ημερομηνίας online.', 'Bridal hair with a trial in Polichni, Thessaloniki. Request your date online.'), soma, 'ypiresies',
                    [{'@context': 'https://schema.org', '@type': 'Service', 'name': t(c, 'Νυφικό χτένισμα', 'Bridal hair'), 'provider': {'@id': c.tomeas + '/#salon'}}],
-                   scripts=('toufes.js', 'skines.js', 'epomeno.js'), og_eikona='yp-xtenisma',
+                   scripts=('toufes-mixani.js', 'toufes.js', 'skines.js', 'epomeno.js'), og_eikona='yp-xtenisma',
                    psixoula=[(t(c, 'Αρχική', 'Home'), '/'), (t(c, 'Υπηρεσίες', 'Services'), '/ypiresies/'), (t(c, 'Νυφικό χτένισμα', 'Bridal hair'), '/nyfiko-xtenisma/')])
 
 def selida_douleies(c):
@@ -728,7 +724,7 @@ def selida_douleies(c):
 {kleisimo(c)}'''
     return kelyfos(c, '/douleies/', t(c, f"Δουλειές μας: κουρέματα, βαφές, χτενίσματα | {r['onoma']}", 'Our work: cuts, colour, styling | Giannis Hair Salon'),
                    t(c, 'Πριν και μετά από το κομμωτήριο στην Πολίχνη: balayage, fade, χάλκινα χρώματα, βραδινά χτενίσματα.', 'Before and after from our salon in Polichni: balayage, fades, copper shades, evening styles.'), soma, 'douleies',
-                   scripts=('toufes.js', 'skines.js', 'epomeno.js'), psixoula=[(t(c, 'Αρχική', 'Home'), '/'), (t(c, 'Δουλειές μας', 'Our work'), '/douleies/')])
+                   scripts=('toufes-mixani.js', 'toufes.js', 'skines.js', 'epomeno.js'), psixoula=[(t(c, 'Αρχική', 'Home'), '/'), (t(c, 'Δουλειές μας', 'Our work'), '/douleies/')])
 
 def selida_anartisi(c, a):
     r = c.r
@@ -759,7 +755,7 @@ def selida_omada(c):
 {kleisimo(c)}'''
     return kelyfos(c, '/omada/', t(c, f"Η ομάδα μας | {r['onoma']}", 'Our team | Giannis Hair Salon'),
                    t(c, 'Οι κομμωτές του Κομμωτηρίου Γιάννης στην Πολίχνη. Κλείσε ραντεβού με όποιον θέλεις.', 'The stylists of Giannis Hair Salon in Polichni. Book with the one you like.'),
-                   soma, 'omada', scripts=('toufes.js', 'skines.js', 'epomeno.js'), psixoula=[(t(c, 'Αρχική', 'Home'), '/'), (t(c, 'Ομάδα', 'Team'), '/omada/')])
+                   soma, 'omada', scripts=('toufes-mixani.js', 'toufes.js', 'skines.js', 'epomeno.js'), psixoula=[(t(c, 'Αρχική', 'Home'), '/'), (t(c, 'Ομάδα', 'Team'), '/omada/')])
 
 def katalogos(c):
     r = c.r
@@ -815,7 +811,7 @@ def selida_epikoinonia(c):
     return kelyfos(c, '/epikoinonia/', t(c, f"Επικοινωνία, ωράριο, χάρτης | {r['onoma']}", 'Contact, opening hours, map | Giannis Hair Salon'),
                    t(c, f"Κομμωτήριο Γιάννης, {r['odos']}, {r['perioxi']}. Τηλέφωνο {r['tilefono']}. Τρίτη–Παρασκευή 09:00–21:00, Σάββατο 09:00–17:00.",
                      f"Giannis Hair Salon, {r['odos_en']}, {r['perioxi_en']}. Phone {r['tilefono']}. Tuesday–Friday 09:00–21:00, Saturday 09:00–17:00."),
-                   soma, 'epikoinonia', scripts=('toufes.js', 'skines.js', 'epomeno.js', 'forma.js'),
+                   soma, 'epikoinonia', scripts=('toufes-mixani.js', 'toufes.js', 'skines.js', 'epomeno.js', 'forma.js'),
                    psixoula=[(t(c, 'Αρχική', 'Home'), '/'), (t(c, 'Επικοινωνία', 'Contact'), '/epikoinonia/')])
 
 def selida_keimenou(c, path, titlos, perigrafi, enotites):
@@ -878,7 +874,7 @@ def selida_404(c):
     soma = sel_hero(c, '404', t(c, 'Αυτή η σελίδα<br class="d"> πήγε για κούρεμα.', 'This page<br class="d"> went for a haircut.'),
                     t(c, 'Δεν τη βρήκαμε. Δοκίμασε την αρχική ή κλείσε απευθείας ραντεβού.', 'We could not find it. Try the home page or book directly.'),
                     f'<div class="energeies"><a class="btn" href="{u(c, "/kratisi/")}">{t(c, "Κλείσε ραντεβού", "Book now")}</a><a class="syndesmos" href="{u(c, "/")}">{t(c, "Αρχική ›", "Home ›")}</a></div>')
-    return kelyfos(c, '/404.html', t(c, 'Η σελίδα δεν βρέθηκε | Κομμωτήριο Γιάννης', 'Page not found | Giannis Hair Salon'), t(c, 'Η σελίδα δεν βρέθηκε.', 'Page not found.'), soma, scripts=('toufes.js',))
+    return kelyfos(c, '/404.html', t(c, 'Η σελίδα δεν βρέθηκε | Κομμωτήριο Γιάννης', 'Page not found | Giannis Hair Salon'), t(c, 'Η σελίδα δεν βρέθηκε.', 'Page not found.'), soma, scripts=('toufes-mixani.js', 'toufes.js'))
 
 # ───────────────────────── κύρια ροή ─────────────────────────
 

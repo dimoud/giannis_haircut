@@ -18,6 +18,10 @@
   var egine = false;
   function trexe() {
     if (egine) return; egine = true;
+    // σε αδρανή χρόνο: δεν συναντά ποτέ την πρώτη κύλιση ή το πρώτο πάτημα
+    (window.requestIdleCallback || function (f) { setTimeout(f, 600); })(fere, { timeout: 2500 });
+  }
+  function fere() {
     var timeout = new Promise(function (ok) { setTimeout(function () { ok(null); }, 4000); });
     Promise.race([fortose('diathesimotita.js').then(function () { return fortose('kratisi-api.js'); }).then(function () { return KratisiApi.epomeno(); }), timeout])
       .then(function (r) {
