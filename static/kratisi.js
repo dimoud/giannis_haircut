@@ -131,9 +131,8 @@
             btn.disabled = !st.ypiresies.length; st.ora = null; zografiseSynopsi();
             track('kratisi_ypiresia', { ypiresia: y.id });
           };
-          var dur = Diathesimotita.synoliki(Diathesimotita.tmimata(y.tmimata));
           lista.appendChild(h('label', { class: 'kr-yp' }, [cb, h('span', { class: 'kr-yp-on', text: y.onoma }),
-            h('span', { class: 'kr-yp-di', text: '≈ ' + diarkeia(dur) + (y.online === 'aitima' ? T(' · αίτημα', ' · on request') : '') + (y.timi ? T(' · από ', ' · from ') + y.timi + ' €' : '') })]));
+            h('span', { class: 'kr-yp-di', text: [y.online === 'aitima' ? T('με αίτημα', 'on request') : '', y.timi ? T('από ', 'from ') + y.timi + ' €' : ''].filter(String).join(' · ') })]));
         });
         sk.appendChild(h('div', { class: 'kr-omada' }, [t, lista]));
       });
@@ -155,7 +154,7 @@
     }
     function vima3(sk) {
       sk.appendChild(h('h2', { class: 'kr-bima-t', text: T('Πότε;', 'When?') }));
-      sk.appendChild(h('p', { class: 'kr-bima-ypo', text: T('Διάρκεια περίπου ', 'About ') + diarkeia(synolo(kat, st.ypiresies)) + T('. Δείχνουμε μόνο ώρες που χωρά ολόκληρο το ραντεβού.', '. We only show times when the whole appointment fits.') }));
+      sk.appendChild(h('p', { class: 'kr-bima-ypo', text: T('Δείχνουμε μόνο ώρες που χωρά ολόκληρο το ραντεβού.', 'We only show times when the whole appointment fits.') }));
       var btn;
       sk.appendChild(epilogiOras(kat, st.ypiresies, st.kommotis || 'any', st.ora || st.arxiki, function (w) { st.ora = w; if (w) st.arxiki = null; btn.disabled = !w; zografiseSynopsi(); if (w) track('kratisi_ora'); }));
       btn = plo(sk, function () { st.vima = 4; zografise(); }, null, !!st.ora);
@@ -234,7 +233,6 @@
       var dl = h('dl');
       function g(t, v) { dl.appendChild(h('dt', { text: t })); dl.appendChild(h('dd', { text: v })); }
       g(T('Υπηρεσίες', 'Services'), st.ypiresies.map(function (i) { return m[i].onoma; }).join(' + '));
-      g(T('Διάρκεια', 'Duration'), T('περίπου ', 'about ') + diarkeia(synolo(kat, st.ypiresies)));
       if (st.kommotis) g(T('Κομμωτής', 'Stylist'), st.kommotis === 'any' ? (st.ora && kom[st.ora.kommotis] ? kom[st.ora.kommotis].onoma + T(' (πρώτος διαθέσιμος)', ' (first available)') : T('Οποιοσδήποτε', 'Anyone')) : kom[st.kommotis].onoma);
       if (st.ora) g(T('Πότε', 'When'), meraPlires(st.ora.imerominia) + ', ' + st.ora.ora);
       synopsi.appendChild(h('h2', { text: T('Το ραντεβού σου', 'Your appointment') })); synopsi.appendChild(dl);

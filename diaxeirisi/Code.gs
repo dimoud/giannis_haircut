@@ -199,6 +199,7 @@ function doPost(e) {
     if (d.f === 'allagi') return json(allagiPelati(d.t, d.imerominia, d.ora));
     if (d.f === 'akyrosi') return json(akyrosiPelati(d.t));
     if (d.f === 'minima') return json(neoMinima(d));
+    if (d.f === 'p') return json(pinakasApo(d));
     return json({ ok: false, minima: 'Άγνωστη κλήση.' });
   } catch (err) { console.error(err); return json({ ok: false, minima: 'Σφάλμα διακομιστή. Κάλεσέ μας στο τηλέφωνο.' }); }
 }
@@ -344,7 +345,7 @@ function imerominiaWra(imer, ora) { return Utilities.parseDate(imer + ' ' + ora,
 /* ───────────────────────── email ───────────────────────── */
 var IMERES = ['Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο'];
 function meraPlires(imer) { var d = imerominiaWra(imer, '12:00'); return IMERES[+Utilities.formatDate(d, ZONI, 'u') % 7] + ' ' + Utilities.formatDate(d, ZONI, 'd/M/yyyy'); }
-function istotopos() { return props().getProperty('ISTOTOPOS') || 'https://dimoud.github.io/giannis_haircut'; }
+function istotopos() { return props().getProperty('ISTOTOPOS') || 'https://expertease.eu/giannis_haircut'; }
 function protypo(titlos, soma, en) {
   return '<div style="background:#f1ece2;padding:32px 16px;font-family:Arial,Helvetica,sans-serif;color:#14100b">' +
     '<div style="max-width:520px;margin:0 auto;background:#fff;border-radius:18px;overflow:hidden">' +
@@ -446,10 +447,60 @@ function rolos_(t, apaitei) {
   return s.rolos;
 }
 
+/* ───────────────────────── Πίνακας μέσα στην ιστοσελίδα (/diaxeirisi/) ─────────────────────────
+ * Η σελίδα καλεί με POST {f:'p', fn, args}. Επιτρέπονται μόνο η σύνδεση και οι συναρτήσεις p_*,
+ * που ελέγχουν μόνες τους το διακριτικό σύνδεσης (rolos_). */
+function pinakasApo(d) {
+  var fn = String(d.fn || '');
+  if (fn !== 'syndesi' && !/^p_[A-Za-z]+$/.test(fn)) return { sfalma: true, minima: 'Άγνωστη λειτουργία.' };
+  var f = this[fn]; if (typeof f !== 'function') return { sfalma: true, minima: 'Άγνωστη λειτουργία.' };
+  try { return { data: f.apply(null, d.args || []) }; }
+  catch (e) { return { sfalma: true, minima: String(e && e.message || e) }; }
+}
+
+/* ───────────────────────── Πίνακας: μηνύματα και κατάσταση ιστοσελίδας ───────────────────────── */
+function p_minimata(t) { rolos_(t); return diavase('Μηνύματα').reverse().slice(0, 100); }
+function p_minimaKatastasi(t, id, k) {
+  rolos_(t); var m = diavase('Μηνύματα').filter(function (x) { return x.id === id; })[0]; if (!m) return { ok: false };
+  m.katastasi = String(k || '').slice(0, 30); grapse('Μηνύματα', m); return { ok: true };
+}
+function teleftaiaDimosieusi() {
+  var repo = props().getProperty('GITHUB_REPO'), tok = props().getProperty('GITHUB_TOKEN'); if (!repo || !tok) return null;
+  try {
+    var r = UrlFetchApp.fetch('https://api.github.com/repos/' + repo + '/actions/runs?per_page=1', { muteHttpExceptions: true,
+      headers: { Authorization: 'Bearer ' + tok, Accept: 'application/vnd.github+json' } });
+    var w = (JSON.parse(r.getContentText()).workflow_runs || [])[0];
+    return w ? { status: w.status, conclusion: w.conclusion, xronos: w.updated_at } : null;
+  } catch (e) { return null; }
+}
+function p_katastasiIstotopou(t) {
+  rolos_(t); var sim = simera(), rv = diavase('Ραντεβού');
+  return { istotopos: istotopos(), email: ypoloipoEmail(),
+    aitimata: rv.filter(function (r) { return r.katastasi === 'Αίτημα' && r.imerominia >= sim; }).length,
+    rantevou_simera: rv.filter(function (r) { return r.imerominia === sim && !/Ακυρώθηκε|Απορρίφθηκε/.test(r.katastasi); }).length,
+    minimata: diavase('Μηνύματα').filter(function (m) { return m.katastasi === 'νέο'; }).length,
+    anartiseis: diavase('Αναρτήσεις').length, dimosieusi: teleftaiaDimosieusi() };
+}
+/* Έλεγχος όλων των σελίδων του χάρτη ιστοτόπου από τον διακομιστή (όταν ο Πίνακας ανοίγει μέσα στο Apps Script). */
+function p_elegxosSelidon(t) {
+  rolos_(t); var riza = istotopos();
+  var x = UrlFetchApp.fetch(riza + '/sitemap.xml', { muteHttpExceptions: true }).getContentText();
+  var urls = (x.match(/<loc>[^<]+<\/loc>/g) || []).map(function (l) { return l.replace(/<\/?loc>/g, ''); }).slice(0, 80);
+  var out = [];
+  for (var i = 0; i < urls.length; i += 20) {
+    var omada = urls.slice(i, i + 20), t0 = Date.now();
+    var ap = UrlFetchApp.fetchAll(omada.map(function (u) { return { url: u, muteHttpExceptions: true }; })), ms = Math.round((Date.now() - t0) / omada.length);
+    ap.forEach(function (r, j) { var html = r.getContentText();
+      out.push({ url: omada[j].replace(riza, '') || '/', status: r.getResponseCode(), ms: ms, titlos: (html.match(/<title>([^<]*)<\/title>/) || [])[1] || '', h1: /<h1[\s>]/.test(html), noindex: /noindex/.test(html) }); });
+  }
+  return out;
+}
+
 /* ───────────────────────── Πίνακας: ραντεβού ───────────────────────── */
 function p_arxika(t) {
   var rolos = rolos_(t);
   return { rolos: rolos, katalogos: katalogos(), orario: orariaKommoton(), simera: simera(), email: ypoloipoEmail(),
+           minimata: diavase('Μηνύματα').filter(function (m) { return m.katastasi === 'νέο'; }).length,
            github_lixi: props().getProperty('GITHUB_TOKEN_IMEROMINIA') ? Diathesimotita.prosthesiImeron(props().getProperty('GITHUB_TOKEN_IMEROMINIA'), 365) : '' };
 }
 function p_imeres(t, apo, n) {

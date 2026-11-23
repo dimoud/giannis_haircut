@@ -922,3 +922,82 @@ html.js:not([data-kinisi]).kinisi-asfaleia [data-melos]{opacity:1;transform:none
   .analogies li::before{grid-row:auto;font-size:36px}
   .analogies p{margin-inline:auto}
 }
+
+/* ═════════════════════ ΕΠΙΣΚΟΠΗΣΗ ΣΧΕΔΙΑΣΜΟΥ (23/11) ═════════════════════
+ * Ρυθμός: ίδια απόσταση πάνω-κάτω σε κάθε ενότητα· τίποτα περιττό· στο κινητό κεντραρισμένοι μόνο οι τίτλοι. */
+:root{--pad-t:168px;--pad-b:168px}
+@media (max-width:1068px){:root{--pad-t:128px;--pad-b:128px}}
+@media (max-width:734px){:root{--pad-t:88px;--pad-b:88px}}
+.simantika{padding:72px 0 0}
+.allages{padding-bottom:0}
+.al-kef{margin-bottom:8vh}
+.empistosyni{padding-top:calc(var(--pad-t) * .6);padding-bottom:calc(var(--pad-b) * .6)}
+.kf-plegma{padding-bottom:18vh}
+
+/* ιδέα: τίτλος σε όλο το πλάτος, από κάτω δύο ίσες στήλες */
+.idea .dilosi{max-width:none}
+.idea-plegma{margin-top:72px;align-items:center}
+.idea-spira{position:relative;top:auto;align-self:center}
+.idea .hero-lead{margin-top:0}
+.analogies{margin-top:48px}
+@media (max-width:1068px){
+  .idea-plegma{margin-top:40px}
+  .idea-keim{display:block}
+  .idea-spira{grid-row:auto;margin:48px -24px 0}
+  .analogies{margin-top:40px}
+}
+
+/* προϊόντα: μία ήσυχη γραμμή αντί για κυλιόμενη ταινία */
+.proionta{margin-top:56px;padding-top:28px;border-top:1px solid rgba(217,180,74,.2);font:300 var(--t3)/1.4 var(--f-d);color:var(--cream);text-wrap:balance}
+.proionta span{display:block;margin-bottom:10px;font:500 12px/1.3 var(--f-b);letter-spacing:.16em;text-transform:uppercase;color:var(--cu-d)}
+
+/* ομάδα: χωρίς φωτογραφία, χαμηλότερο πλακίδιο με μονόγραμμα */
+.melos-foto:has(.melos-mono){aspect-ratio:5/4}
+.melos-mono{font-size:clamp(88px, 9vw, 140px);background:var(--au);background-size:200% 100%;-webkit-background-clip:text!important;background-clip:text!important;color:transparent}
+.omada-kr .melos-mono{background:var(--au);background-size:200% 100%}
+.omada-kato{margin-top:72px}
+
+/* ωράριο σε τρεις γραμμές */
+.orario-syn li{padding:8px 0}
+.epafi-stoixeia{align-items:start}
+
+/* υποσέλιδο: συμπτυγμένο */
+.ypo{padding:64px 0 0}
+.ypo-plegma{grid-template-columns:1.5fr 1.1fr .9fr .9fr;gap:32px 40px;padding-bottom:40px}
+.ypo-plegma .logo-g{font-size:32px}
+.ypo-plegma p{margin-top:8px;font-size:var(--s-sim)}
+.ypo-plegma ul{margin-top:8px;gap:0}
+.ypo-plegma ul a{min-height:30px;font-size:var(--s-sim)}
+.ypo .orario li{font-size:var(--s-sim);padding:6px 0}
+.ypo-titlos{margin:0}
+.expertease-credit{margin-bottom:0}
+hr.ec-rule{margin:0 6%}
+@media (max-width:900px){.ypo-plegma{grid-template-columns:1fr 1fr}}
+@media (max-width:734px){.ypo{padding-bottom:84px}.ypo-plegma{gap:28px 24px}.ypo-onoma{grid-column:1 / -1}}
+
+/* ── κινητό: κεντραρισμένοι μόνο η πρώτη οθόνη και οι τίτλοι των ενοτήτων· το περιεχόμενο αριστερά ── */
+@media (max-width:734px){
+  .enotita>.wrap,.omada-any,.ypo-plegma,.epafi-plirof,.kleisimo-plegma,.al-keim,.gegonota,.analogies li{text-align:left}
+  .enotita>.wrap>.etiketa,.enotita>.wrap>.dilosi,.enotita>.wrap>.titlos,.enotita>.wrap>.hero-lead,.al-kef,.idea-kef,.kr-kef{text-align:center}
+  .al-kat,.kf-kat{justify-content:flex-start}
+  .al-p,.kf-keim,.analogies p,.simeiosi{margin-inline:0}
+  .analogies li{grid-template-columns:52px 1fr;justify-items:start;padding:24px 0}
+  .analogies li::before{grid-row:span 2;font-size:32px}
+  .enotita .energeies{justify-content:flex-start}
+  .omada-kr .melos,.melos{align-items:stretch;text-align:left}
+  .omada-kato{justify-items:stretch}
+  .eisitirio{margin-inline:0;text-align:left;justify-items:start}
+  .epafi-stoixeia .orario,.kleisimo-plirof .orario,.paroxes{display:grid}
+  .xartis-lez{left:20px;right:auto;text-align:left;justify-items:start}
+  .kr-kef{justify-content:center}
+  .proionta{font-size:20px}
+}
+@media (max-width:734px){
+  .ypo-plegma>div:nth-child(2){grid-column:1 / -1}
+  .expertease-credit{height:auto;min-height:72px;padding:14px 24px}
+  .expertease-credit .ec-layer{padding:0 24px;gap:6px 12px}
+  .expertease-credit .ec-copy{white-space:normal;text-align:center;line-height:1.5}
+  .expertease-credit .ec-divider{display:none}
+}
+/* πλακίδια ομάδας χωρίς φωτογραφία: ίδιο σκούρο-χρυσό για όλους (ένα χρώμα ταυτότητας) */
+.omada-kr .melos-foto:has(.melos-mono),.melos-foto:has(.melos-mono){background:radial-gradient(90% 90% at 50% 30%,#2b2215,#17130d)}

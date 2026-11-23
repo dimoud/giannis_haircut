@@ -50,6 +50,7 @@ def main():
     riza = Path(__file__).resolve().parent.parent
     for f in sorted(site.rglob('*.html')):
         rel = '/' + str(f.relative_to(site)).replace('index.html', '')
+        if rel == '/diaxeirisi/': continue   # εφαρμογή διαχείρισης, εκτός ευρετηρίου
         p = P(); p.feed(f.read_text(encoding='utf-8'))
         en = rel.startswith('/en/')
         if p.h1 != 1: err.append(f'E1 {rel}: {p.h1} h1')

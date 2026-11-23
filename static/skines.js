@@ -34,14 +34,13 @@
    * κινητό: ολοκληρώνεται όταν το κέντρο της φτάσει στη μέση της οθόνης. */
   D.querySelectorAll('[data-spira]').forEach(function (el) {
     if (MESH) { el.style.setProperty('--sp', '1'); return; }
-    var keim = el.parentNode.querySelector('.idea-keim'), r = null, rk = null, last = -1;
+    var r = null, last = -1;
     skines.push({
-      read: function () { r = el.getBoundingClientRect(); rk = desktop && keim ? keim.getBoundingClientRect() : null; },
+      read: function () { r = el.getBoundingClientRect(); },
       write: function () {
         if (r.bottom < 0 || r.top > vh) return;
-        var t = rk ? (vh * .9 - rk.top) / Math.max(1, rk.height * .8)
-                   : (vh - r.top) / (vh * .5 + r.height * .5);
-        t = Math.round(eio(cl(t, 0, 1)) * 1000) / 1000;
+        // ολοκληρώνεται όταν το κέντρο της φτάσει λίγο κάτω από τη μέση της οθόνης: πάντα ολόκληρη όσο φαίνεται
+        var t = Math.round(eio(cl((vh - r.top) / (vh * .45 + r.height * .5), 0, 1)) * 1000) / 1000;
         if (t !== last) { last = t; el.style.setProperty('--sp', t); }
       }
     });

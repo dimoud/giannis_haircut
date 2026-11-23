@@ -27,7 +27,11 @@
       var body = { f: 'minima', _key: S.kleidi || '', onoma: v.onoma, tilefono: v.tilefono, email: v.email, minima: v.minima, website: v.website, glossa: EN ? 'en' : 'el' };
       var req = S.api
         ? fetch(S.api, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body), redirect: 'follow' }).then(function (r) { return r.json(); })
-        : new Promise(function (res) { setTimeout(function () { res({ ok: true, epideixi: true }); }, 700); });
+        : new Promise(function (res) {
+            try { var l = JSON.parse(localStorage.getItem('giannis-epideixi-minimata') || '[]');
+              l.push({ id: 'M' + Date.now().toString(36), xronos: new Date().toISOString(), onoma: v.onoma, tilefono: v.tilefono, email: v.email, minima: v.minima, glossa: body.glossa, katastasi: 'νέο' });
+              localStorage.setItem('giannis-epideixi-minimata', JSON.stringify(l)); } catch (e) {}
+            setTimeout(function () { res({ ok: true, epideixi: true }); }, 700); });
       req.then(function (r) {
         btn.disabled = false;
         if (!r || !r.ok) { kat.className = 'forma-katastasi lathos'; kat.textContent = (r && r.minima) || T('Δεν στάλθηκε. Κάλεσέ μας στο τηλέφωνο.', 'Not sent. Please call us.'); return; }

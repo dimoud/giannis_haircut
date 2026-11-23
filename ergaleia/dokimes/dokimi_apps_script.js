@@ -99,4 +99,12 @@ let m1 = post({ f: 'minima', onoma: 'Ελένη', email: 'eleni@example.com', mi
 let m2 = post({ f: 'minima', onoma: 'Ελένη', email: 'eleni@example.com', minima: 'ξανά' }); check('όριο ενός λεπτού', !m2.ok, m2);
 let m3 = post({ f: 'minima', onoma: 'X', minima: 'χωρίς επαφή' }); check('απαιτεί τηλέφωνο ή email', !m3.ok, m3);
 let m4 = post({ f: 'minima', onoma: 'bot', email: 'b@b.b', minima: 'spam', website: 'x' }); check('παγίδα ρομπότ', m4.ok && ROWS['Μηνύματα'].length === 2, m4);
+// 11. Πίνακας μέσα από την ιστοσελίδα (POST f=p)
+let g1 = post({ f: 'p', fn: 'syndesi', args: ['idioktitis123'] }); check('πίνακας: σύνδεση μέσω POST', g1.data && g1.data.ok && g1.data.token, g1);
+let g2 = post({ f: 'p', fn: 'p_minimata', args: [g1.data.token] }); check('πίνακας: μηνύματα', g2.data && g2.data.length === 1 && g2.data[0].onoma === 'Ελένη', g2);
+let g3 = post({ f: 'p', fn: 'p_minimaKatastasi', args: [g1.data.token, g2.data[0].id, 'απαντήθηκε'] }); check('πίνακας: μήνυμα απαντήθηκε', g3.data.ok && ROWS['Μηνύματα'][1][7] === 'απαντήθηκε', g3);
+let g4 = post({ f: 'p', fn: 'p_katastasiIstotopou', args: [g1.data.token] }); check('πίνακας: κατάσταση ιστοσελίδας', g4.data && g4.data.minimata === 0 && typeof g4.data.aitimata === 'number', g4);
+let g5 = post({ f: 'p', fn: 'p_minimata', args: ['λάθος'] }); check('πίνακας: χωρίς σύνδεση απορρίπτεται', g5.sfalma && /έληξε/.test(g5.minima), g5);
+let g6 = post({ f: 'p', fn: 'arxikopoiisi', args: [] }); check('πίνακας: μόνο p_* επιτρέπονται', g6.sfalma, g6);
+let g7 = post({ f: 'p', fn: 'p_imeres', args: [g1.data.token, '2026-11-27', 1] }); check('πίνακας: ημέρα μέσω POST', g7.data && g7.data.rantevou.length >= 1, g7);
 console.log(`\n${ok} επιτυχίες, ${fail} αποτυχίες`); process.exit(fail ? 1 : 0);

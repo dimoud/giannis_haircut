@@ -4,6 +4,8 @@
 <base target="_top">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Πίνακας · Κομμωτήριο Γιάννης</title>
 <style>
 :root{--ink:#14100b;--ink2:#1c1711;--cream:#f1ece2;--cream2:#e7dfd1;--cu:#7a5a12;--cud:#d9b44a;--fg2:#4a4238;--line:rgba(20,16,11,.14);--r:16px;--slot:22px}
 *{box-sizing:border-box}html,body{margin:0}
@@ -77,6 +79,39 @@ textarea{min-height:80px}
 .evd-m{background:#fff;border-radius:var(--r);padding:12px 14px;display:grid;grid-template-columns:120px 1fr;gap:8px;align-items:center;cursor:pointer}
 .bara{height:10px;border-radius:5px;background:var(--cream2);overflow:hidden;display:flex}
 .bara span{height:100%;background:var(--c)}
+.epideixi-s{background:var(--cud);color:var(--ink);font-size:12px;font-weight:700;padding:4px 10px;border-radius:6px}
+.deiktes{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-bottom:18px}
+.deiktis{background:#fff;border-radius:var(--r);padding:14px 16px;box-shadow:0 1px 0 var(--line)}
+.deiktis b{display:block;font:400 30px/1.1 Georgia,serif}.deiktis span{color:var(--fg2);font-size:13px}
+.elegxos{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--r);overflow:hidden;font-size:14px}
+.elegxos th,.elegxos td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.elegxos th{background:var(--cream2);font-weight:700}
+.elegxos .ok{color:#2f6b2f;font-weight:700}.elegxos .oxi{color:#8c2a17;font-weight:700}
+.mn-k{border-left:4px solid var(--cud)}.mn-k.diavastike{border-left-color:var(--line);opacity:.85}
+.mn-k p{margin:6px 0;white-space:pre-wrap}
+/* συμπαγής διάταξη: κανονικά μεγέθη, γωνίες όπως στον ιστότοπο, τίποτα δεν ξεχειλίζει στο κινητό */
+body{font-size:14px}
+.btn,.wres-lista button,.tsips label,.badge,.minima,.nav-im button{border-radius:6px}
+.btn{min-height:38px;padding:0 14px;font-size:14px}
+input,select,textarea{min-height:40px;border-radius:6px;padding:8px 10px;min-width:0;width:100%}
+.check input,.tsips input{width:auto}
+.kart button{min-height:40px;padding:10px 12px}
+.karta,.plegma,.evd-m,.keno,.deiktis,.elegxos,.an-k,.syndesi{border-radius:10px}
+.mod-in{grid-template-columns:minmax(0,1fr);border-radius:12px 12px 0 0}
+@media (min-width:700px){.mod-in{border-radius:12px}}
+.mod-in>*,.dyo>*{min-width:0}
+.dyo{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.tsips label{min-height:34px;padding:4px 10px;font-size:13px}
+.wres-lista button{min-height:36px;min-width:58px}
+.kef{gap:10px;padding:8px 14px}.kef h1{font-size:22px}
+.kart{top:54px}
+@media (max-width:560px){
+  .kef .epideixi-s{font-size:11px;padding:3px 6px;max-width:92px;line-height:1.2}
+  .kef .btn{padding:0 10px;white-space:nowrap}
+  main{padding:12px}
+  .dyo{grid-template-columns:minmax(0,1fr)}
+  .evd-m{grid-template-columns:96px 1fr}
+}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -86,7 +121,18 @@ textarea{min-height:80px}
 var S = { token: localStorage.getItem('pinakas-token'), rolos: null, kat: null, imera: null, epilogi: 'imera' };
 var $ = function (s, r) { return (r || document).querySelector(s); };
 function h(t, a, c) { var e = document.createElement(t); if (a) Object.keys(a).forEach(function (k) { var v = a[k]; if (k === 'text') e.textContent = v; else if (k === 'html') e.innerHTML = v; else if (k.indexOf('on') === 0) e.addEventListener(k.slice(2), v); else if (v !== false && v != null) e.setAttribute(k, v); }); (c || []).forEach(function (x) { if (x) e.appendChild(typeof x === 'string' ? document.createTextNode(x) : x); }); return e; }
-function run(fn) { var a = [].slice.call(arguments, 1); return new Promise(function (ok, no) { google.script.run.withSuccessHandler(ok).withFailureHandler(function (e) { if (/έληξε|Μπες ξανά/.test(e.message)) { localStorage.removeItem('pinakas-token'); S.token = null; syndesi(); } minima(e.message); no(e); })[fn].apply(null, a); }); }
+/* Ο ίδιος Πίνακας τρέχει (α) μέσα στο Apps Script, (β) στη σελίδα /pinakas/ του ιστότοπου μέσω του ίδιου web app,
+ * (γ) σε δοκιμαστική λειτουργία, χωρίς διακομιστή, όσο δεν έχει στηθεί το Φύλλο. */
+var PIN = window.PINAKAS || {};
+var MODE = (window.google && google.script && google.script.run) ? 'gas' : (PIN.api ? 'http' : 'demo');
+function kalese(fn, a) {
+  if (MODE === 'gas') return new Promise(function (ok, no) { google.script.run.withSuccessHandler(ok).withFailureHandler(no)[fn].apply(null, a); });
+  if (MODE === 'http') return fetch(PIN.api, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, redirect: 'follow',
+      body: JSON.stringify({ f: 'p', fn: fn, args: a, _key: PIN.kleidi || '' }) })
+    .then(function (r) { return r.json(); }).then(function (r) { if (r && r.sfalma) throw new Error(r.minima); return r.data; });
+  return window.PinakasEpideixi ? PinakasEpideixi.call(fn, a) : Promise.reject(new Error('Λείπει η λειτουργία επίδειξης.'));
+}
+function run(fn) { var a = [].slice.call(arguments, 1); return kalese(fn, a).catch(function (e) { var m = (e && e.message) || 'Δεν υπάρχει σύνδεση. Δοκίμασε ξανά.'; if (/έληξε|Μπες ξανά/.test(m)) { localStorage.removeItem('pinakas-token'); S.token = null; syndesi(); } minima(m); throw e; }); }
 function minima(t) { var m = h('div', { class: 'minima', role: 'status', text: t }); document.body.appendChild(m); setTimeout(function () { m.remove(); }, 3200); }
 var IMERES = ['Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο'];
 function dt(i) { var p = i.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
@@ -106,32 +152,36 @@ function syndesi() {
   var b = h('button', { class: 'btn', text: 'Είσοδος' });
   function mpes() { b.disabled = true; run('syndesi', inp.value).then(function (r) { b.disabled = false; if (!r.ok) return minima(r.minima); S.token = r.token; localStorage.setItem('pinakas-token', r.token); ksekina(); }); }
   b.onclick = mpes; inp.onkeydown = function (e) { if (e.key === 'Enter') mpes(); };
-  app.appendChild(h('div', { class: 'syndesi' }, [h('h1', { text: 'Γιάννης' }), h('p', { text: 'Πίνακας κομμωτηρίου. Γράψε τον κωδικό σου.' }), inp, b]));
+  app.appendChild(h('div', { class: 'syndesi' }, [h('h1', { text: 'Γιάννης' }), h('p', { text: 'Πίνακας κομμωτηρίου. Γράψε τον κωδικό σου.' }), inp, b,
+    MODE === 'demo' ? h('p', { class: 'odigos', html: '<b>Δοκιμαστική λειτουργία.</b> Ο Πίνακας δεν έχει συνδεθεί ακόμη με το Φύλλο Google. Δοκίμασέ τον με κωδικό <b>1234</b>· τα δεδομένα είναι ψεύτικα και μένουν μόνο σε αυτόν τον υπολογιστή.' }) : null]));
   inp.focus();
 }
 
 /* ── κέλυφος ── */
-var KARTELES = [['imera', 'Ημέρα'], ['evdomada', 'Εβδομάδα'], ['aitimata', 'Αιτήματα'], ['pelates', 'Πελάτες'], ['anartiseis', 'Αναρτήσεις'], ['rythmiseis', 'Ρυθμίσεις']];
+var KARTELES = [['imera', 'Ημέρα'], ['evdomada', 'Εβδομάδα'], ['aitimata', 'Αιτήματα'], ['minimata', 'Μηνύματα'], ['pelates', 'Πελάτες'], ['anartiseis', 'Αναρτήσεις'], ['istotopos', 'Ιστοσελίδα'], ['rythmiseis', 'Ρυθμίσεις']];
 function ksekina() {
   run('p_arxika', S.token).then(function (r) {
     S.rolos = r.rolos; S.kat = r.katalogos; S.orario = r.orario; S.imera = S.imera || r.simera; S.simera = r.simera;
     var app = $('#app'); app.innerHTML = '';
-    var kef = h('header', { class: 'kef' }, [h('div', {}, [h('h1', { text: 'Γιάννης' }), h('small', { text: S.rolos === 'idioktitis' ? 'Ιδιοκτήτης' : 'Συνεργάτης' })]), h('div', { class: 'xoros' }),
+    var kef = h('header', { class: 'kef' }, [h('div', {}, [h('h1', { text: 'Γιάννης' }), h('small', { text: S.rolos === 'idioktitis' ? 'Ιδιοκτήτης' : 'Συνεργάτης' })]),
+      MODE === 'demo' ? h('span', { class: 'epideixi-s', title: 'Ψεύτικα δεδομένα, μόνο σε αυτόν τον υπολογιστή', text: 'Δοκιμαστική λειτουργία' }) : null, h('div', { class: 'xoros' }),
       h('button', { class: 'btn', text: '+ Ραντεβού', onclick: function () { neoRantevou({}); } }),
       h('button', { class: 'btn deyt', style: 'color:var(--cream);box-shadow:inset 0 0 0 1px rgba(241,236,226,.3)', text: 'Έξοδος', onclick: function () { localStorage.removeItem('pinakas-token'); S.token = null; syndesi(); } })]);
     var kart = h('nav', { class: 'kart', role: 'tablist' });
     KARTELES.forEach(function (k) {
       if (k[0] === 'rythmiseis' && S.rolos !== 'idioktitis') return;
-      kart.appendChild(h('button', { role: 'tab', 'data-k': k[0], 'aria-selected': S.epilogi === k[0] ? 'true' : 'false', html: k[1] + (k[0] === 'aitimata' ? ' <span class="badge" id="badge" hidden></span>' : ''),
+      kart.appendChild(h('button', { role: 'tab', 'data-k': k[0], 'aria-selected': S.epilogi === k[0] ? 'true' : 'false', html: k[1] + (k[0] === 'aitimata' ? ' <span class="badge" id="badge" hidden></span>' : '') + (k[0] === 'minimata' ? ' <span class="badge" id="badge-mn" hidden></span>' : ''),
         onclick: function () { S.epilogi = k[0]; kart.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.k === k[0] ? 'true' : 'false'); }); deixe(); } }));
     });
     app.appendChild(kef); app.appendChild(kart); app.appendChild(h('main', { id: 'kyrio' }));
     if (r.email < 15) minima('Προσοχή: απομένουν ' + r.email + ' email σήμερα.');
+    badgeMn(r.minimata || 0);
     deixe();
     clearInterval(S.timer); S.timer = setInterval(function () { if (!document.hidden && !$('.mod') && (S.epilogi === 'imera' || S.epilogi === 'aitimata')) deixe(true); }, 60000);
   });
 }
-function deixe(siopilo) { ({ imera: imeraView, evdomada: evdomadaView, aitimata: aitimataView, pelates: pelatesView, anartiseis: anartiseisView, rythmiseis: rythmiseisView })[S.epilogi](siopilo); }
+function deixe(siopilo) { ({ imera: imeraView, evdomada: evdomadaView, aitimata: aitimataView, minimata: minimataView, pelates: pelatesView, anartiseis: anartiseisView, istotopos: istotoposView, rythmiseis: rythmiseisView })[S.epilogi](siopilo); }
+function badgeMn(n) { var b = $('#badge-mn'); if (!b) return; b.hidden = !n; b.textContent = n; }
 function kyrio() { var m = $('#kyrio'); m.innerHTML = ''; return m; }
 function badge(n) { var b = $('#badge'); if (!b) return; b.hidden = !n; b.textContent = n; }
 
@@ -392,6 +442,85 @@ function anartisi(a) {
     run('p_apothikeysiAnartisis', S.token, { id: a.id, titlos: tl.value, keimeno: tx.value, titlos_en: tle.value, keimeno_en: txe.value, ypiresia: yp.value, kommotis: ks.value, imerominia: im.value, katastasi: kat.value, synainesi: true,
       prin: a.prin, meta: a.meta, fotografies: a.fotografies }, nees).then(function (r) { save.disabled = false; save.textContent = 'Αποθήκευση'; if (!r.ok) return minima(r.minima); minima('Αποθηκεύτηκε'); kl(); anartiseisView(); });
   };
+}
+
+/* ── Μηνύματα από τη φόρμα επικοινωνίας ── */
+function xronos(iso) { var d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString('el-GR', { weekday: 'short', day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+function minimataView() {
+  run('p_minimata', S.token).then(function (l) {
+    var m = kyrio(); badgeMn(l.filter(function (x) { return x.katastasi === 'νέο'; }).length);
+    m.appendChild(h('h2', { text: 'Μηνύματα από την ιστοσελίδα', style: 'margin-bottom:12px' }));
+    if (!l.length) return m.appendChild(h('p', { class: 'keno', text: 'Κανένα μήνυμα.' }));
+    var c = h('div', { class: 'lista' });
+    l.forEach(function (x) {
+      var neo = x.katastasi === 'νέο';
+      c.appendChild(h('div', { class: 'karta mn-k' + (neo ? '' : ' diavastike') }, [
+        h('b', { text: x.onoma + (neo ? ' · νέο' : ' · ' + x.katastasi) }), h('span', { class: 'meta', text: xronos(x.xronos) + (x.glossa === 'en' ? ' · στα αγγλικά' : '') }),
+        h('p', { text: x.minima }),
+        h('div', { class: 'seira' }, [x.tilefono ? h('a', { class: 'btn deyt', href: 'tel:' + x.tilefono, text: 'Κλήση ' + x.tilefono }) : null,
+          x.email ? h('a', { class: 'btn deyt', href: 'mailto:' + x.email + '?subject=' + encodeURIComponent('Απάντηση από το Κομμωτήριο Γιάννης'), text: 'Απάντηση με email' }) : null,
+          neo ? h('button', { class: 'btn', text: 'Απαντήθηκε', onclick: function () { run('p_minimaKatastasi', S.token, x.id, 'απαντήθηκε').then(minimataView); } }) : null])]));
+    });
+    m.appendChild(c);
+  });
+}
+
+/* ── Ιστοσελίδα: κατάσταση και έλεγχος όλων των σελίδων ── */
+function istotoposView() {
+  var m = kyrio();
+  m.appendChild(h('h2', { text: 'Κατάσταση', style: 'margin-bottom:12px' }));
+  var dk = h('div', { class: 'deiktes' }, [h('span', { class: 'meta', text: 'Φόρτωση…' })]); m.appendChild(dk);
+  run('p_katastasiIstotopou', S.token).then(function (k) {
+    dk.innerHTML = '';
+    function d(t, v, ypo) { dk.appendChild(h('div', { class: 'deiktis' }, [h('b', { text: v }), h('span', { text: t + (ypo ? ' · ' + ypo : '') })])); }
+    d('ραντεβού σήμερα', k.rantevou_simera); d('αιτήματα προς έγκριση', k.aitimata); d('νέα μηνύματα', k.minimata); d('αναρτήσεις', k.anartiseis);
+    d('email που απομένουν σήμερα', k.email, 'όριο Gmail');
+    var dm = k.dimosieusi; d('τελευταία δημοσίευση', dm ? (dm.conclusion === 'success' ? 'ΟΚ' : (dm.status !== 'completed' ? 'τρέχει' : 'σφάλμα')) : '—', dm ? xronos(dm.xronos) : (k.epideixi ? 'δοκιμαστική λειτουργία' : 'χωρίς κλειδί GitHub'));
+    m.insertBefore(h('div', { class: 'seira', style: 'margin:-4px 0 18px' }, [h('a', { class: 'btn deyt', href: k.istotopos || '/', target: '_blank', rel: 'noopener', text: 'Άνοιγμα ιστοσελίδας ↗' }),
+      h('button', { class: 'btn', text: 'Δημοσίευση στον ιστότοπο', onclick: function (e) { e.target.disabled = true; run('p_dimosieusi', S.token).then(function (r) { e.target.disabled = false; minima(r.ok ? 'Η δημοσίευση ξεκίνησε· σε 2–4 λεπτά στον ιστότοπο.' : r.minima); }); } }),
+      MODE === 'demo' ? h('button', { class: 'btn deyt', text: 'Επαναφορά δοκιμαστικών δεδομένων', onclick: function () { if (confirmBox('Να σβηστούν οι δοκιμαστικές αλλαγές;')) run('p_epanafora', S.token).then(function () { minima('Έγινε επαναφορά'); ksekina(); }); } }) : null]), dk.nextSibling);
+  });
+  m.appendChild(h('h2', { text: 'Έλεγχος σελίδων', style: 'margin:8px 0 6px' }));
+  m.appendChild(h('p', { class: 'meta', style: 'color:var(--fg2);margin:0 0 12px', text: 'Ανοίγει κάθε σελίδα του χάρτη ιστοτόπου και ελέγχει ότι φορτώνει, ότι έχει τίτλο και κύρια επικεφαλίδα, και πόσο αργεί.' }));
+  var btn = h('button', { class: 'btn', text: 'Τρέξε τον έλεγχο' }), out = h('div', { style: 'margin-top:12px;overflow-x:auto' });
+  m.appendChild(btn); m.appendChild(out);
+  btn.onclick = function () { btn.disabled = true; out.innerHTML = '<p class="meta">Έλεγχος σε εξέλιξη…</p>'; elegxosSelidon().then(function (l) { btn.disabled = false; pinakasElegxou(out, l); }, function () { btn.disabled = false; out.innerHTML = '<p class="keno">Ο έλεγχος δεν ολοκληρώθηκε.</p>'; }); };
+}
+function elegxosSelidon() {
+  // στην ιστοσελίδα: ο ίδιος ο περιηγητής ανοίγει τις σελίδες (ίδια προέλευση)· στο Apps Script: ο διακομιστής (UrlFetchApp)
+  if (MODE === 'gas') return run('p_elegxosSelidon', S.token);
+  var base = (PIN.base || ''), riza = location.origin + base;
+  return fetch(base + '/sitemap.xml', { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (x) {
+    var urls = (x.match(/<loc>[^<]+<\/loc>/g) || []).map(function (l) { return l.replace(/<\/?loc>/g, ''); })
+      .map(function (u) { return PIN.tomeas ? u.replace(PIN.tomeas, riza) : u; });
+    var apot = [], i = 0;
+    function epomeno() {
+      if (i >= urls.length) return Promise.resolve(apot);
+      var u = urls[i++], t0 = performance.now();
+      return fetch(u, { cache: 'no-store' }).then(function (r) { return r.text().then(function (html) {
+        var ms = Math.round(performance.now() - t0), tit = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || '', h1 = /<h1[\s>]/.test(html);
+        apot.push({ url: u.replace(riza, '') || '/', status: r.status, ms: ms, titlos: tit, h1: h1, noindex: /noindex/.test(html) });
+      }); }, function () { apot.push({ url: u.replace(riza, ''), status: 0, ms: 0, titlos: '', h1: false }); }).then(epomeno);
+    }
+    return epomeno();
+  });
+}
+function pinakasElegxou(out, l) {
+  out.innerHTML = '';
+  var lathi = l.filter(function (x) { return x.status !== 200 || !x.titlos || !x.h1; }), argi = l.filter(function (x) { return x.ms > 1500; });
+  out.appendChild(h('div', { class: 'deiktes' }, [
+    h('div', { class: 'deiktis' }, [h('b', { text: l.length }), h('span', { text: 'σελίδες ελέγχθηκαν' })]),
+    h('div', { class: 'deiktis' }, [h('b', { text: lathi.length, style: lathi.length ? 'color:#8c2a17' : 'color:#2f6b2f' }), h('span', { text: 'με πρόβλημα' })]),
+    h('div', { class: 'deiktis' }, [h('b', { text: argi.length }), h('span', { text: 'αργές (πάνω από 1,5 s)' })]),
+    h('div', { class: 'deiktis' }, [h('b', { text: l.some(function (x) { return x.noindex; }) ? 'όχι' : 'ναι' }), h('span', { text: 'ορατή στη Google' + (l.some(function (x) { return x.noindex; }) ? ' (δοκιμαστική έκδοση)' : '') })])]));
+  var t = h('table', { class: 'elegxos' }, [h('thead', {}, [h('tr', {}, [h('th', { text: 'Σελίδα' }), h('th', { text: 'Κατάσταση' }), h('th', { text: 'Χρόνος' }), h('th', { text: 'Τίτλος' })])])]), tb = h('tbody');
+  l.sort(function (a, b) { return (a.status === 200 && a.h1 ? 1 : 0) - (b.status === 200 && b.h1 ? 1 : 0); }).forEach(function (x) {
+    var ok = x.status === 200 && x.titlos && x.h1;
+    tb.appendChild(h('tr', {}, [h('td', {}, [h('a', { href: (PIN.base || '') + x.url, target: '_blank', rel: 'noopener', text: x.url })]),
+      h('td', { class: ok ? 'ok' : 'oxi', text: ok ? '✓ ' + x.status : '✗ ' + (x.status || 'δεν φόρτωσε') + (x.status === 200 && !x.h1 ? ' · χωρίς επικεφαλίδα' : '') }),
+      h('td', { text: x.ms ? x.ms + ' ms' : '—' }), h('td', { text: x.titlos })]));
+  });
+  t.appendChild(tb); out.appendChild(t);
 }
 
 /* ── Ρυθμίσεις (ιδιοκτήτης) ── */
