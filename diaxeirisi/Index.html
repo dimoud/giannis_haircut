@@ -89,6 +89,12 @@ textarea{min-height:80px}
 .elegxos .ok{color:#2f6b2f;font-weight:700}.elegxos .oxi{color:#8c2a17;font-weight:700}
 .mn-k{border-left:4px solid var(--cud)}.mn-k.diavastike{border-left-color:var(--line);opacity:.85}
 .mn-k p{margin:6px 0;white-space:pre-wrap}
+/* σύνοψη ημέρας και γραμμή «τώρα» */
+.synopsi-im{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin:0 0 12px;padding:10px 14px;background:#fff;border-radius:10px;box-shadow:0 1px 0 var(--line);font-size:13px;color:var(--fg2)}
+.synopsi-im b{color:var(--ink);font-size:15px}
+.synopsi-epom{margin-left:auto;border:0;background:var(--cream2);border-radius:6px;padding:6px 10px;font:inherit;cursor:pointer;color:var(--fg2)}
+.tora{position:absolute;left:0;right:0;height:2px;background:#c0392b;z-index:3;pointer-events:none}
+.tora::before{content:"";position:absolute;left:-4px;top:-3px;width:8px;height:8px;border-radius:50%;background:#c0392b}
 /* συμπαγής διάταξη: κανονικά μεγέθη, γωνίες όπως στον ιστότοπο, τίποτα δεν ξεχειλίζει στο κινητό */
 body{font-size:14px}
 .btn,.wres-lista button,.tsips label,.badge,.minima,.nav-im button{border-radius:6px}
@@ -197,6 +203,16 @@ function imeraView() {
       h('button', { class: 'btn deyt', text: 'Σήμερα', onclick: function () { S.imera = S.simera; imeraView(); } }),
       h('button', { class: 'btn deyt', text: 'Κλείσιμο χρόνου', onclick: function () { kleisimo(); } })]);
     m.appendChild(tools);
+    // σύνοψη ημέρας: πόσα ραντεβού, πόσα έχουν έρθει, ποιο είναι το επόμενο
+    var energa = d.rantevou.filter(function (r) { return !/Ακυρώθηκε|Απορρίφθηκε/.test(r.katastasi); }).sort(function (a, b) { return a.ora.localeCompare(b.ora); });
+    var nowD = new Date(), tora = S.imera === S.simera ? nowD.getHours() * 60 + nowD.getMinutes() : -1;
+    var epom = tora >= 0 ? energa.filter(function (r) { return lepta(r.ora) >= tora && r.katastasi !== 'Αίτημα'; })[0] : null;
+    m.appendChild(h('div', { class: 'synopsi-im' }, [
+      h('span', {}, [h('b', { text: energa.length }), ' ραντεβού']),
+      h('span', {}, [h('b', { text: energa.filter(function (r) { return r.katastasi === 'Ήρθε'; }).length }), ' ήρθαν']),
+      h('span', {}, [h('b', { text: energa.filter(function (r) { return r.katastasi === 'Αίτημα'; }).length }), ' αιτήματα']),
+      h('span', {}, [h('b', { text: energa.filter(function (r) { return r.proti; }).length }), ' πρώτη φορά']),
+      epom ? h('button', { class: 'synopsi-epom', onclick: function () { leptomereies(epom); } }, ['Επόμενο: ', h('b', { text: epom.ora + ' ' + epom.onoma }), ' · ' + kom(epom.kommotis).onoma]) : null]));
     var kk = S.kat.kommotes, apo = 9 * 60, eos = 21 * 60;
     var pl = h('div', { class: 'plegma', style: '--k:' + kk.length });
     var wcol = h('div', {}, [h('div', { class: 'stili-k' })]); var wr = h('div', { class: 'wres' });
@@ -225,6 +241,12 @@ function imeraView() {
       col.appendChild(c); pl.appendChild(col);
     });
     m.appendChild(pl);
+    // γραμμή «τώρα» στο πλέγμα της σημερινής ημέρας· η σελίδα κυλά ως εκεί
+    if (tora >= apo && tora < eos) {
+      var slotN = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--slot')) || 22;
+      pl.querySelectorAll('.stili .wres').forEach(function (cw) { cw.appendChild(h('div', { class: 'tora', style: 'top:' + ((tora - apo) / 15 * slotN) + 'px' })); });
+      var g = pl.querySelector('.tora'); if (g && g.scrollIntoView) g.scrollIntoView({ block: 'center' });
+    }
     var ak = d.rantevou.filter(function (r) { return /Ακυρώθηκε/.test(r.katastasi); });
     if (ak.length) m.appendChild(h('p', { class: 'meta', style: 'color:var(--fg2);margin-top:12px', text: 'Ακυρωμένα σήμερα: ' + ak.map(function (r) { return r.ora + ' ' + r.onoma; }).join(', ') }));
   });

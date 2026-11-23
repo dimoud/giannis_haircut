@@ -70,12 +70,12 @@ function arxikopoiisi() {
 }
 var YPIRESIES_PROEPILOGI = [
   ['kourema', 'gynaikeio', 'Γυναικείο κούρεμα', 'E45', '', 'nai', '', '1', 'Women\'s cut'], ['kourema', 'texniki', 'Κούρεμα με τεχνική (bob, razor, butterfly)', 'E60', '', 'nai', '', '2', 'Technical cut (bob, razor, butterfly)'],
-  ['kourema', 'andriko', 'Ανδρικό κούρεμα', 'E30', '', 'nai', '', '3', 'Men\'s cut'], ['kourema', 'fade', 'Ανδρικό fade', 'E40', '', 'nai', '', '4', 'Men\'s fade'], ['kourema', 'paidiko', 'Παιδικό κούρεμα', 'E25', '', 'nai', '', '5', 'Kids\' cut'],
-  ['xroma', 'riza', 'Βαφή ρίζας', 'E30,A35,E25', '', 'nai', '', '6', 'Root colour'], ['xroma', 'oliki', 'Ολική βαφή', 'E40,A35,E30', '', 'nai', '', '7', 'Full colour'],
-  ['xroma', 'antaygeies', 'Ανταύγειες / babylights', 'E75,A30,E30', '', 'nai', '', '8', 'Highlights / babylights'], ['xroma', 'balayage', 'Balayage / foilayage', 'E90,A35,E40', '', 'nai', '', '9', 'Balayage / foilayage'],
-  ['xroma', 'ombre', 'Ombré', 'E80,A30,E35', '', 'nai', '', '10', 'Ombré'], ['xroma', 'entona', 'Έντονα χρώματα (carrot red, μωβ, ροζ)', 'E60,A30,E40', '', 'nai', '', '11', 'Bold colours (carrot red, purple, pink)'],
-  ['xtenisma', 'formarisma', 'Φορμάρισμα / styling', 'E40', '', 'nai', '', '12', 'Blow-dry / styling'], ['xtenisma', 'vradino', 'Βραδινό χτένισμα', 'E60', '', 'aitima', '', '13', 'Evening style'],
-  ['therapeies', 'keratini', 'Θεραπεία κερατίνης', 'E60,A30,E60', '', 'nai', '', '14', 'Keratin treatment'], ['therapeies', 'olaplex', 'Olaplex', 'E20,A20,E20', '', 'nai', '', '15', 'Olaplex'],
+  ['kourema', 'andriko', 'Ανδρικό κούρεμα', 'E30', '', 'nai', '', '3', 'Men\'s cut'], ['kourema', 'fade', 'Ανδρικό fade', 'E30', '', 'nai', '', '4', 'Men\'s fade'], ['kourema', 'paidiko', 'Παιδικό κούρεμα', 'E30', '', 'nai', '', '5', 'Kids\' cut'],
+  ['xroma', 'riza', 'Βαφή ρίζας', 'E30,A30,E30', '', 'nai', '', '6', 'Root colour'], ['xroma', 'oliki', 'Ολική βαφή', 'E45,A30,E30', '', 'nai', '', '7', 'Full colour'],
+  ['xroma', 'antaygeies', 'Ανταύγειες / babylights', 'E75,A30,E30', '', 'nai', '', '8', 'Highlights / babylights'], ['xroma', 'balayage', 'Balayage / foilayage', 'E90,A30,E45', '', 'nai', '', '9', 'Balayage / foilayage'],
+  ['xroma', 'ombre', 'Ombré', 'E75,A30,E30', '', 'nai', '', '10', 'Ombré'], ['xroma', 'entona', 'Έντονα χρώματα (carrot red, μωβ, ροζ)', 'E60,A30,E45', '', 'nai', '', '11', 'Bold colours (carrot red, purple, pink)'],
+  ['xtenisma', 'formarisma', 'Φορμάρισμα / styling', 'E60', '', 'nai', '', '12', 'Blow-dry / styling'], ['xtenisma', 'vradino', 'Βραδινό χτένισμα', 'E60', '', 'aitima', '', '13', 'Evening style'],
+  ['therapeies', 'keratini', 'Θεραπεία κερατίνης', 'E60,A30,E60', '', 'nai', '', '14', 'Keratin treatment'], ['therapeies', 'olaplex', 'Olaplex', 'E15,A15,E30', '', 'nai', '', '15', 'Olaplex'],
   ['therapeies', 'anadomisi', 'Θεραπεία αναδόμησης', 'E30,A15,E15', '', 'nai', '', '16', 'Reconstruction treatment'], ['nyfiko', 'nyfiko', 'Νυφικό χτένισμα (με δοκιμή)', 'E120', '', 'aitima', '', '17', 'Bridal hair (with trial)']
 ];
 function orismosKodikon() {

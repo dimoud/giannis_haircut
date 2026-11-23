@@ -1039,3 +1039,42 @@ hr.ec-rule{margin:0 6%}
 html.js:not([data-kinisi]).kinisi-asfaleia .kf-foto{clip-path:none!important}
 html.js:not([data-kinisi]).kinisi-asfaleia .al-keim>*,html.js:not([data-kinisi]).kinisi-asfaleia .kf-keim{opacity:1!important;transform:none!important}
 .al-kef .dilosi,.kefalaia .dilosi,.omada-kr .dilosi{max-width:none}
+
+/* ═════════════════════ ΕΝΙΑΙΑ ΤΑΥΤΟΤΗΤΑ: όλος ο ιστότοπος σκούρος-χρυσός ═════════════════════
+ * Οι «φωτεινές» ενότητες γίνονται ένας τόνος πιο ανοιχτές από το μελάνι, ώστε να ξεχωρίζουν χωρίς να αλλάζει ο χαρακτήρας. */
+[data-sxima="fotino"]{background:#1a150e;color:var(--cream);--fg2:rgba(241,236,226,.74);--cu:var(--cu-d);--btn-bg:var(--cu-d);--btn-fg:var(--ink);--line:rgba(241,236,226,.14)}
+[data-sxima="fotino"] :focus-visible{outline-color:var(--cu-d)}
+html[data-sxima="fotino"] .psixoula{color:rgba(241,236,226,.74)}
+[data-sxima="fotino"] .titlos em,[data-sxima="fotino"] .dilosi em{background:var(--au);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+[data-sxima="fotino"] .etiketa{color:var(--cu-d)}
+.omada-en .melos-any .melos-foto{background:radial-gradient(90% 90% at 50% 30%,#2b2215,#17130d)}
+/* λεπτό χρυσό όριο ανάμεσα σε κάθε δύο ενότητες */
+main>section+section{position:relative}
+main>section+section::before{content:"";position:absolute;top:0;left:50%;width:min(560px,60vw);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(217,180,74,.45),transparent)}
+
+/* ── κράτηση στο ίδιο σκούρο-χρυσό σύστημα ── */
+body.selida-kratisis{background:var(--ink)}
+.kr-yp,.kr-kom,.kr-mera,.kr-wra,.kr-keno,.kr-meres-nav button{background:rgba(241,236,226,.05);color:var(--cream);box-shadow:inset 0 0 0 1px rgba(241,236,226,.12);border-radius:var(--r)}
+.kr-wra,.kr-meres-nav button{border-radius:var(--r-btn)}
+.kr-yp:hover,.kr-kom:hover,.kr-mera:hover,.kr-wra:hover{box-shadow:inset 0 0 0 1px rgba(217,180,74,.6)}
+.kr-yp:has(input:checked),.kr-kom[aria-pressed="true"],.kr-mera[aria-pressed="true"],.kr-wra[aria-pressed="true"]{background-color:var(--cu-d);background-image:var(--au);background-size:220% 100%;background-position:30% 0;color:var(--ink);--fg2:#2a231b;box-shadow:none}
+.kr-kom[aria-pressed="true"] *,.kr-mera[aria-pressed="true"] *,.kr-yp:has(input:checked) *{color:var(--ink)}
+.kr-kom-m{background:rgba(217,180,74,.16);color:var(--cu-d)}
+.kr-kom[aria-pressed="true"] .kr-kom-m{background:rgba(20,16,11,.16)}
+.kr-synopsi{background:#1a150e;box-shadow:inset 0 0 0 1px rgba(217,180,74,.3)}
+.kr-pedio input,.kr-pedio textarea{background:rgba(241,236,226,.04);color:var(--cream);border:1px solid rgba(241,236,226,.22);border-radius:var(--r-btn)}
+.kr-pedio input:focus,.kr-pedio textarea:focus{outline:none;border-color:var(--cu-d);box-shadow:0 0 0 3px rgba(217,180,74,.22)}
+.filtra button[aria-pressed="true"]{background-image:var(--au);background-size:220% 100%;color:var(--ink)}
+:root{--cu-l:#d9b44a}
+.kefalida.gemati{background:#14100b}
+.kr-epideixi{background:rgba(217,180,74,.08);color:var(--cream);box-shadow:inset 0 0 0 1px rgba(217,180,74,.35);border-radius:var(--r)}
+.kr-epideixi a{color:var(--cu-d)}
+
+/* λογότυπο: πιο γεμάτο όνομα, μεγαλύτερο σήμα, υπότιτλος με κεφαλαία */
+.logo{gap:5px}
+.logo-g{font:italic 400 38px/1 var(--f-d);letter-spacing:0;gap:.2em}
+.spira-logo{width:1.2em}
+.spira-logo .spira-d{stroke-width:3.2}
+.logo-s{margin-top:0;font:500 10.5px/1 var(--f-b);letter-spacing:.3em;text-transform:uppercase;color:var(--cu-d);padding-left:.15em}
+.ypo-plegma .logo-g{font-size:38px}
+@media (max-width:734px){.logo-g{font-size:32px}.logo-y{font-size:9.5px;letter-spacing:.26em}}

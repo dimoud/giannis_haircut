@@ -174,6 +174,11 @@
       f.appendChild(h('label', { class: 'kr-check', for: 'proti' }, [proti, h('span', { text: T('Έρχομαι πρώτη φορά στο κομμωτήριο', 'This is my first visit') })]));
       f.appendChild(h('label', { class: 'kr-check', for: 'oroi' }, [oroi, h('span', { html: T('Αποδέχομαι τους <a href="' + pre + '/oroi-kratiseon/" target="_blank">όρους κρατήσεων</a> και έχω διαβάσει το <a href="' + pre + '/aporrito/" target="_blank">απόρρητο</a>.', 'I accept the <a href="' + pre + '/oroi-kratiseon/" target="_blank">booking terms</a> and have read the <a href="' + pre + '/aporrito/" target="_blank">privacy notice</a>.') })]));
       f.appendChild(h('label', { class: 'kr-check', for: 'prosfores' }, [prosf, h('span', { text: T('Θέλω να μαθαίνω για προσφορές (προαιρετικό, ανακαλείται όποτε θέλω).', 'Send me offers (optional, I can opt out at any time).') })]));
+      // προαιρετικά: θυμάται όνομα, κινητό και email σε αυτή τη συσκευή, για την επόμενη κράτηση
+      var thim = h('input', { type: 'checkbox', id: 'thimisou' }), apoth = null;
+      try { apoth = JSON.parse(localStorage.getItem('giannis-pelatis') || 'null'); } catch (e) {}
+      if (apoth) { on.value = apoth.onoma || ''; kin.value = apoth.kinito || ''; em.value = apoth.email || ''; thim.checked = true; }
+      f.appendChild(h('label', { class: 'kr-check', for: 'thimisou' }, [thim, h('span', { text: T('Να θυμάται τα στοιχεία μου σε αυτή τη συσκευή', 'Remember my details on this device') })]));
       var hp = h('input', { type: 'text', name: 'website', tabindex: '-1', autocomplete: 'off' }); f.appendChild(h('div', { class: 'kr-hp', 'aria-hidden': 'true' }, [hp]));
       var lathos = h('div', { 'aria-live': 'assertive' }); f.appendChild(lathos);
       sk.appendChild(f);
@@ -190,6 +195,7 @@
       }
       function ypovoli() {
         var k = elegxos(); if (!k) return;
+        try { if (thim.checked) localStorage.setItem('giannis-pelatis', JSON.stringify({ onoma: on.value.trim(), kinito: kin.value.trim(), email: em.value.trim() })); else localStorage.removeItem('giannis-pelatis'); } catch (e) {}
         btn.disabled = true; btn.textContent = T('Κλείνω…', 'Booking…');
         KratisiApi.kratisi({ ypiresies: st.ypiresies, kommotis: st.kommotis === 'any' ? 'any' : st.ora.kommotis, imerominia: st.ora.imerominia, ora: st.ora.ora,
           onoma: on.value.trim(), kinito: k, email: em.value.trim(), simeiosi: sim.value.trim(), proti: proti.checked, prosfores: prosf.checked, glossa: EN ? 'en' : 'el', _hp: hp.value })
