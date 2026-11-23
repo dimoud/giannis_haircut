@@ -18,6 +18,7 @@
       read: function () { r = pm.getBoundingClientRect(); rr = row && desktop ? row.getBoundingClientRect() : null; },
       write: function () {
         if (r.bottom < -vh * .3 || r.top > vh * 1.3) return;
+        if (row && !row.classList.contains('al-on') && r.top < vh * .75) row.classList.add('al-on');
         var t;
         if (rr) { var d = rr.height - vh; t = cl((d > 0 ? -rr.top / d : 0) - .06, 0, .74) / .74; }
         else t = cl((vh * .88 - (r.top + r.height / 2)) / (vh * .6), 0, 1);
