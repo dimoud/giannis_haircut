@@ -2,7 +2,7 @@
  *   node ergaleia/dokimes/dokimi_apps_script.js  */
 const fs = require('fs'), path = require('path'), vm = require('vm'), crypto = require('crypto');
 const RIZA = path.join(__dirname, '..', '..', 'diaxeirisi');
-let ROWS = {}, PROPS = {}, MAIL = [], EVENTS = {}, NOW = new Date('2026-11-24T08:00:00Z'); // Τρίτη 10:00 Αθήνα
+let CACHE = {}, ROWS = {}, PROPS = {}, MAIL = [], EVENTS = {}, NOW = new Date('2026-11-24T08:00:00Z'); // Τρίτη 10:00 Αθήνα
 function sheet(n) {
   return {
     getDataRange: () => ({ getDisplayValues: () => ROWS[n].map(r => r.map(String)) }),
@@ -15,7 +15,7 @@ const ctx = {
   console, Date, JSON, Math, String, Object, Array, Number, isNaN, parseInt, parseFloat, encodeURIComponent,
   SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: n => ROWS[n] ? sheet(n) : null, getId: () => 'F', setSpreadsheetTimeZone() {} }), flush() {}, openById: () => null },
   PropertiesService: { getScriptProperties: () => ({ getProperty: k => PROPS[k] || null, setProperty: (k, v) => { PROPS[k] = String(v); }, deleteProperty: k => { delete PROPS[k]; } }) },
-  CacheService: { getScriptCache: () => ({ get: () => null, put() {}, remove() {} }) },
+  CacheService: { getScriptCache: () => ({ get: k => (k.indexOf('min-') === 0 ? (CACHE[k] || null) : null), put(k, v) { CACHE[k] = v; }, remove(k) { delete CACHE[k]; } }) },
   LockService: { getScriptLock: () => ({ tryLock: () => true, releaseLock() {} }) },
   Utilities: {
     formatDate: (d, z, f) => {
@@ -94,4 +94,9 @@ d = get({ f: 'diathesimotita', y: 'andriko', kommotis: 'kommotis3', apo: '2026-1
 let rid = ROWS['Ραντεβού'].find(r => r[10] === 'Γιώργος')[0];
 const kx = run(`p_katastasi("${s.token}", "${rid}", "Δεν ήρθε")`); check('κατάσταση Δεν ήρθε', kx.ok && ROWS['Πελάτες'].find(p => p[1] === 'Γιώργος')[7] === '1', [kx, ROWS['Πελάτες'].find(p => p[1] === 'Γιώργος')]);
 let ep = get({ f: 'epomeno' }); check('επόμενο ελεύθερο', ep.ok && ep.me_el && ep.me_en, ep);
+// 10. φόρμα επικοινωνίας
+let m1 = post({ f: 'minima', onoma: 'Ελένη', email: 'eleni@example.com', minima: 'Γεια σας', glossa: 'el' }); check('μήνυμα φόρμας', m1.ok && ROWS['Μηνύματα'].length === 2 && MAIL.length >= 2, m1);
+let m2 = post({ f: 'minima', onoma: 'Ελένη', email: 'eleni@example.com', minima: 'ξανά' }); check('όριο ενός λεπτού', !m2.ok, m2);
+let m3 = post({ f: 'minima', onoma: 'X', minima: 'χωρίς επαφή' }); check('απαιτεί τηλέφωνο ή email', !m3.ok, m3);
+let m4 = post({ f: 'minima', onoma: 'bot', email: 'b@b.b', minima: 'spam', website: 'x' }); check('παγίδα ρομπότ', m4.ok && ROWS['Μηνύματα'].length === 2, m4);
 console.log(`\n${ok} επιτυχίες, ${fail} αποτυχίες`); process.exit(fail ? 1 : 0);

@@ -19,8 +19,10 @@
 :root{
   --ink:#14100b; --ink2:#1c1711; --ink3:#2a231b;
   --cream:#f1ece2; --cream2:#e7dfd1; --stone:#5a5146;
-  --cu-d:#b37351;          /* χάλκινο σε σκούρο: 4,5:1 */
-  --cu-l:#9a4f2b;          /* χάλκινο σε ανοιχτό: 4,8:1 */
+  --cu-d:#d9b44a;          /* χρυσό σε σκούρο: 9,5:1 */
+  --cu-l:#7a5a12;          /* σκούρο χρυσό σε ανοιχτό: 5,4:1 */
+  --au:linear-gradient(100deg,#9c7421 0%,#f5dc8a 18%,#c99a2e 36%,#fff3c4 50%,#b8862a 64%,#ecc865 82%,#8a6519 100%);
+  --au-l:linear-gradient(100deg,#5c430c 0%,#9a7420 28%,#6f5210 50%,#a47c22 72%,#5c430c 100%);
   --f-d:"Noto Serif Display", "Times New Roman", serif;
   --f-b:Manrope, system-ui, -apple-system, "Segoe UI", sans-serif;
   --s-dilosi:112px; --s-titlos:64px; --s-ypo:28px; --s-keim:17px; --s-sim:14px; --s-el:12px;
@@ -77,7 +79,7 @@ p{text-wrap:pretty}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;border-radius:999px;border:0;cursor:pointer;
   background:var(--btn-bg, var(--cu-d));color:var(--btn-fg, var(--ink));font:700 15px/1 var(--f-b);letter-spacing:.01em;text-decoration:none;
   transition:transform .24s var(--ui), background-color .24s var(--ui), box-shadow .24s var(--ui)}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px -12px rgba(179,115,81,.65)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px -12px rgba(217,180,74,.6)}
 .btn:active{transform:translateY(0)}
 .btn-mikro{min-height:44px;padding:0 20px;font-size:14px}
 .btn-deyt{background:transparent;color:inherit;box-shadow:inset 0 0 0 1px currentColor}
@@ -149,14 +151,8 @@ html[data-sxima="fotino"] .psixoula{color:#4a4238}
   .hero-fonto{background:linear-gradient(180deg, rgba(20,16,11,.15) 0%, rgba(20,16,11,.55) 45%, rgba(20,16,11,.94) 72%, var(--ink) 100%)}}
 
 /* ── παύση κινήσεων (WCAG 2.2.2) ── */
-.pafsi{background:none;border:0;cursor:pointer;color:inherit;font:500 14px/1 var(--f-b);min-height:36px;padding:0;display:inline-flex;align-items:center;gap:8px;text-decoration:underline;text-underline-offset:3px}
-.ypo .pafsi{color:var(--fg2)}
-.pafsi-hero{position:absolute;left:max(24px, 6.5vw);bottom:28px;font-size:12px;color:rgba(241,236,226,.74);text-decoration:none;min-height:44px}
-.pafsi-hero::before{content:"";width:10px;height:12px;border-left:3px solid currentColor;border-right:3px solid currentColor;box-sizing:border-box}
-.pafsi-hero[aria-pressed="true"]::before{border:0;border-left:10px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent;width:0;height:0}
-html.pafsi *,html.pafsi *::before,html.pafsi *::after{animation-play-state:paused!important}
 .met-odigia{color:var(--fg2);font-size:15px;margin-top:20px;max-width:32ch}
-@media (max-width:734px){.pafsi-hero{bottom:12px;left:24px}.met-odigia{display:none}}
+@media (max-width:734px){.met-odigia{display:none}}
 
 /* ── εμφανίσεις ── */
 .js [data-reveal]{opacity:0;transform:translateY(12px)}
@@ -340,7 +336,7 @@ html.js:not([data-kinisi]).kinisi-asfaleia .melos-foto{-webkit-mask-image:none;m
 .marquee{margin-top:120px;border-block:1px solid var(--line);overflow:hidden;padding:28px 0}
 .marquee-track{display:flex;gap:72px;width:max-content;animation:kylisi 38s linear infinite}
 .marquee:not(.orato) .marquee-track{animation-play-state:paused}
-.marquee span{font:italic 300 var(--s-titlos)/1 var(--f-d);color:rgba(241,236,226,.3);white-space:nowrap;transition:color .4s var(--ui)}
+.marquee span{font:italic 300 var(--s-titlos)/1 var(--f-d);color:rgba(217,180,74,.78);white-space:nowrap;transition:color .4s var(--ui)}
 .marquee span:hover{color:var(--cream)}
 .xoros{display:grid;grid-template-columns:1.3fr 1fr;gap:6vw;align-items:center;margin-top:120px}
 .xoros-foto{border-radius:var(--r);overflow:hidden}
@@ -556,3 +552,155 @@ body.selida-kratisis{background:var(--cream)}
   @view-transition{navigation:none}
 }
 @media print{.kefalida,.kato-bara,.toufes,.marquee{display:none}}
+
+/* ═════════════════════ ΧΡΥΣΟ ═════════════════════
+ * Μεταλλικό χρυσό σε τίτλους, κουμπιά, αριθμούς και γραμμές. Η λάμψη κινείται μόνο όταν το στοιχείο φαίνεται. */
+@property --lampsi{syntax:"<percentage>";inherits:true;initial-value:0%}
+@keyframes lampsi{from{--lampsi:0%}to{--lampsi:200%}}
+[data-sxima="skoteino"] .titlos em,[data-sxima="skoteino"] .dilosi em,.hero-t em,.titlos-sel em,.logo-g,.mega-ar,.g-ar,.met-ar,.melos-onoma,.eis-ora{
+  background:var(--au);background-size:200% 100%;background-position:var(--lampsi) 0;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:lampsi 9s linear infinite}
+[data-sxima="fotino"] .titlos em,[data-sxima="fotino"] .dilosi em{background:var(--au-l);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-t em{padding-right:.06em}
+.etiketa{text-transform:uppercase;letter-spacing:.16em;font-size:12px}
+[data-sxima="skoteino"] .etiketa{color:var(--cu-d)}
+.etiketa::before{content:"";display:inline-block;width:28px;height:1px;margin:0 12px 0 0;vertical-align:middle;background:linear-gradient(90deg,transparent,currentColor)}
+
+/* κουμπιά: χρυσό μέταλλο με πέρασμα φωτός */
+.btn{background-color:var(--cu-d);background-image:var(--au);background-size:220% 100%;background-position:30% 0;color:var(--ink);position:relative;overflow:hidden;
+  box-shadow:0 1px 0 rgba(255,243,196,.55) inset, 0 10px 30px -14px rgba(217,180,74,.7);transition:transform .24s var(--ui), background-position .9s var(--ease), box-shadow .24s var(--ui)}
+.btn:hover{background-position:90% 0;box-shadow:0 1px 0 rgba(255,243,196,.6) inset, 0 16px 40px -14px rgba(217,180,74,.85)}
+[data-sxima="fotino"] .btn{color:var(--ink)}
+.btn-deyt{background:transparent!important;color:var(--cu-d)!important;box-shadow:inset 0 0 0 1px var(--cu-d)!important}
+.syndesmos{color:var(--cu)}
+
+/* κεφαλίδα: χρυσή λεπτή γραμμή όταν γεμίζει */
+.kefalida.gemati{box-shadow:0 1px 0 rgba(217,180,74,.28)}
+.menou a:not(.btn)::after{background:var(--au)}
+
+/* ενότητες: χρυσή γραμμή-όριο ανάμεσα σε σκούρες ενότητες */
+[data-sxima="skoteino"]+[data-sxima="skoteino"]::before{content:"";position:absolute;top:0;left:50%;width:min(560px,60vw);height:1px;transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,rgba(217,180,74,.55),transparent)}
+
+/* ── πριν / μετά: μεγάλο, ως την άκρη της οθόνης ── */
+.pm-lepida{width:2px;background:linear-gradient(180deg,transparent,#f5dc8a 12%,#d9b44a 50%,#f5dc8a 88%,transparent);box-shadow:0 0 18px rgba(245,220,138,.75), 0 0 2px rgba(255,243,196,.9)}
+.pm-lepida span{width:56px;height:56px;margin:-28px 0 0 -28px;background:var(--au);background-size:200% 100%;box-shadow:0 0 0 1px rgba(255,243,196,.6) inset, 0 10px 34px rgba(0,0,0,.45), 0 0 30px rgba(217,180,74,.45)}
+.pm-lbl{background:rgba(20,16,11,.66);color:#f5dc8a;border:1px solid rgba(217,180,74,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);letter-spacing:.14em;text-transform:uppercase}
+@media (min-width:1069px){
+  .met-sticky{grid-template-columns:minmax(300px,30vw) 1fr;gap:4vw;padding:var(--kef) 0 0 6.5vw}
+  .met-kefali{align-self:center}
+  .met-skini{height:calc(100svh - var(--kef));width:100%;aspect-ratio:auto;justify-self:stretch}
+  .met-zeygos .pm-fotos{border-radius:0;aspect-ratio:auto}
+  .met-zeygos .pm-fotos img{object-position:50% 30%}
+  .met-lez{top:auto;bottom:0;transform:none;padding:120px 40px 36px;background:linear-gradient(0deg,rgba(20,16,11,.88),transparent);pointer-events:none}
+}
+@media (max-width:1068px) and (min-width:735px){.met-skini{height:66svh}}
+@media (max-width:734px){
+  .metamorfosi .met-sticky{padding:0}
+  .metamorfosi .met-kefali{padding:0 24px}
+  .met-skini{gap:72px}
+  .met-zeygos .pm-fotos{border-radius:0;aspect-ratio:4/5}
+  .met-zeygos .pm-range{pointer-events:none}
+  .met-lez{padding:20px 24px 0;justify-items:center;text-align:center;grid-template-columns:1fr}
+  .met-ar{grid-row:auto}
+}
+@media (max-width:734px) and (prefers-reduced-motion:reduce){.met-zeygos .pm-range{pointer-events:auto}}
+
+/* ── εισιτήριο «Επόμενο ελεύθερο»: χρυσό φύλλο ── */
+.eisitirio{background-color:var(--cu-d);background-image:var(--au);background-size:220% 100%;color:var(--ink);box-shadow:0 24px 60px -24px rgba(217,180,74,.55)}
+.eisitirio .eis-ora{background:none;color:var(--ink);animation:none}
+.eis-etik,.eis-link{color:var(--ink)}
+.eis-k{color:#2a231b}
+
+/* ── κριτικές: καρουζέλ ── */
+.kritiki{width:min(400px,78vw);padding:32px;background:linear-gradient(160deg,#211a12,var(--ink2));border:1px solid rgba(217,180,74,.22);position:relative}
+.kritiki::before{content:"“";position:absolute;top:-6px;right:22px;font:italic 300 96px/1 var(--f-d);color:rgba(217,180,74,.28)}
+.kritiki .asteria{color:var(--cu-d);letter-spacing:.18em}
+.kritiki p{font:300 18px/1.5 var(--f-d);color:var(--cream)}
+.kr-onoma{font-size:13px;color:var(--fg2);margin-top:auto}
+
+/* ── ομάδα και ραντεβού (κάτω μέρος της αρχικής) ── */
+.omada-kr{overflow:hidden;isolation:isolate}
+.omada-fos{position:absolute;inset:-20% -10% auto;height:80%;z-index:-1;background:radial-gradient(50% 50% at 50% 50%,rgba(217,180,74,.16),transparent 70%)}
+.omada-kr .dilosi{max-width:18ch}
+.omada-kr .omada-plegma{margin-top:72px}
+.omada-kr .melos{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.omada-kr .melos-foto{width:100%;align-self:stretch;box-shadow:0 0 0 1px rgba(217,180,74,.35), 0 30px 60px -30px rgba(0,0,0,.8)}
+.omada-kr .melos-mono{background:radial-gradient(70% 70% at 50% 35%,#2e2518,var(--ink2));-webkit-background-clip:border-box}
+.omada-kr .melos .btn{margin-top:20px;width:100%}
+.melos-onoma{display:inline-block}
+.omada-kato{display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center;margin-top:96px}
+.omada-any .ypotitlos{margin-bottom:8px}
+.omada-any p{color:var(--fg2)}
+@media (max-width:900px){.omada-kato{grid-template-columns:1fr;gap:48px}}
+
+/* ── επικοινωνία: φόρμα και χάρτης ── */
+.epafi-plegma{display:grid;grid-template-columns:1.1fr 1fr;gap:5vw;margin-top:56px;align-items:start}
+.forma{display:grid;gap:20px}
+.forma-dyo{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.forma-pedio{display:grid;gap:8px}
+.forma label{font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--fg2)}
+.forma input,.forma textarea{font:400 16px/1.5 var(--f-b);color:var(--cream);background:rgba(241,236,226,.04);border:1px solid rgba(241,236,226,.22);border-radius:14px;padding:14px 16px;min-height:52px;width:100%;box-sizing:border-box;transition:border-color .24s var(--ui), box-shadow .24s var(--ui)}
+.forma textarea{resize:vertical;min-height:140px}
+.forma input:focus,.forma textarea:focus{outline:none;border-color:var(--cu-d);box-shadow:0 0 0 3px rgba(217,180,74,.22)}
+.forma [aria-invalid="true"]{border-color:#e8907a}
+.forma-lathos{color:#f0a08c;font-size:14px}
+.forma-sim{font-size:13px;color:var(--fg2)}
+.forma-sim a{color:var(--cream)}
+.forma .btn{justify-self:start;border:0;cursor:pointer}
+.forma .btn:disabled{opacity:.6;cursor:wait}
+.forma-katastasi{font-size:15px;min-height:1.5em}
+.forma-katastasi.epitychia{color:#f5dc8a}
+.forma-katastasi.lathos{color:#f0a08c}
+.forma-pagida{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.epafi-stoixeia{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:32px}
+.epafi-til{font:300 28px/1.2 var(--f-d);color:var(--cream);text-decoration:none}
+.epafi .orario{font-size:15px}
+@media (max-width:900px){.epafi-plegma{grid-template-columns:1fr;gap:56px}}
+@media (max-width:560px){.forma-dyo,.epafi-stoixeia{grid-template-columns:1fr}}
+
+.xartis-plaisio{display:grid;gap:10px}
+.xartis{position:relative;min-height:300px;padding:0;border-radius:var(--r);background:radial-gradient(80% 90% at 50% 45%,#2a2115,#15110c);color:#d9b44a;border:1px solid rgba(217,180,74,.3);overflow:hidden;display:block}
+.xartis-svg{position:absolute;inset:0;width:100%;height:100%}
+.xartis-pin{fill:#e6c35c;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.xartis-palmos{fill:none;stroke:#e6c35c;stroke-width:1.5;opacity:.5;transform-origin:200px 128px;animation:palmos 3.2s var(--ease) infinite}
+.xartis-palmos.x2{animation-delay:1.6s}
+@keyframes palmos{from{transform:scale(.4);opacity:.7}to{transform:scale(1.6);opacity:0}}
+.xartis-lez{position:absolute;left:20px;top:18px;font:300 20px/1.2 var(--f-d);color:var(--cream);display:grid;gap:4px;text-align:left}
+.xartis-lez small{font:400 13px/1.3 var(--f-b);color:var(--fg2)}
+.xartis-btn{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);background:rgba(20,16,11,.75);color:#f5dc8a;border:1px solid rgba(217,180,74,.5);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);white-space:nowrap}
+.xartis.anoixtos{min-height:0}
+.xartis iframe{height:340px}
+.kleisimo-plirof .xartis{min-height:240px}
+
+/* ── κινητό: συμμετρία, κεντράρισμα, έμφαση στη μορφή ── */
+@media (max-width:734px){
+  .hero-in,.sel-hero .wrap,.enotita>.wrap,.met-kefali,.omada-any,.ypo-plegma,.ypo-kato{text-align:center}
+  .titlos,.titlos-sel,.dilosi,.hero-lead,.kr-lead,.simeiosi,.met-odigia,.omada-kr .dilosi{margin-inline:auto}
+  .energeies{justify-content:center}
+  .etiketa{display:flex;align-items:center;justify-content:center;gap:12px}
+  .etiketa::before,.etiketa::after{content:"";display:block;width:32px;height:1px;margin:0;background:linear-gradient(90deg,transparent,currentColor)}
+  .etiketa::after{background:linear-gradient(270deg,transparent,currentColor)}
+  .titlos::after,.dilosi::after{content:"";display:block;width:7px;height:7px;margin:22px auto 0;transform:rotate(45deg);background:var(--au);background-size:200% 100%}
+  .hero-t::after{display:none}
+  .gegonota{text-align:center}
+  .omada-plegma{margin-inline:auto}
+  .omada-kr .melos,.melos{align-items:center;text-align:center}
+  .omada-kato{justify-items:center}
+  .eisitirio{margin-inline:auto;text-align:center;justify-items:center}
+  .epafi-forma,.forma,.forma-pedio{text-align:left}
+  .forma .btn{justify-self:stretch}
+  .epafi-plirof{text-align:center}
+  .epafi-stoixeia .orario{display:inline-grid;text-align:left}
+  .ypo-plegma ul{padding:0}
+  .kleisimo-plegma{text-align:center}
+  .kleisimo-plirof .orario{display:inline-grid;text-align:left}
+  .xartis-lez{left:0;right:0;text-align:center;justify-items:center}
+  .paroxes{display:inline-grid;text-align:left}
+  body.selida-kratisis .enotita>.wrap,.yp-lista,.vimata,.kr-plegma,.an-keimeno,.keimeno-sel{text-align:left}
+}
+.ypo-plegma .logo-g{color:transparent}
+
+@media (prefers-reduced-motion:reduce){
+  [data-sxima] .titlos em,.hero-t em,.logo-g,.mega-ar,.g-ar,.met-ar,.melos-onoma,.xartis-palmos{animation:none!important}
+}

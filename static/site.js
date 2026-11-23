@@ -3,9 +3,7 @@
   var D = document, H = D.documentElement, MESH = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var EN = H.lang === 'en'; function T(el, en) { return EN ? en : el; }
   H.setAttribute('data-kinisi', 'ok');
-  /* παύση κινήσεων: θυμάται την επιλογή σε όλες τις σελίδες */
-  try { if (localStorage.getItem('giannis-pafsi') === '1') H.classList.add('pafsi'); } catch (e) {}
-  window.Pafsi = function () { return H.classList.contains('pafsi') || MESH; };
+  window.Pafsi = function () { return MESH; };
 
   /* ελατήριο: προϋπολογισμένα καρέ για Web Animations (ζ, ω σε rad/s) */
   window.Elatirio = function (zeta, omega, n) {
@@ -34,15 +32,6 @@
     addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
     /* μενού κινητού: Χ, φόντο, Esc, σάρωση δεξιά */
-    D.querySelectorAll('[data-pafsi]').forEach(function (b) {
-      function sync() { var on = H.classList.contains('pafsi'); b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.textContent = on ? T('Συνέχιση κινήσεων', 'Resume animations') : T('Παύση κινήσεων', 'Pause animations'); }
-      sync(); D.addEventListener('pafsi', sync);
-      b.addEventListener('click', function () {
-        var on = !H.classList.contains('pafsi'); H.classList.toggle('pafsi', on);
-        try { localStorage.setItem('giannis-pafsi', on ? '1' : '0'); } catch (e) {}
-        D.dispatchEvent(new CustomEvent('pafsi', { detail: on }));
-      });
-    });
     var hr = D.querySelector('.hero');
     if (hr) new IntersectionObserver(function (en) { hr.classList.toggle('orato', en[0].isIntersecting); }).observe(hr);
 
@@ -91,7 +80,7 @@
 
     /* λεπίδες πριν/μετά (εκτός της καρφιτσωμένης σκηνής, που την οδηγεί η κύλιση) */
     D.querySelectorAll('[data-pm]').forEach(function (pm) {
-      if (pm.closest('[data-metamorfosi]') && innerWidth > 734) return;
+      if (pm.closest('[data-metamorfosi]') && !(MESH && innerWidth <= 734)) return;
       var rng = pm.querySelector('.pm-range');
       function set(v) { pm.style.setProperty('--p', v); }
       rng.addEventListener('input', function () { set(rng.value); });

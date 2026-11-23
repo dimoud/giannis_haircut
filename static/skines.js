@@ -15,7 +15,17 @@
     if (!n) return;
     zeygi[0].classList.add('energo');
     skines.push(function () {
-      if (!desktop() || !konta(sec)) return;
+      if (!konta(sec)) return;
+      if (!desktop()) {
+        if (MESH) return;
+        // κινητό: κάθε ζεύγος αποκαλύπτεται όσο περνά από τη μέση της οθόνης
+        zeygi.forEach(function (z) {
+          var pm = z.querySelector('.pm'), r = pm.getBoundingClientRect(), k = (r.top + r.height / 2);
+          var t = cl((innerHeight * .82 - k) / (innerHeight * .5), 0, 1);
+          pm.style.setProperty('--p', (3 + 94 * eio(t)).toFixed(2));
+        });
+        return;
+      }
       var p = proodos(sec), f = p * n, i = cl(Math.floor(f), 0, n - 1), loc = cl((f - i) * 1.18, 0, 1);
       zeygi.forEach(function (z, k) {
         z.classList.toggle('energo', k === i);

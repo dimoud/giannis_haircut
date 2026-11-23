@@ -17,7 +17,8 @@ var KARTELES = {
                  'katastasi', 'simeiosi', 'token_hash', 'event_id', 'ypenthymisi', 'apo_poion', 'proti', 'prosfores', 'glossa'],
   'Πελάτες':    ['id', 'onoma', 'kinito', 'email', 'proti_episkepsi', 'teleftaia_episkepsi', 'episkepseis', 'mi_emfaniseis', 'texniki_simeiosi', 'prosfores', 'imerominia_synainesis'],
   'Αναρτήσεις': ['id', 'imerominia', 'titlos', 'keimeno', 'ypiresia', 'kommotis', 'fotografies', 'prin', 'meta', 'synainesi', 'katastasi', 'titlos_en', 'keimeno_en'],
-  'Κριτικές':   ['onoma', 'asteria', 'keimeno', 'imerominia', 'emfanisi'],
+  'Κριτικές':   ['onoma', 'asteria', 'keimeno', 'imerominia', 'emfanisi', 'onoma_en', 'keimeno_en'],
+  'Μηνύματα':   ['id', 'xronos', 'onoma', 'tilefono', 'email', 'minima', 'glossa', 'katastasi'],
   'Ιστορικό':   ['xronos', 'rolos', 'energeia', 'eggrafi']
 };
 var KANONES_PROEPILOGI = { vima: 15, proeidopoiisi_lepta: 120, orizontas_imeres: 60, akyrosi_ores: 12, energes_ana_kinito: 2, aitima_pano_apo_lepta: 180, mi_emfaniseis_aitima: 2 };
@@ -197,6 +198,7 @@ function doPost(e) {
     if (d.f === 'kratisi') return json(neaKratisiOnline(d));
     if (d.f === 'allagi') return json(allagiPelati(d.t, d.imerominia, d.ora));
     if (d.f === 'akyrosi') return json(akyrosiPelati(d.t));
+    if (d.f === 'minima') return json(neoMinima(d));
     return json({ ok: false, minima: 'Άγνωστη κλήση.' });
   } catch (err) { console.error(err); return json({ ok: false, minima: 'Σφάλμα διακομιστή. Κάλεσέ μας στο τηλέφωνο.' }); }
 }
@@ -346,9 +348,9 @@ function istotopos() { return props().getProperty('ISTOTOPOS') || 'https://dimou
 function protypo(titlos, soma, en) {
   return '<div style="background:#f1ece2;padding:32px 16px;font-family:Arial,Helvetica,sans-serif;color:#14100b">' +
     '<div style="max-width:520px;margin:0 auto;background:#fff;border-radius:18px;overflow:hidden">' +
-    '<div style="background:#14100b;color:#f1ece2;padding:28px 32px"><div style="font:italic 28px Georgia,serif">' + (en ? 'Giannis' : 'Γιάννης') + '</div><div style="font-size:12px;color:#b37351;letter-spacing:.06em">HAIR SALON · ΠΟΛΙΧΝΗ</div></div>' +
+    '<div style="background:#14100b;color:#f1ece2;padding:28px 32px"><div style="font:italic 28px Georgia,serif">' + (en ? 'Giannis' : 'Γιάννης') + '</div><div style="font-size:12px;color:#d4af37;letter-spacing:.06em">HAIR SALON · ΠΟΛΙΧΝΗ</div></div>' +
     '<div style="padding:28px 32px;font-size:15px;line-height:1.6"><h1 style="font:300 26px Georgia,serif;margin:0 0 16px">' + titlos + '</h1>' + soma + '</div>' +
-    '<div style="padding:20px 32px;background:#f7f3ec;font-size:13px;color:#4a4238">' + (en ? 'Giannis Hair Salon · 15 Mavromichali & Efkleidou St., Polichni' : 'Κομμωτήριο Γιάννης · Μαυρομιχάλη 15 & Ευκλείδη, Πολίχνη') + ' · <a href="tel:+302310602285" style="color:#9a4f2b">2310 602285</a></div></div></div>';
+    '<div style="padding:20px 32px;background:#f7f3ec;font-size:13px;color:#4a4238">' + (en ? 'Giannis Hair Salon · 15 Mavromichali & Efkleidou St., Polichni' : 'Κομμωτήριο Γιάννης · Μαυρομιχάλη 15 & Ευκλείδη, Πολίχνη') + ' · <a href="tel:+302310602285" style="color:#7a5a12">2310 602285</a></div></div></div>';
 }
 function emailPelati(r, tok, eidos) {
   if (!r.email) return;
@@ -364,7 +366,7 @@ function emailPelati(r, tok, eidos) {
             allagi: ['Νέα ώρα για το ραντεβού σου', 'Η αλλαγή έγινε.'], akyrosi: ['Το ραντεβού ακυρώθηκε', 'Ελπίζουμε να σε δούμε σύντομα.'],
             ypenthymisi: ['Αύριο σε περιμένουμε', 'Μια υπενθύμιση για το ραντεβού σου.'] }[eidos];
   var ores = kanones().akyrosi_ores;
-  var soma = '<p>' + T[1] + '</p>' + stoixeia + (link ? '<p><a href="' + link + '" style="color:#9a4f2b;font-weight:bold">' + (en ? 'Change or cancel ›' : 'Αλλαγή ή ακύρωση ›') + '</a> (' + (en ? 'up to ' + ores + ' hours before' : 'έως ' + ores + ' ώρες πριν') + ')</p>' : '');
+  var soma = '<p>' + T[1] + '</p>' + stoixeia + (link ? '<p><a href="' + link + '" style="color:#7a5a12;font-weight:bold">' + (en ? 'Change or cancel ›' : 'Αλλαγή ή ακύρωση ›') + '</a> (' + (en ? 'up to ' + ores + ' hours before' : 'έως ' + ores + ' ώρες πριν') + ')</p>' : '');
   MailApp.sendEmail({ to: r.email, subject: T[0] + (en ? ' · Giannis Hair Salon' : ' · Κομμωτήριο Γιάννης'), htmlBody: protypo(T[0], soma, en),
     name: en ? 'Giannis Hair Salon' : 'Κομμωτήριο Γιάννης', replyTo: props().getProperty('EMAIL_KOMMOTIRIOU') || Session.getEffectiveUser().getEmail() });
 }
@@ -374,6 +376,33 @@ function emailKommotirio(r, thema) {
   MailApp.sendEmail({ to: to, subject: thema + ': ' + meraPlires(r.imerominia) + ' ' + r.ora + ' · ' + r.onoma,
     htmlBody: protypo(thema, '<p><b>' + meraPlires(r.imerominia) + ', ' + r.ora + '</b> με ' + s.kommotis + '<br>' + s.ypiresies.join(' + ') + '</p><p>' + r.onoma + ' · ' + r.kinito + ' · ' + r.email +
       (r.simeiosi ? '<br>Σημείωση: ' + r.simeiosi : '') + '</p><p>Κατάσταση: <b>' + r.katastasi + '</b></p>'), name: 'Ιστοσελίδα κομμωτηρίου' });
+}
+/* ───────────────────────── φόρμα επικοινωνίας ─────────────────────────
+ * Γράφει στην καρτέλα «Μηνύματα», στέλνει email στο κομμωτήριο (replyTo ο αποστολέας) και αντίγραφο στον αποστολέα. */
+function neoMinima(d) {
+  var onoma = String(d.onoma || '').trim().slice(0, 80), email = String(d.email || '').trim().slice(0, 120),
+      til = String(d.tilefono || '').trim().slice(0, 30), min = String(d.minima || '').trim().slice(0, 2000), en = d.glossa === 'en';
+  if (d.website) return { ok: true };                                   // παγίδα για ρομπότ
+  if (!onoma || !min || (!email && !til)) return { ok: false, minima: en ? 'Please fill in your name, a phone or email, and your message.' : 'Συμπλήρωσε όνομα, τηλέφωνο ή email και το μήνυμά σου.' };
+  if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return { ok: false, minima: en ? 'The email address does not look right.' : 'Το email δεν φαίνεται σωστό.' };
+  var cache = CacheService.getScriptCache(), kl = 'min-' + (email || til);
+  if (cache.get(kl)) return { ok: false, minima: en ? 'You just sent us a message. Please wait a minute.' : 'Μόλις μας έστειλες μήνυμα. Περίμενε ένα λεπτό.' };
+  cache.put(kl, '1', 60);
+  var id = 'M' + Utilities.formatDate(new Date(), ZONI, 'yyMMddHHmmss') + tyxaio(3);
+  grapse('Μηνύματα', { id: id, xronos: new Date().toISOString(), onoma: onoma, tilefono: til, email: email, minima: min, glossa: en ? 'en' : 'el', katastasi: 'νέο' });
+  var esc = function (x) { return String(x).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var to = props().getProperty('EMAIL_KOMMOTIRIOU') || Session.getEffectiveUser().getEmail();
+  var soma = '<p><b>' + esc(onoma) + '</b>' + (til ? ' · ' + esc(til) : '') + (email ? ' · ' + esc(email) : '') + '</p><p style="white-space:pre-wrap">' + esc(min) + '</p>';
+  var opt = { to: to, subject: 'Μήνυμα από την ιστοσελίδα · ' + onoma, htmlBody: protypo('Νέο μήνυμα', soma), name: 'Ιστοσελίδα κομμωτηρίου' };
+  if (email) opt.replyTo = email;
+  MailApp.sendEmail(opt);
+  if (email) MailApp.sendEmail({ to: email, subject: en ? 'We received your message · Giannis Hair Salon' : 'Λάβαμε το μήνυμά σου · Κομμωτήριο Γιάννης',
+    htmlBody: protypo(en ? 'Thank you, we received your message' : 'Ευχαριστούμε, λάβαμε το μήνυμά σου',
+      '<p>' + (en ? 'We will reply as soon as we can. A copy of your message:' : 'Θα σου απαντήσουμε το συντομότερο. Αντίγραφο του μηνύματός σου:') + '</p>' +
+      '<p style="background:#f1ece2;border-radius:12px;padding:16px 18px;white-space:pre-wrap">' + esc(min) + '</p>', en),
+    name: en ? 'Giannis Hair Salon' : 'Κομμωτήριο Γιάννης', replyTo: to });
+  istoriko('ιστοσελίδα', 'μήνυμα', id + ' ' + onoma);
+  return { ok: true };
 }
 function ypoloipoEmail() { return MailApp.getRemainingDailyQuota(); }
 
@@ -531,7 +560,7 @@ function dedomenaGiaIstotopo() {
     omada: diavase('Κομμωτές').filter(function (k) { return nai(k.energos); }).map(function (k) { return { id: k.id, onoma: k.onoma, eidikotita: k.eidikotita, xroma: k.xroma, online: nai(k.online) }; }),
     ypiresies: diavase('Υπηρεσίες').map(function (y) { delete y._row; return y; }),
     anartiseis: diavase('Αναρτήσεις').filter(function (a) { return a.katastasi === 'Δημοσιευμένη' && nai(a.synainesi); }).map(function (a) { delete a._row; return a; }),
-    kritikes: diavase('Κριτικές').filter(function (k) { return k.emfanisi === '' || nai(k.emfanisi); }).map(function (k) { return { onoma: k.onoma, asteria: +k.asteria || 5, keimeno: k.keimeno }; }) };
+    kritikes: diavase('Κριτικές').filter(function (k) { return k.emfanisi === '' || nai(k.emfanisi); }).map(function (k) { return { onoma: k.onoma, onoma_en: k.onoma_en || k.onoma, asteria: +k.asteria || 5, keimeno: k.keimeno, keimeno_en: k.keimeno_en || '', glossa: 'el', pigi: 'Google' }; }) };
 }
 function fotoBase64(id) {
   var f = DriveApp.getFileById(id), b = f.getBlob();
