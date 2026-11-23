@@ -68,6 +68,8 @@ def u(c, path):
     return c.base + ('/en' if c.lang == 'en' else '') + path
 
 def u_glossa(c, path, lang):
+    if path == '/404.html':
+        path = '/'
     return c.base + ('/en' if lang == 'en' else '') + path
 
 def apolyto(c, path, lang=None):
