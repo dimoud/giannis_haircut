@@ -14,15 +14,27 @@
    * αλλού και στο κινητό: η γραμμή προχωρά όσο η φωτογραφία περνά από τη μέση της οθόνης. */
   D.querySelectorAll('[data-pm]').forEach(function (pm) {
     var row = pm.closest('[data-al]'), fotos = pm.querySelector('.pm-fotos'), last = -1, r = null, rr = null;
+    // Η γραμμή δεν δένεται απευθείας στην κύλιση: ακολουθεί τον στόχο της με αδράνεια (εκθετική προσέγγιση, τ = 0,26 s),
+    // δηλαδή γρήγορα στην αρχή και αργά στο τέλος, όσο απότομα κι αν κυλήσει ο χρήστης.
+    var cur = 2, tprin = 0, TAU = 0.26;
     skines.push({
       read: function () { r = pm.getBoundingClientRect(); rr = row && desktop ? row.getBoundingClientRect() : null; },
       write: function () {
-        if (r.bottom < -vh * .3 || r.top > vh * 1.3) return;
+        if (r.bottom < -vh * .3 || r.top > vh * 1.3) { tprin = 0; return; }
         if (row && !row.classList.contains('al-on') && r.top < vh * .75) row.classList.add('al-on');
         var t;
         if (rr) { var d = rr.height - vh; t = cl((d > 0 ? -rr.top / d : 0) - .06, 0, .74) / .74; }
         else t = cl((vh * .88 - (r.top + r.height / 2)) / (vh * .6), 0, 1);
-        var v = Math.round((2 + 96 * eio(t)) * 10) / 10;
+        var stoxos = 2 + 96 * t, now = performance.now();
+        if (MESH) cur = stoxos;
+        else {
+          var dt = tprin ? Math.min(.05, (now - tprin) / 1000) : 1 / 60;
+          cur += (stoxos - cur) * (1 - Math.exp(-dt / TAU));
+          if (Math.abs(stoxos - cur) < .05) cur = stoxos;
+        }
+        tprin = now;
+        if (cur !== stoxos) req(); else tprin = 0;   // συνεχίζει μόνη της μέχρι να φτάσει τον στόχο
+        var v = Math.round(cur * 20) / 20;
         if (v === last) return; last = v;
         fotos.style.setProperty('--p', v);
         if (row) row.classList.toggle('al-meta-on', v > 60);
